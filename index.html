@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kerki Comp</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('kerki-theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent: #f59e0b; --gold: #f59e0b; --silver: #9ca3af; --bronze: #b87333;
+  --finalist: #3b82f6; --green: #10b981; --red: #ef4444;
+  --mono: 'JetBrains Mono', monospace;
+}
+[data-theme="dark"] {
+  --bg: #08080d; --surface: rgba(255,255,255,0.02); --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.08); --text: #e5e7eb; --text-dim: #9ca3af;
+  --text-muted: #6b7280; --text-dark: #4b5563;
+  --surface-hover: rgba(255,255,255,0.05); --row-hover: rgba(255,255,255,0.03);
+  --row-border: rgba(255,255,255,0.03); --scrollbar: rgba(255,255,255,0.1);
+  --pname: #f3f4f6;
+}
+[data-theme="light"] {
+  --bg: #f5f5f7; --surface: rgba(0,0,0,0.02); --border: rgba(0,0,0,0.08);
+  --border-bright: rgba(0,0,0,0.12); --text: #1f2937; --text-dim: #4b5563;
+  --text-muted: #6b7280; --text-dark: #9ca3af;
+  --surface-hover: rgba(0,0,0,0.05); --row-hover: rgba(0,0,0,0.03);
+  --row-border: rgba(0,0,0,0.05); --scrollbar: rgba(0,0,0,0.15);
+  --pname: #111827;
+}
+html { background: var(--bg); color: var(--text); }
+body { font-family: 'Space Grotesk', system-ui, sans-serif; min-height: 100vh; padding: 20px 12px; }
+::selection { background: rgba(245,158,11,0.3); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+
+.container { max-width: 1080px; margin: 0 auto; }
+
+/* ── Header ── */
+.header { text-align: center; margin-bottom: 28px; position: relative; }
+.header h1 {
+  font-size: 32px; font-weight: 800; margin: 0;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.header .sub { font-family: var(--mono); font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+.theme-toggle {
+  position: absolute; top: 8px; right: 0;
+  background: var(--surface-hover); border: 1px solid var(--border); border-radius: 8px;
+  padding: 5px 10px; cursor: pointer; font-size: 16px; line-height: 1;
+  transition: border-color 0.15s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+
+/* ── Controls ── */
+.controls {
+  display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+  position: sticky; top: 0; z-index: 20; background: var(--bg); padding: 8px 0;
+}
+.search-input {
+  background: var(--surface-hover); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 12px; border-radius: 8px; font-family: var(--mono); font-size: 11px;
+  width: 200px; outline: none; transition: border-color 0.15s;
+}
+.search-input::placeholder { color: var(--text-dark); }
+.search-input:focus { border-color: rgba(245,158,11,0.4); }
+
+.toggle-wrap {
+  display: flex; align-items: center; gap: 5px; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted); user-select: none;
+}
+.toggle-wrap input { accent-color: var(--accent); width: 13px; height: 13px; cursor: pointer; }
+.toggle-wrap:hover { color: var(--text-dim); }
+
+.min-cups { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.min-cups span { font-size: 11px; font-family: var(--mono); color: var(--text-muted); }
+.min-cups .val { color: var(--accent); width: 16px; }
+input[type="range"] { width: 70px; accent-color: var(--accent); }
+
+/* ── Table ── */
+.table-wrap {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+
+.table-header {
+  display: grid; padding: 10px 14px; font-family: var(--mono); font-size: 9px;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-bright);
+  grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
+}
+.table-header div { cursor: pointer; user-select: none; transition: color 0.15s; }
+.table-header div:hover { color: var(--accent); }
+.table-header .sort-active { color: var(--accent); }
+.table-header .right { text-align: right; }
+.table-header .center { text-align: center; }
+
+.row {
+  display: grid; padding: 8px 14px; border-bottom: 1px solid var(--row-border);
+  cursor: pointer; align-items: center; transition: background 0.1s;
+  grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
+}
+.row:hover { background: var(--row-hover); }
+.row.selected { background: rgba(245,158,11,0.08); }
+
+.row .rank { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+.row .pname { font-size: 13px; font-weight: 600; color: var(--pname); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .num { text-align: right; font-family: var(--mono); font-size: 12px; }
+.row .num-c { text-align: center; font-family: var(--mono); font-size: 12px; }
+.row .w1 { color: var(--gold); }
+.row .w2 { color: var(--silver); }
+.row .w3 { color: var(--bronze); }
+.row .fin { color: var(--finalist); }
+.row .wins-cell { font-weight: 700; color: var(--accent); }
+.row .dim { color: var(--text-muted); }
+.row .pct { color: var(--text-dim); font-size: 11px; }
+
+/* ── Detail Panel ── */
+.detail-panel {
+  background: var(--row-hover); border: 1px solid var(--border-bright);
+  border-radius: 0; padding: 14px 14px; border-bottom: 1px solid var(--row-border);
+  animation: slideDown 0.2s ease-out;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+.detail-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.detail-header .name { font-size: 17px; font-weight: 700; }
+.detail-header .close-btn {
+  background: none; border: 1px solid var(--border); color: var(--text-muted);
+  border-radius: 6px; padding: 2px 8px; cursor: pointer; font-size: 13px;
+  transition: all 0.15s;
+}
+.detail-header .close-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.history-grid {
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.history-chip {
+  font-family: var(--mono); font-size: 10px; padding: 3px 7px; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.history-chip.w1 { background: rgba(245,158,11,0.15); color: var(--gold); border-color: rgba(245,158,11,0.3); }
+.history-chip.w2 { background: rgba(156,163,175,0.1); color: var(--silver); border-color: rgba(156,163,175,0.2); }
+.history-chip.w3 { background: rgba(184,115,51,0.15); color: var(--bronze); border-color: rgba(184,115,51,0.3); }
+.history-chip.w4, .history-chip.w5 { background: var(--surface-hover); color: var(--text-dim); }
+.history-chip.f { background: rgba(59,130,246,0.1); color: var(--finalist); border-color: rgba(59,130,246,0.2); }
+.history-chip.o { background: transparent; color: var(--text-dark); }
+.history-chip.troll { opacity: 0.5; font-style: italic; }
+
+.detail-stats {
+  display: flex; gap: 16px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.detail-stat {
+  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
+}
+.detail-stat .val { color: var(--text); font-weight: 600; }
+
+/* ── Footer ── */
+.footer {
+  text-align: center; margin-top: 24px; padding: 12px 0;
+  font-family: var(--mono); font-size: 10px; color: var(--text-dark);
+  border-top: 1px solid var(--border);
+}
+.footer a { color: var(--text-muted); text-decoration: none; }
+.footer a:hover { color: var(--accent); }
+
+/* ── Mascots ── */
+.mascot { position: fixed; bottom: 60px; width: 140px; z-index: 1; opacity: 0.7; transition: opacity 0.2s; }
+[data-theme="dark"] .mascot { mix-blend-mode: lighten; }
+[data-theme="light"] .mascot { mix-blend-mode: multiply; }
+.mascot:hover { opacity: 1; }
+.mascot-left { left: 10px; }
+.mascot-right { right: 10px; }
+@media (max-width: 1280px) { .mascot { display: none; } }
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .table-header, .row {
+    grid-template-columns: 28px 1fr 46px 32px 32px 32px 42px;
+    padding: 6px 8px;
+  }
+  .table-header { font-size: 8px; }
+  .row .pname { font-size: 12px; }
+  .row .num, .row .num-c { font-size: 11px; }
+  .search-input { width: 140px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Kerki Comp</h1>
+  <div class="sub" id="info"></div>
+  <button class="theme-toggle" id="themeToggle"></button>
+</div>
+
+<div class="controls">
+  <input type="text" class="search-input" id="search" placeholder="Search player...">
+  <label class="toggle-wrap">
+    <input type="checkbox" id="trollToggle" checked>
+    <span>Include Troll</span>
+  </label>
+  <div class="min-cups">
+    <span>Min apps</span>
+    <input type="range" id="minApps" min="1" max="10" value="2">
+    <span class="val" id="minAppsVal">2</span>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <div class="table-header" id="tableHeader"></div>
+  <div id="tableBody"></div>
+</div>
+
+<div class="footer">
+  Data from Discord announcements + <a href="#">Lexer's YouTube videos</a><br>
+  Kerki = Kernkob + justMaki | Sundays 19:00
+</div>
+
+</div>
+
+<img src="maki.png" class="mascot mascot-left" alt="" onerror="this.style.display='none'">
+<img src="kernkob.png" class="mascot mascot-right" alt="" onerror="this.style.display='none'">
+
+<script>
+let DATA = null;
+let sortCol = 'wins';
+let sortDir = -1;
+let selected = null;
+
+const COLS = [
+  { key: 'rank', label: '#', cls: '' },
+  { key: 'name', label: 'Player', cls: '' },
+  // { key: 'apps', label: 'Apps', cls: 'right' },  // hidden until we have Others for every cup
+  { key: 'wins', label: 'Winner', cls: 'right' },
+  { key: 'w1', label: '1st', cls: 'center' },
+  { key: 'w2', label: '2nd', cls: 'center' },
+  { key: 'w3', label: '3rd', cls: 'center' },
+  { key: 'finalist', label: 'Finalist', cls: 'right' },
+  // { key: 'pct', label: 'Win%', cls: 'right' },  // hidden until we have Others for every cup
+];
+
+fetch('kerki.json')
+  .then(r => r.json())
+  .then(data => { DATA = data; init(); });
+
+function init() {
+  document.getElementById('info').textContent =
+    `${DATA.meta.total_kerkis} events \u00b7 ${DATA.meta.total_players} players \u00b7 Sundays 19:00`;
+  buildHeader();
+  render();
+}
+
+function buildHeader() {
+  const h = document.getElementById('tableHeader');
+  h.innerHTML = COLS.map(c => {
+    const active = c.key === sortCol ? ' sort-active' : '';
+    const dir = c.key === sortCol ? (sortDir === 1 ? ' \u25B2' : ' \u25BC') : '';
+    return `<div class="${c.cls}${active}" data-sort="${c.key}">${c.label}${dir}</div>`;
+  }).join('');
+  h.querySelectorAll('[data-sort]').forEach(el => {
+    el.onclick = () => {
+      const col = el.dataset.sort;
+      if (col === 'rank') return;
+      if (col === sortCol) sortDir *= -1;
+      else { sortCol = col; sortDir = col === 'name' ? 1 : -1; }
+      buildHeader();
+      render();
+    };
+  });
+}
+
+function getFiltered() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const inclTroll = document.getElementById('trollToggle').checked;
+  const minApps = parseInt(document.getElementById('minApps').value);
+
+  // Recompute stats based on troll toggle
+  const validKerkis = new Set(
+    DATA.kerkis.filter(k => inclTroll || !k.troll).map(k => k.id)
+  );
+
+  return DATA.players.map(p => {
+    const hist = p.history.filter(h => validKerkis.has(h.k));
+    if (hist.length === 0) return null;
+    const wins = hist.filter(h => h.result.startsWith('w')).length;
+    const w1 = hist.filter(h => h.result === 'w1').length;
+    const w2 = hist.filter(h => h.result === 'w2').length;
+    const w3 = hist.filter(h => h.result === 'w3').length;
+    const fin = hist.filter(h => h.result === 'f').length;
+    const apps = hist.length;
+    const pct = apps > 0 ? Math.round((wins + fin) / apps * 100) : 0;
+    return { name: p.name, apps, wins, w1, w2, w3, finalist: fin, pct, history: p.history, best: p.best };
+  }).filter(p => p !== null && (p.wins > 0 || p.finalist > 0) && p.apps >= minApps && p.name.toLowerCase().includes(search));
+}
+
+function render() {
+  let list = getFiltered();
+
+  // Sort
+  list.sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'name') return sortDir * va.localeCompare(vb);
+    if (sortCol === 'pct') {
+      const d = sortDir * (va - vb);
+      return d !== 0 ? d : b.wins - a.wins;
+    }
+    const d = sortDir * (va - vb);
+    return d !== 0 ? d : (sortCol === 'wins' ? b.apps - a.apps : b.wins - a.wins);
+  });
+
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+
+  list.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (p.name === selected ? ' selected' : '');
+    row.dataset.name = p.name;
+
+    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>` : `<span class="dim">-</span>`;
+    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>` : `<span class="dim">-</span>`;
+    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>` : `<span class="dim">-</span>`;
+    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
+    const winsCls = p.wins > 0 ? 'wins-cell' : 'dim';
+
+    row.innerHTML = `
+      <div class="rank">${i + 1}</div>
+      <div class="pname">${esc(p.name)}</div>
+      <div class="num ${winsCls}">${p.wins || '-'}</div>
+      <div class="num-c">${w1h}</div>
+      <div class="num-c">${w2h}</div>
+      <div class="num-c">${w3h}</div>
+      <div class="num">${finh}</div>
+    `;
+
+    row.onclick = () => {
+      if (selected === p.name) { selected = null; }
+      else { selected = p.name; }
+      render();
+    };
+
+    body.appendChild(row);
+
+    // Detail panel for selected player
+    if (p.name === selected) {
+      const panel = document.createElement('div');
+      panel.className = 'detail-panel';
+
+      const trollSet = new Set(DATA.kerkis.filter(k => k.troll).map(k => k.id));
+
+      // Stats line
+      const bestLabel = p.best ? (p.best <= 5 ? ordinal(p.best) : 'Finalist') : '-';
+
+      let html = `
+        <div class="detail-header">
+          <span class="name">${esc(p.name)}</span>
+          <button class="close-btn" onclick="selected=null;render();event.stopPropagation();">\u2715</button>
+        </div>
+        <div class="detail-stats">
+          <div class="detail-stat">Apps <span class="val">${p.apps}</span></div>
+          <div class="detail-stat">Winner <span class="val">${p.wins}</span></div>
+          <div class="detail-stat">Finalist <span class="val">${p.finalist}</span></div>
+          <div class="detail-stat">Best <span class="val">${bestLabel}</span></div>
+          <div class="detail-stat">Win% <span class="val">${p.pct}%</span></div>
+        </div>
+        <div class="history-grid">
+      `;
+
+      p.history.forEach(h => {
+        const isTroll = trollSet.has(h.k);
+        const trollCls = isTroll ? ' troll' : '';
+        let label = `#${h.k}: `;
+        let cls = h.result;
+
+        if (h.result === 'f') { label += 'Finalist'; cls = 'f'; }
+        else if (h.result === 'o') { label += 'Played'; cls = 'o'; }
+        else { label += ordinal(parseInt(h.result.slice(1))); }
+
+        html += `<span class="history-chip ${cls}${trollCls}">${label}</span>`;
+      });
+
+      html += '</div>';
+      panel.innerHTML = html;
+      body.appendChild(panel);
+    }
+  });
+}
+
+function ordinal(n) {
+  const s = ['th','st','nd','rd'];
+  const v = n % 100;
+  return n + (s[(v-20)%10] || s[v] || s[0]);
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// Event listeners
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('trollToggle').addEventListener('change', render);
+document.getElementById('minApps').addEventListener('input', function() {
+  document.getElementById('minAppsVal').textContent = this.value;
+  render();
+});
+
+// Theme
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('kerki-theme', t);
+  document.getElementById('themeToggle').textContent = t === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+  var btn = document.getElementById('themeToggle');
+  btn.textContent = cur === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  btn.addEventListener('click', function() {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+});
+</script>
+
+<script data-goatcounter="https://aizpun.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
