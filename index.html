@@ -22,6 +22,7 @@
   --surface-hover: rgba(255,255,255,0.05); --row-hover: rgba(255,255,255,0.03);
   --row-border: rgba(255,255,255,0.03); --scrollbar: rgba(255,255,255,0.1);
   --pname: #f3f4f6;
+  --modal-bg: #0d0d14; --modal-overlay: rgba(0,0,0,0.65); --modal-border: rgba(255,255,255,0.12);
 }
 [data-theme="light"] {
   --bg: #f5f5f7; --surface: rgba(0,0,0,0.02); --border: rgba(0,0,0,0.08);
@@ -30,6 +31,7 @@
   --surface-hover: rgba(0,0,0,0.05); --row-hover: rgba(0,0,0,0.03);
   --row-border: rgba(0,0,0,0.05); --scrollbar: rgba(0,0,0,0.15);
   --pname: #111827;
+  --modal-bg: #ffffff; --modal-overlay: rgba(0,0,0,0.35); --modal-border: rgba(0,0,0,0.12);
 }
 html { background: var(--bg); color: var(--text); }
 body { font-family: 'Space Grotesk', system-ui, sans-serif; min-height: 100vh; padding: 20px 12px; }
@@ -56,6 +58,19 @@ body { font-family: 'Space Grotesk', system-ui, sans-serif; min-height: 100vh; p
   transition: border-color 0.15s;
 }
 .theme-toggle:hover { border-color: var(--accent); }
+
+/* ── View Tabs ── */
+.view-tabs { display: flex; gap: 0; }
+.view-tab {
+  font-family: var(--mono); font-size: 11px; padding: 5px 14px;
+  background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.view-tab:first-child { border-radius: 6px 0 0 6px; }
+.view-tab:not(:first-child) { border-left: 0; }
+.view-tab:last-child { border-radius: 0 6px 6px 0; }
+.view-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+.view-tab:hover:not(.active) { color: var(--text); border-color: var(--border-bright); }
 
 /* ── Controls ── */
 .controls {
@@ -92,7 +107,6 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   display: grid; padding: 10px 14px; font-family: var(--mono); font-size: 9px;
   color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
   border-bottom: 1px solid var(--border-bright);
-  grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
 }
 .table-header div { cursor: pointer; user-select: none; transition: color 0.15s; }
 .table-header div:hover { color: var(--accent); }
@@ -103,13 +117,23 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .row {
   display: grid; padding: 8px 14px; border-bottom: 1px solid var(--row-border);
   cursor: pointer; align-items: center; transition: background 0.1s;
-  grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
 }
 .row:hover { background: var(--row-hover); }
 .row.selected { background: rgba(245,158,11,0.08); }
 
+/* Grid columns per view */
+.view-records .table-header, .view-records .row {
+  grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
+}
+.view-ranking .table-header, .view-ranking .row {
+  grid-template-columns: 36px 1fr 62px 42px 42px 36px 36px 36px 46px;
+}
+.view-glicko .table-header, .view-glicko .row {
+  grid-template-columns: 36px 1fr 62px 42px 42px 36px 36px 36px 46px;
+}
+
 .row .rank { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
-.row .pname { font-size: 13px; font-weight: 600; color: var(--pname); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .pname { font-size: 13px; font-weight: 600; color: var(--pname); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; }
 .row .num { text-align: right; font-family: var(--mono); font-size: 12px; }
 .row .num-c { text-align: center; font-family: var(--mono); font-size: 12px; }
 .row .w1 { color: var(--gold); }
@@ -119,6 +143,9 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .row .wins-cell { font-weight: 700; color: var(--accent); }
 .row .dim { color: var(--text-muted); }
 .row .pct { color: var(--text-dim); font-size: 11px; }
+
+/* Tier dot */
+.tier-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; flex-shrink: 0; }
 
 /* ── Detail Panel ── */
 .detail-panel {
@@ -139,8 +166,19 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 }
 .detail-header .close-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+.chart-canvas { width: 100%; height: 180px; position: relative; overflow-x: auto; overflow-y: hidden; }
+.chart-canvas canvas { display: block; }
+.chart-tooltip {
+  display: none; position: absolute; background: var(--bg); border: 1px solid var(--border-bright);
+  border-radius: 6px; padding: 6px 10px; font-family: var(--mono); font-size: 10px;
+  color: var(--text-dim); pointer-events: none; z-index: 10; white-space: nowrap;
+}
+.chart-tooltip .t-kerki { color: var(--text-muted); }
+.chart-tooltip .t-result { font-weight: 700; }
+.chart-tooltip .t-pts { color: var(--accent); }
+
 .history-grid {
-  display: flex; flex-wrap: wrap; gap: 4px;
+  display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px;
 }
 .history-chip {
   font-family: var(--mono); font-size: 10px; padding: 3px 7px; border-radius: 4px;
@@ -153,6 +191,8 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .history-chip.f { background: rgba(59,130,246,0.1); color: var(--finalist); border-color: rgba(59,130,246,0.2); }
 .history-chip.o { background: transparent; color: var(--text-dark); }
 .history-chip.troll { opacity: 0.5; font-style: italic; }
+.history-chip.dropped { opacity: 0.35; text-decoration: line-through; }
+.history-chip.outside { opacity: 0.2; font-size: 9px; }
 
 .detail-stats {
   display: flex; gap: 16px; margin-bottom: 10px; flex-wrap: wrap;
@@ -161,6 +201,49 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   font-family: var(--mono); font-size: 11px; color: var(--text-muted);
 }
 .detail-stat .val { color: var(--text); font-weight: 600; }
+
+/* ── Info Button + Modal ── */
+.info-btn {
+  background: none; border: 1px solid var(--border-bright); color: var(--text-muted);
+  border-radius: 4px; padding: 2px 7px; cursor: pointer; font-size: 11px;
+  font-family: var(--mono); margin-left: 2px; transition: all 0.15s; line-height: 1;
+}
+.info-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: var(--modal-overlay);
+  z-index: 100; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--modal-bg); border: 1px solid var(--modal-border);
+  border-radius: 12px; padding: 24px 28px; max-width: 520px; width: 90%;
+  font-family: var(--mono); font-size: 12px; line-height: 1.75; color: var(--text-dim);
+  max-height: 80vh; overflow-y: auto;
+}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.modal-head h3 { color: var(--text); font-size: 14px; font-weight: 700; margin: 0; }
+.modal-close {
+  background: none; border: 1px solid var(--border); color: var(--text-dim);
+  border-radius: 6px; padding: 3px 8px; cursor: pointer; font-size: 11px; font-family: var(--mono);
+}
+.modal-close:hover { border-color: var(--accent); color: var(--text); }
+.modal h4 { color: var(--text); font-size: 12px; font-weight: 700; margin: 14px 0 6px 0; }
+.modal ul { padding-left: 18px; margin: 0; }
+.modal li { margin-bottom: 5px; }
+.modal code { color: var(--accent); font-size: 11px; }
+.modal .pts-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+.modal .pts-table td { padding: 3px 8px; border-bottom: 1px solid var(--border); }
+.modal .pts-table td:first-child { font-weight: 600; color: var(--text); }
+.modal .pts-table td:last-child { text-align: right; color: var(--accent); font-weight: 700; }
+
+/* ── Tier Legend ── */
+.tier-legend {
+  display: flex; gap: 16px; justify-content: center; margin-top: 12px;
+  font-family: var(--mono); font-size: 10px; color: var(--text-muted);
+}
+.tier-legend span { display: flex; align-items: center; gap: 4px; }
+.tier-legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 
 /* ── Footer ── */
 .footer {
@@ -182,14 +265,49 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 
 /* ── Mobile ── */
 @media (max-width: 640px) {
-  .table-header, .row {
-    grid-template-columns: 28px 1fr 46px 32px 32px 32px 42px;
+  /* Records view mobile */
+  .view-records .table-header, .view-records .row {
+    grid-template-columns: 28px 1fr 46px 32px 32px 32px 42px !important;
     padding: 6px 8px;
   }
-  .table-header { font-size: 8px; }
-  .row .pname { font-size: 12px; }
-  .row .num, .row .num-c { font-size: 11px; }
+  .view-records .table-header { font-size: 8px; }
+  .view-records .row .pname { font-size: 12px; }
+  .view-records .row .num, .view-records .row .num-c { font-size: 11px; }
+
+  /* Ranking view mobile: hide Apps(4), 2nd(7), 3rd(8) */
+  .view-ranking .table-header, .view-ranking .row {
+    grid-template-columns: 28px 1fr 50px 36px 36px 36px !important;
+    padding: 6px 8px;
+  }
+  .view-ranking .table-header > :nth-child(4),
+  .view-ranking .row > :nth-child(4),
+  .view-ranking .table-header > :nth-child(7),
+  .view-ranking .row > :nth-child(7),
+  .view-ranking .table-header > :nth-child(8),
+  .view-ranking .row > :nth-child(8) { display: none !important; }
+  .view-ranking .table-header { font-size: 8px; }
+  .view-ranking .row .pname { font-size: 12px; }
+  .view-ranking .row .num, .view-ranking .row .num-c { font-size: 11px; }
+
+  /* Glicko view mobile: hide sigma(4), Apps(5), 2nd(7), 3rd(8) */
+  .view-glicko .table-header, .view-glicko .row {
+    grid-template-columns: 28px 1fr 50px 36px 36px !important;
+    padding: 6px 8px;
+  }
+  .view-glicko .table-header > :nth-child(4),
+  .view-glicko .row > :nth-child(4),
+  .view-glicko .table-header > :nth-child(5),
+  .view-glicko .row > :nth-child(5),
+  .view-glicko .table-header > :nth-child(7),
+  .view-glicko .row > :nth-child(7),
+  .view-glicko .table-header > :nth-child(8),
+  .view-glicko .row > :nth-child(8) { display: none !important; }
+  .view-glicko .table-header { font-size: 8px; }
+  .view-glicko .row .pname { font-size: 12px; }
+  .view-glicko .row .num, .view-glicko .row .num-c { font-size: 11px; }
+
   .search-input { width: 140px; }
+  .tier-legend { gap: 8px; font-size: 9px; }
 }
 </style>
 </head>
@@ -203,21 +321,33 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 </div>
 
 <div class="controls">
+  <div class="view-tabs">
+    <button class="view-tab" data-view="ranking">Ranking</button>
+    <button class="view-tab" data-view="glicko">Skill</button>
+    <button class="view-tab active" data-view="records">Records</button>
+  </div>
   <input type="text" class="search-input" id="search" placeholder="Search player...">
-  <label class="toggle-wrap">
-    <input type="checkbox" id="trollToggle" checked>
+  <label class="toggle-wrap" id="trollWrap">
+    <input type="checkbox" id="trollToggle">
     <span>Include Troll</span>
   </label>
-  <div class="min-cups">
+  <div class="min-cups" id="minCupsWrap">
     <span>Min apps</span>
     <input type="range" id="minApps" min="1" max="10" value="2">
     <span class="val" id="minAppsVal">2</span>
   </div>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap view-records" id="tableWrap">
   <div class="table-header" id="tableHeader"></div>
   <div id="tableBody"></div>
+</div>
+
+<div class="tier-legend" id="tierLegend">
+  <span><span class="dot" style="background:#dc2626"></span>Legend 2600+</span>
+  <span><span class="dot" style="background:#a855f7"></span>Pro 1300+</span>
+  <span><span class="dot" style="background:#3b82f6"></span>Master 800+</span>
+  <span><span class="dot" style="background:#10b981"></span>Gold 200+</span>
 </div>
 
 <div class="footer">
@@ -227,44 +357,200 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 
 </div>
 
+<div class="modal-overlay" id="infoModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Rolling Points Ranking</h3>
+      <button class="modal-close" id="modalCloseBtn">&#10005; close</button>
+    </div>
+    <p>Rolling points ranking with best-N selection for the <b>Kerki Comp</b> &mdash; Kernkob + justMaki's Sunday topout competition.</p>
+
+    <h4>Points per placement</h4>
+    <table class="pts-table">
+      <tr><td>1st Winner</td><td>200</td></tr>
+      <tr><td>2nd Winner</td><td>140</td></tr>
+      <tr><td>3rd Winner</td><td>100</td></tr>
+      <tr><td>4th Winner</td><td>70</td></tr>
+      <tr><td>5th Winner</td><td>40</td></tr>
+      <tr><td>Finalist</td><td>10</td></tr>
+    </table>
+
+    <h4>Sliding window</h4>
+    <ul>
+      <li>Only the last <code>26</code> non-troll kerkis count (roughly half a year).</li>
+      <li>Of those, only your <b>best 18</b> results are summed &mdash; the rest are dropped.</li>
+      <li>Troll kerkis (#10, #20, #30) are excluded entirely.</li>
+    </ul>
+
+    <h4>How it works</h4>
+    <ul>
+      <li><b>1st Winner</b> is the first player to clinch &mdash; they beat the full lobby. After they leave, the field is weaker, so 2nd&ndash;5th earn fewer points.</li>
+      <li>The <b>best-of</b> system means missing a few kerkis doesn't destroy your ranking, but you can't coast on old results forever.</li>
+      <li>Theoretical max: <code>18 &times; 200 = 3600</code> &mdash; you'd need to win 1st in every single kerki.</li>
+    </ul>
+
+    <h4>Tiers</h4>
+    <ul>
+      <li><span style="color:#dc2626;font-weight:700">Legend</span> &mdash; 2600+ points</li>
+      <li><span style="color:#a855f7;font-weight:700">Pro</span> &mdash; 1300+ points</li>
+      <li><span style="color:#3b82f6;font-weight:700">Master</span> &mdash; 800+ points</li>
+      <li><span style="color:#10b981;font-weight:700">Gold</span> &mdash; 200+ points</li>
+    </ul>
+
+    <h4>Records tab</h4>
+    <p>The <b>Records</b> tab shows all-time stats (total wins, placements, finalist appearances) across all kerkis including troll events. It's a career record, not a ranking.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="glickoModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Convergent Skill Rating</h3>
+      <button class="modal-close" onclick="document.getElementById('glickoModal').classList.remove('open')">&#10005; close</button>
+    </div>
+    <p>A Glicko-inspired skill estimate for the <b>Kerki Comp</b>. Each result pulls your rating toward a performance value based on your placement.</p>
+
+    <h4>How it works</h4>
+    <ul>
+      <li>Every player starts at <code>1500</code> (unproven baseline).</li>
+      <li>Each kerki result pulls your rating toward a <b>performance value</b> &mdash; winning 1st pulls toward 2100, finalist toward 1700, etc.</li>
+      <li>Early results cause big jumps (high uncertainty). After several kerkis, your rating stabilizes and moves slowly.</li>
+      <li>The rating converges to your average performance level over time.</li>
+    </ul>
+
+    <h4>Performance values</h4>
+    <table class="pts-table">
+      <tr><td>1st Winner</td><td>2100</td></tr>
+      <tr><td>2nd Winner</td><td>1950</td></tr>
+      <tr><td>3rd Winner</td><td>1875</td></tr>
+      <tr><td>4th Winner</td><td>1850</td></tr>
+      <tr><td>5th Winner</td><td>1800</td></tr>
+      <tr><td>Finalist</td><td>1700</td></tr>
+      <tr><td>Other</td><td>1500</td></tr>
+    </table>
+    <p style="font-size:10px;color:var(--text-dark);margin-top:4px">Values derived from cross-referencing Kerki placements with COTD ELO ratings.</p>
+
+    <h4>Decay &amp; uncertainty</h4>
+    <ul>
+      <li><b>Inactivity decay</b> &mdash; miss a kerki and your rating decays <code>2%</code> toward 1500. You can't sit on a high rating without playing.</li>
+      <li><b>Surprise widening</b> &mdash; if your result is far from your current rating (e.g. a 1700-rated player wins 1st), the system becomes less certain and allows bigger adjustments. This prevents players from getting stuck.</li>
+      <li><b>&plusmn;&sigma;</b> shows uncertainty &mdash; high &sigma; means the system hasn't seen enough data to be confident. Low &sigma; means the rating is settled.</li>
+    </ul>
+
+    <h4>Scale</h4>
+    <p>The scale is calibrated to match <b>COTD ELO</b> &mdash; a 1800 Kerki skill rating roughly corresponds to a 1800 COTD ELO player. This was validated by comparing Kerki ratings against known COTD ratings across 48 players.</p>
+
+    <h4>Limitations</h4>
+    <ul>
+      <li>No lobby context &mdash; winning against 30 players gives the same rating as winning against 7. Full lobby data (from Kerki 33+) will improve accuracy.</li>
+      <li>Players with few appearances have high uncertainty &mdash; their rating may not reflect true skill yet.</li>
+    </ul>
+  </div>
+</div>
+
 <img src="maki.png" class="mascot mascot-left" alt="" onerror="this.style.display='none'">
 <img src="kernkob.png" class="mascot mascot-right" alt="" onerror="this.style.display='none'">
 
 <script>
 let DATA = null;
+let viewMode = 'records';
 let sortCol = 'wins';
 let sortDir = -1;
 let selected = null;
 
-const COLS = [
+const RECORDS_COLS = [
   { key: 'rank', label: '#', cls: '' },
   { key: 'name', label: 'Player', cls: '' },
-  // { key: 'apps', label: 'Apps', cls: 'right' },  // hidden until we have Others for every cup
   { key: 'wins', label: 'Winner', cls: 'right' },
   { key: 'w1', label: '1st', cls: 'center' },
   { key: 'w2', label: '2nd', cls: 'center' },
   { key: 'w3', label: '3rd', cls: 'center' },
   { key: 'finalist', label: 'Finalist', cls: 'right' },
-  // { key: 'pct', label: 'Win%', cls: 'right' },  // hidden until we have Others for every cup
 ];
+
+const RANKING_COLS = [
+  { key: 'rank', label: '#', cls: '' },
+  { key: 'name', label: 'Player', cls: '' },
+  { key: 'points', label: 'Rolling', cls: 'right' },
+  { key: 'apps', label: 'Apps', cls: 'right' },
+  { key: 'wins', label: 'W', cls: 'right' },
+  { key: 'w1', label: '1st', cls: 'center' },
+  { key: 'w2', label: '2nd', cls: 'center' },
+  { key: 'w3', label: '3rd', cls: 'center' },
+  { key: 'finalist', label: 'Fin', cls: 'right' },
+];
+
+const GLICKO_COLS = [
+  { key: 'rank', label: '#', cls: '' },
+  { key: 'name', label: 'Player', cls: '' },
+  { key: 'mu', label: 'Skill', cls: 'right' },
+  { key: 'sigma', label: '\u00b1\u03c3', cls: 'right' },
+  { key: 'apps', label: 'Apps', cls: 'right' },
+  { key: 'w1', label: '1st', cls: 'center' },
+  { key: 'w2', label: '2nd', cls: 'center' },
+  { key: 'w3', label: '3rd', cls: 'center' },
+  { key: 'finalist', label: 'Fin', cls: 'right' },
+];
+
+const TIER_THRESHOLDS = [2600, 1300, 800, 200];
+const TIER_COLORS = ['#dc2626', '#a855f7', '#3b82f6', '#10b981'];
+const TIER_NAMES = ['Legend', 'Pro', 'Master', 'Gold'];
+
+function ptsColor(pts) {
+  for (let i = 0; i < TIER_THRESHOLDS.length; i++) {
+    if (pts >= TIER_THRESHOLDS[i]) return TIER_COLORS[i];
+  }
+  return null;
+}
+
+function getCols() {
+  if (viewMode === 'ranking') return RANKING_COLS;
+  if (viewMode === 'glicko') return GLICKO_COLS;
+  return RECORDS_COLS;
+}
 
 fetch('kerki.json')
   .then(r => r.json())
   .then(data => { DATA = data; init(); });
 
 function init() {
-  document.getElementById('info').textContent =
-    `${DATA.meta.total_kerkis} events \u00b7 ${DATA.meta.total_players} players \u00b7 Sundays 19:00`;
+  updateSubtitle();
+  updateControls();
   buildHeader();
   render();
 }
 
+function updateSubtitle() {
+  const el = document.getElementById('info');
+  if (viewMode === 'ranking') {
+    const r = DATA.ranking;
+    el.textContent = `Rolling \u00b7 Best ${r.best_of} of last ${r.eligible_kerkis} kerkis`;
+  } else if (viewMode === 'glicko') {
+    el.textContent = `Skill Rating \u00b7 Convergent with ${(DATA.glicko.decay * 100).toFixed(0)}% decay`;
+  } else {
+    el.textContent = `${DATA.meta.total_kerkis} events \u00b7 ${DATA.meta.total_players} players \u00b7 Sundays 19:00`;
+  }
+}
+
+function updateControls() {
+  const isRecords = viewMode === 'records';
+  document.getElementById('trollWrap').style.display = isRecords ? '' : 'none';
+  document.getElementById('minCupsWrap').style.display = isRecords ? '' : 'none';
+  document.getElementById('tierLegend').style.display = viewMode === 'ranking' ? '' : 'none';
+}
+
 function buildHeader() {
+  const cols = getCols();
   const h = document.getElementById('tableHeader');
-  h.innerHTML = COLS.map(c => {
+  h.innerHTML = cols.map(c => {
     const active = c.key === sortCol ? ' sort-active' : '';
     const dir = c.key === sortCol ? (sortDir === 1 ? ' \u25B2' : ' \u25BC') : '';
-    return `<div class="${c.cls}${active}" data-sort="${c.key}">${c.label}${dir}</div>`;
+    let infoBtn = '';
+    if (c.key === 'points' && viewMode === 'ranking')
+      infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'infoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
+    else if (c.key === 'mu' && viewMode === 'glicko')
+      infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'glickoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
+    return `<div class="${c.cls}${active}" data-sort="${c.key}">${c.label}${dir}${infoBtn}</div>`;
   }).join('');
   h.querySelectorAll('[data-sort]').forEach(el => {
     el.onclick = () => {
@@ -278,12 +564,389 @@ function buildHeader() {
   });
 }
 
+function render() {
+  if (viewMode === 'ranking') renderRanking();
+  else if (viewMode === 'glicko') renderGlicko();
+  else renderRecords();
+}
+
+/* ── Ranking View ── */
+function renderRanking() {
+  const search = document.getElementById('search').value.toLowerCase();
+  let list = DATA.ranking.players.filter(p => p.name.toLowerCase().includes(search));
+
+  list = [...list];
+  list.sort((a, b) => {
+    if (sortCol === 'name') return sortDir * a.name.localeCompare(b.name);
+    const va = a[sortCol] ?? 0, vb = b[sortCol] ?? 0;
+    const d = sortDir * (va - vb);
+    return d !== 0 ? d : (b.points - a.points);
+  });
+
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+
+  list.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (p.name === selected ? ' selected' : '');
+
+    const color = ptsColor(p.points);
+    const dotHtml = color ? `<span class="tier-dot" style="background:${color}"></span>` : '';
+    const ptsStyle = color ? ` style="color:${color}"` : '';
+
+    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>` : `<span class="dim">-</span>`;
+    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>` : `<span class="dim">-</span>`;
+    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>` : `<span class="dim">-</span>`;
+    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
+
+    row.innerHTML = `
+      <div class="rank">${i + 1}</div>
+      <div class="pname">${dotHtml}${esc(p.name)}</div>
+      <div class="num"${ptsStyle}><b>${p.points}</b></div>
+      <div class="num">${p.apps}</div>
+      <div class="num">${p.wins || '-'}</div>
+      <div class="num-c">${w1h}</div>
+      <div class="num-c">${w2h}</div>
+      <div class="num-c">${w3h}</div>
+      <div class="num">${finh}</div>
+    `;
+
+    row.onclick = () => {
+      selected = selected === p.name ? null : p.name;
+      render();
+    };
+    body.appendChild(row);
+
+    if (p.name === selected) {
+      body.appendChild(buildRankingDetail(p));
+    }
+  });
+}
+
+const RESULT_Y = { w1: 1, w2: 2, w3: 3, w4: 4, w5: 5, f: 6, o: 7 };
+const RESULT_LABEL = { w1: '1st', w2: '2nd', w3: '3rd', w4: '4th', w5: '5th', f: 'Fin', o: 'Other' };
+const RESULT_COLOR = { w1: '#f59e0b', w2: '#9ca3af', w3: '#b87333', w4: '#6b7280', w5: '#4b5563', f: '#3b82f6', o: '#374151' };
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function drawKerkiChart(canvas, tip, fullHistory, windowMap, trollSet, wStart, wEnd) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const container = canvas.parentElement;
+  const containerW = container.getBoundingClientRect().width;
+  const kRange = Math.max(...fullHistory.map(h => h.k)) - Math.min(...fullHistory.map(h => h.k)) || 1;
+  const desiredW = Math.max(containerW, kRange * 12 + 70);
+  canvas.width = desiredW * dpr; canvas.height = 180 * dpr;
+  canvas.style.width = desiredW + 'px'; canvas.style.height = '180px';
+  ctx.scale(dpr, dpr);
+  container.scrollLeft = container.scrollWidth;
+
+  const W = desiredW, H = 180;
+  const pad = { l: 40, r: 12, t: 14, b: 24 };
+  const kNums = fullHistory.map(h => h.k);
+  const kMin = Math.min(...kNums), kMax = Math.max(...kNums);
+  function x(k) { return pad.l + (k - kMin) / (kMax - kMin || 1) * (W - pad.l - pad.r); }
+  function y(v) { return pad.t + (v - 1) / 6 * (H - pad.t - pad.b); } // 1-7 mapped to chart height
+
+  function draw(hl) {
+    ctx.clearRect(0, 0, W, H);
+    // Grid lines + Y labels
+    ctx.strokeStyle = cssVar('--border') || 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+    ctx.fillStyle = cssVar('--text-muted') || '#6b7280';
+    ctx.font = "9px 'JetBrains Mono',monospace"; ctx.textAlign = 'right';
+    ['w1','w2','w3','w4','w5','f'].forEach(r => {
+      const yv = y(RESULT_Y[r]);
+      ctx.beginPath(); ctx.moveTo(pad.l, yv); ctx.lineTo(W - pad.r, yv); ctx.stroke();
+      ctx.fillText(RESULT_LABEL[r], pad.l - 5, yv + 3);
+    });
+    // Window shading
+    const wxStart = x(wStart), wxEnd = x(wEnd);
+    ctx.fillStyle = cssVar('--surface-hover') || 'rgba(255,255,255,0.03)';
+    ctx.fillRect(wxStart, pad.t, wxEnd - wxStart, H - pad.t - pad.b);
+    // X labels
+    ctx.fillStyle = cssVar('--text-muted') || '#6b7280'; ctx.textAlign = 'center';
+    let xTicks;
+    if (kMax - kMin <= 20) { xTicks = []; for (let t = kMin; t <= kMax; t++) xTicks.push(t); }
+    else { xTicks = [kMin]; const step = 5; const start = Math.ceil(kMin / step) * step; for (let t = start; t < kMax; t += step) { if (t > kMin) xTicks.push(t); } xTicks.push(kMax); }
+    xTicks.forEach(k => { ctx.fillText('#' + k, x(k), H - 6); });
+    // Connect lines (window results only, non-troll)
+    const windowPts = fullHistory.filter(h => !trollSet.has(h.k) && h.k >= wStart && h.k <= wEnd && h.result !== 'o');
+    if (windowPts.length > 1) {
+      ctx.strokeStyle = 'rgba(245,158,11,0.25)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      windowPts.forEach((h, i) => { const px = x(h.k), py = y(RESULT_Y[h.result]); i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py); });
+      ctx.stroke(); ctx.setLineDash([]);
+    }
+    // Dots
+    fullHistory.forEach(h => {
+      const isTroll = trollSet.has(h.k);
+      const wh = windowMap[h.k];
+      const inWindow = !isTroll && h.k >= wStart && h.k <= wEnd;
+      const yVal = RESULT_Y[h.result] || 7;
+      const px = x(h.k), py = y(yVal);
+      const isHl = hl && hl.k === h.k;
+      let alpha = 1;
+      if (isTroll) alpha = 0.3;
+      else if (!inWindow) alpha = 0.2;
+      else if (wh && !wh.counted) alpha = 0.35;
+      ctx.globalAlpha = alpha;
+      const r = isHl ? 6 : 4;
+      ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
+      ctx.fillStyle = RESULT_COLOR[h.result] || '#4b5563'; ctx.fill();
+      if (isHl) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke(); }
+      ctx.globalAlpha = 1;
+    });
+  }
+  draw(null);
+
+  canvas.onmousemove = (e) => {
+    const br = canvas.getBoundingClientRect();
+    const mx = (e.clientX - br.left) * (desiredW / br.width);
+    let closest = null, minDist = Infinity;
+    fullHistory.forEach(h => { const d = Math.abs(x(h.k) - mx); if (d < minDist) { minDist = d; closest = h; } });
+    if (closest && minDist < 20) {
+      canvas.style.cursor = 'pointer';
+      const wh = windowMap[closest.k];
+      const pts = wh ? wh.points : 0;
+      const counted = wh ? (wh.counted ? 'counted' : 'dropped') : '';
+      tip.style.display = 'block';
+      tip.innerHTML = `<div class="t-kerki">Kerki #${closest.k}</div><div class="t-result" style="color:${RESULT_COLOR[closest.result]}">${RESULT_LABEL[closest.result] || closest.result}</div>${pts ? `<div class="t-pts">${pts} pts ${counted}</div>` : ''}`;
+      let tx = x(closest.k) + 12; if (tx + 120 > desiredW) tx = x(closest.k) - 130;
+      tip.style.left = tx + 'px'; tip.style.top = (y(RESULT_Y[closest.result] || 7) - 40) + 'px';
+      draw(closest);
+    } else {
+      canvas.style.cursor = ''; tip.style.display = 'none';
+      draw(null);
+    }
+  };
+  canvas.onmouseleave = () => { canvas.style.cursor = ''; tip.style.display = 'none'; draw(null); };
+}
+
+function buildRankingDetail(p) {
+  const panel = document.createElement('div');
+  panel.className = 'detail-panel';
+
+  const color = ptsColor(p.points);
+  const fullPlayer = DATA.players.find(fp => fp.name === p.name);
+  const trollSet = new Set(DATA.kerkis.filter(k => k.troll).map(k => k.id));
+
+  const windowMap = {};
+  p.history.forEach(h => { windowMap[h.k] = h; });
+
+  const wStart = DATA.ranking.window_start;
+  const wEnd = DATA.ranking.window_end;
+
+  const colorStyle = color ? ` style="color:${color}"` : '';
+  let html = `
+    <div class="detail-header">
+      <span class="name">${esc(p.name)}</span>
+      <button class="close-btn" onclick="selected=null;render();event.stopPropagation();">\u2715</button>
+    </div>
+    <div class="detail-stats">
+      <div class="detail-stat">Pts <span class="val"${colorStyle}>${p.points}</span></div>
+      <div class="detail-stat">Apps <span class="val">${p.apps}/${DATA.ranking.eligible_kerkis}</span></div>
+      <div class="detail-stat">Winner <span class="val">${p.wins}</span></div>
+      <div class="detail-stat">Counted <span class="val">${p.counted}</span></div>
+      ${p.dropped > 0 ? `<div class="detail-stat">Dropped <span class="val" style="color:var(--red)">${p.dropped}</span></div>` : ''}
+      <div class="detail-stat" style="color:var(--text-dark)">Window #${wStart}\u2013#${wEnd}</div>
+    </div>
+    <div class="chart-canvas"><canvas></canvas><div class="chart-tooltip"></div></div>
+  `;
+  panel.innerHTML = html;
+
+  // Draw chart after DOM insertion
+  if (fullPlayer) {
+    setTimeout(() => {
+      const canvas = panel.querySelector('canvas');
+      const tip = panel.querySelector('.chart-tooltip');
+      if (canvas) drawKerkiChart(canvas, tip, fullPlayer.history, windowMap, trollSet, wStart, wEnd);
+    }, 0);
+  }
+
+  return panel;
+}
+
+/* ── Glicko View ── */
+function renderGlicko() {
+  const search = document.getElementById('search').value.toLowerCase();
+  let list = DATA.glicko.players.filter(p => p.name.toLowerCase().includes(search));
+
+  list = [...list];
+  list.sort((a, b) => {
+    if (sortCol === 'name') return sortDir * a.name.localeCompare(b.name);
+    const va = a[sortCol] ?? 0, vb = b[sortCol] ?? 0;
+    const d = sortDir * (va - vb);
+    return d !== 0 ? d : (b.mu - a.mu);
+  });
+
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+
+  list.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (p.name === selected ? ' selected' : '');
+
+    const color = ptsColor(p.mu);
+    const dotHtml = color ? `<span class="tier-dot" style="background:${color}"></span>` : '';
+    const muStyle = color ? ` style="color:${color}"` : '';
+
+    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>` : `<span class="dim">-</span>`;
+    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>` : `<span class="dim">-</span>`;
+    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>` : `<span class="dim">-</span>`;
+    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
+
+    row.innerHTML = `
+      <div class="rank">${i + 1}</div>
+      <div class="pname">${dotHtml}${esc(p.name)}</div>
+      <div class="num"${muStyle}><b>${Math.round(p.mu)}</b></div>
+      <div class="num" style="color:var(--text-muted)">${Math.round(p.sigma)}</div>
+      <div class="num">${p.apps}</div>
+      <div class="num-c">${w1h}</div>
+      <div class="num-c">${w2h}</div>
+      <div class="num-c">${w3h}</div>
+      <div class="num">${finh}</div>
+    `;
+
+    row.onclick = () => {
+      selected = selected === p.name ? null : p.name;
+      render();
+    };
+    body.appendChild(row);
+
+    if (p.name === selected) {
+      body.appendChild(buildGlickoDetail(p));
+    }
+  });
+}
+
+function buildGlickoDetail(p) {
+  const panel = document.createElement('div');
+  panel.className = 'detail-panel';
+
+  const color = ptsColor(p.mu);
+  const colorStyle = color ? ` style="color:${color}"` : '';
+
+  let html = `
+    <div class="detail-header">
+      <span class="name">${esc(p.name)}</span>
+      <button class="close-btn" onclick="selected=null;render();event.stopPropagation();">\u2715</button>
+    </div>
+    <div class="detail-stats">
+      <div class="detail-stat">Skill <span class="val"${colorStyle}>${Math.round(p.mu)}</span></div>
+      <div class="detail-stat">\u00b1 <span class="val">${Math.round(p.sigma)}</span></div>
+      <div class="detail-stat">Apps <span class="val">${p.apps}</span></div>
+      <div class="detail-stat" style="color:var(--text-dark)">Decay ${(DATA.glicko.decay * 100).toFixed(0)}%/kerki</div>
+    </div>
+    <div class="chart-canvas"><canvas></canvas><div class="chart-tooltip"></div></div>
+  `;
+
+  panel.innerHTML = html;
+
+  // Draw rating history chart
+  if (p.history && p.history.length > 0) {
+    setTimeout(() => {
+      const canvas = panel.querySelector('canvas');
+      const tip = panel.querySelector('.chart-tooltip');
+      if (canvas) drawGlickoChart(canvas, tip, p);
+    }, 0);
+  }
+
+  return panel;
+}
+
+function drawGlickoChart(canvas, tip, p) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const container = canvas.parentElement;
+  const containerW = container.getBoundingClientRect().width;
+  const hist = p.history;
+  const kRange = Math.max(...hist.map(h => h.k)) - Math.min(...hist.map(h => h.k)) || 1;
+  const desiredW = Math.max(containerW, kRange * 12 + 70);
+  canvas.width = desiredW * dpr; canvas.height = 180 * dpr;
+  canvas.style.width = desiredW + 'px'; canvas.style.height = '180px';
+  ctx.scale(dpr, dpr);
+  container.scrollLeft = container.scrollWidth;
+
+  const W = desiredW, H = 180;
+  const pad = { l: 46, r: 12, t: 14, b: 24 };
+  const kMin = Math.min(...hist.map(h => h.k)), kMax = Math.max(...hist.map(h => h.k));
+  const muMin = 1400, muMax = 2200;
+  function x(k) { return pad.l + (k - kMin) / (kMax - kMin || 1) * (W - pad.l - pad.r); }
+  function y(v) { return pad.t + (1 - (v - muMin) / (muMax - muMin)) * (H - pad.t - pad.b); }
+
+  function draw(hl) {
+    ctx.clearRect(0, 0, W, H);
+    // Grid
+    ctx.strokeStyle = cssVar('--border') || 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+    ctx.fillStyle = cssVar('--text-muted') || '#6b7280';
+    ctx.font = "9px 'JetBrains Mono',monospace"; ctx.textAlign = 'right';
+    for (let v = 1500; v <= 2200; v += 100) {
+      const yv = y(v);
+      if (yv < pad.t || yv > H - pad.b) continue;
+      ctx.beginPath(); ctx.moveTo(pad.l, yv); ctx.lineTo(W - pad.r, yv); ctx.stroke();
+      ctx.fillText(v.toString(), pad.l - 5, yv + 3);
+    }
+    // 1500 baseline
+    ctx.strokeStyle = 'rgba(245,158,11,0.2)'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(pad.l, y(1500)); ctx.lineTo(W - pad.r, y(1500)); ctx.stroke();
+    ctx.setLineDash([]);
+    // X labels
+    ctx.fillStyle = cssVar('--text-muted') || '#6b7280'; ctx.textAlign = 'center';
+    let xTicks;
+    if (kMax - kMin <= 20) { xTicks = []; for (let t = kMin; t <= kMax; t++) xTicks.push(t); }
+    else { xTicks = [kMin]; const step = 5; const start = Math.ceil(kMin / step) * step; for (let t = start; t < kMax; t += step) { if (t > kMin) xTicks.push(t); } xTicks.push(kMax); }
+    xTicks.forEach(k => { ctx.fillText('#' + k, x(k), H - 6); });
+    // Sigma band
+    ctx.fillStyle = 'rgba(245,158,11,0.08)';
+    ctx.beginPath();
+    hist.forEach((h, i) => { i === 0 ? ctx.moveTo(x(h.k), y(h.mu + h.sigma)) : ctx.lineTo(x(h.k), y(h.mu + h.sigma)); });
+    for (let i = hist.length - 1; i >= 0; i--) { ctx.lineTo(x(hist[i].k), y(hist[i].mu - hist[i].sigma)); }
+    ctx.closePath(); ctx.fill();
+    // Rating line
+    const color = ptsColor(p.mu) || cssVar('--accent') || '#f59e0b';
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    hist.forEach((h, i) => { i === 0 ? ctx.moveTo(x(h.k), y(h.mu)) : ctx.lineTo(x(h.k), y(h.mu)); });
+    ctx.stroke();
+    // Dots
+    hist.forEach(h => {
+      const isHl = hl && hl.k === h.k;
+      const r = isHl ? 5 : 3;
+      ctx.beginPath(); ctx.arc(x(h.k), y(h.mu), r, 0, Math.PI * 2);
+      ctx.fillStyle = RESULT_COLOR[h.result] || color; ctx.fill();
+      if (isHl) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke(); }
+    });
+  }
+  draw(null);
+
+  canvas.onmousemove = (e) => {
+    const br = canvas.getBoundingClientRect();
+    const mx = (e.clientX - br.left) * (desiredW / br.width);
+    let closest = null, minDist = Infinity;
+    hist.forEach(h => { const d = Math.abs(x(h.k) - mx); if (d < minDist) { minDist = d; closest = h; } });
+    if (closest && minDist < 20) {
+      canvas.style.cursor = 'pointer';
+      tip.style.display = 'block';
+      tip.innerHTML = `<div class="t-kerki">Kerki #${closest.k}</div><div class="t-result" style="color:${RESULT_COLOR[closest.result] || '#999'}">${RESULT_LABEL[closest.result] || closest.result}</div><div class="t-pts">Rating: ${Math.round(closest.mu)} \u00b1${Math.round(closest.sigma)}</div>`;
+      let tx = x(closest.k) + 12; if (tx + 130 > desiredW) tx = x(closest.k) - 140;
+      tip.style.left = tx + 'px'; tip.style.top = (y(closest.mu) - 40) + 'px';
+      draw(closest);
+    } else {
+      canvas.style.cursor = ''; tip.style.display = 'none';
+      draw(null);
+    }
+  };
+  canvas.onmouseleave = () => { canvas.style.cursor = ''; tip.style.display = 'none'; draw(null); };
+}
+
+/* ── Records View ── */
 function getFiltered() {
   const search = document.getElementById('search').value.toLowerCase();
   const inclTroll = document.getElementById('trollToggle').checked;
   const minApps = parseInt(document.getElementById('minApps').value);
 
-  // Recompute stats based on troll toggle
   const validKerkis = new Set(
     DATA.kerkis.filter(k => inclTroll || !k.troll).map(k => k.id)
   );
@@ -302,10 +965,9 @@ function getFiltered() {
   }).filter(p => p !== null && (p.wins > 0 || p.finalist > 0) && p.apps >= minApps && p.name.toLowerCase().includes(search));
 }
 
-function render() {
+function renderRecords() {
   let list = getFiltered();
 
-  // Sort
   list.sort((a, b) => {
     let va = a[sortCol], vb = b[sortCol];
     if (sortCol === 'name') return sortDir * va.localeCompare(vb);
@@ -349,14 +1011,11 @@ function render() {
 
     body.appendChild(row);
 
-    // Detail panel for selected player
     if (p.name === selected) {
       const panel = document.createElement('div');
       panel.className = 'detail-panel';
 
       const trollSet = new Set(DATA.kerkis.filter(k => k.troll).map(k => k.id));
-
-      // Stats line
       const bestLabel = p.best ? (p.best <= 5 ? ordinal(p.best) : 'Finalist') : '-';
 
       let html = `
@@ -394,6 +1053,7 @@ function render() {
   });
 }
 
+/* ── Utilities ── */
 function ordinal(n) {
   const s = ['th','st','nd','rd'];
   const v = n % 100;
@@ -406,13 +1066,41 @@ function esc(s) {
   return d.innerHTML;
 }
 
-// Event listeners
+/* ── Event Listeners ── */
 document.getElementById('search').addEventListener('input', render);
 document.getElementById('trollToggle').addEventListener('change', render);
 document.getElementById('minApps').addEventListener('input', function() {
   document.getElementById('minAppsVal').textContent = this.value;
   render();
 });
+
+// View tabs
+document.querySelectorAll('.view-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const newView = tab.dataset.view;
+    if (newView === viewMode) return;
+    viewMode = newView;
+    selected = null;
+    // Reset sort for each view
+    if (viewMode === 'ranking') { sortCol = 'points'; sortDir = -1; }
+    else if (viewMode === 'glicko') { sortCol = 'mu'; sortDir = -1; }
+    else { sortCol = 'wins'; sortDir = -1; }
+    document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tableWrap').className = 'table-wrap view-' + viewMode;
+    updateSubtitle();
+    updateControls();
+    buildHeader();
+    render();
+  });
+});
+
+// Modals
+const infoModal = document.getElementById('infoModal');
+document.getElementById('modalCloseBtn').onclick = () => infoModal.classList.remove('open');
+infoModal.addEventListener('click', e => { if (e.target === infoModal) infoModal.classList.remove('open'); });
+const glickoModal = document.getElementById('glickoModal');
+glickoModal.addEventListener('click', e => { if (e.target === glickoModal) glickoModal.classList.remove('open'); });
 
 // Theme
 function setTheme(t) {

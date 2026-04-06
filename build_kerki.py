@@ -291,6 +291,161 @@ for name, p in sorted(players.items(), key=lambda x: (-x[1]['wins'], -x[1]['apps
         'history': p['history'],
     })
 
+# ── ATP-style ranking ──────────────────────────────────────────────
+RANK_POINTS = {'w1': 200, 'w2': 140, 'w3': 100, 'w4': 70, 'w5': 40, 'f': 10}
+RANK_WINDOW = 26
+RANK_BEST_OF = 18
+
+non_troll_ids = sorted(k['id'] for k in all_kerkis if not k['troll'])
+eligible = set(non_troll_ids[-RANK_WINDOW:])
+
+ranking_list = []
+for pl in player_list:
+    # Filter history to eligible window — only scoring results (exclude 'o')
+    scoring_hist = []
+    window_apps = 0
+    for h in pl['history']:
+        if h['k'] not in eligible:
+            continue
+        window_apps += 1
+        pts = RANK_POINTS.get(h['result'], 0)
+        if pts > 0:
+            scoring_hist.append({'k': h['k'], 'result': h['result'], 'points': pts})
+
+    if not scoring_hist:
+        continue
+
+    # Sort by points desc, take best RANK_BEST_OF
+    scoring_hist.sort(key=lambda x: -x['points'])
+    for i, e in enumerate(scoring_hist):
+        e['counted'] = i < RANK_BEST_OF
+
+    total = sum(e['points'] for e in scoring_hist if e['counted'])
+    total_all = sum(e['points'] for e in scoring_hist)
+    counted = sum(1 for e in scoring_hist if e['counted'])
+    dropped = len(scoring_hist) - counted
+
+    w_results = [e['result'] for e in scoring_hist]
+    ranking_list.append({
+        'name': pl['name'],
+        'points': total,
+        'points_all': total_all,
+        'apps': window_apps,
+        'wins': sum(1 for r in w_results if r.startswith('w')),
+        'w1': w_results.count('w1'), 'w2': w_results.count('w2'),
+        'w3': w_results.count('w3'), 'w4': w_results.count('w4'),
+        'w5': w_results.count('w5'), 'finalist': w_results.count('f'),
+        'counted': counted, 'dropped': dropped,
+        'history': sorted(scoring_hist, key=lambda x: x['k']),
+    })
+
+ranking_list.sort(key=lambda x: (-x['points'], -x['wins'], -x['w1']))
+for i, r in enumerate(ranking_list):
+    r['rank'] = i + 1
+
+print(f"\nATP Ranking (window: #{min(eligible)}-#{max(eligible)}, best {RANK_BEST_OF} of {len(eligible)}):")
+for r in ranking_list[:15]:
+    print(f"  #{r['rank']:>2}  {r['name']:20s}  {r['points']:>5} pts  "
+          f"({r['apps']} apps, {r['counted']} counted, {r['dropped']} dropped)")
+
+# ── Glicko-style skill rating ──────────────────────────────────────
+import math
+
+GLICKO_PERF = {'w1': 2100, 'w2': 1950, 'w3': 1875, 'w4': 1850, 'w5': 1800, 'f': 1700, 'o': 1500}
+GLICKO_TAU = 200          # system constant (convergence speed)
+GLICKO_MU_START = 1500    # starting rating
+GLICKO_SIGMA_START = 350  # starting uncertainty
+GLICKO_SIGMA_FLOOR = 80   # min uncertainty (always some movement)
+GLICKO_SIGMA_CAP = 350    # max uncertainty
+GLICKO_SIGMA_DECAY = 15   # sigma growth per missed kerki
+GLICKO_MU_DECAY = 0.02    # 2% rating decay toward 1500 per missed kerki
+GLICKO_SURPRISE_THRESHOLD = 200  # |perf - mu| above this widens sigma
+GLICKO_SURPRISE_FACTOR = 0.3     # how much sigma widens on surprise
+
+troll_ids = set(k['id'] for k in all_kerkis if k['troll'])
+glicko_non_troll = sorted(k['id'] for k in all_kerkis if not k['troll'])
+
+# Build per-player event list
+glicko_events = {}
+for pl in player_list:
+    for h in pl['history']:
+        if h['k'] in troll_ids:
+            continue
+        glicko_events.setdefault(pl['name'], []).append((h['k'], h['result']))
+for name in glicko_events:
+    glicko_events[name].sort()
+
+glicko_ratings = {}
+
+for kid in glicko_non_troll:
+    # Who played this kerki
+    participants = set()
+    for name, events in glicko_events.items():
+        for k, result in events:
+            if k == kid:
+                participants.add(name)
+                break
+
+    # Decay + sigma growth for non-participants
+    for name in glicko_ratings:
+        if name not in participants:
+            r = glicko_ratings[name]
+            # Permanent decay toward 1500
+            r['mu'] = GLICKO_MU_START + (r['mu'] - GLICKO_MU_START) * (1 - GLICKO_MU_DECAY)
+            # Sigma grows (less certain)
+            r['sigma'] = min(r['sigma'] + GLICKO_SIGMA_DECAY, GLICKO_SIGMA_CAP)
+
+    # Update participants
+    for name, events in glicko_events.items():
+        for k, result in events:
+            if k != kid:
+                continue
+            if name not in glicko_ratings:
+                glicko_ratings[name] = {'mu': GLICKO_MU_START, 'sigma': GLICKO_SIGMA_START, 'history': []}
+            r = glicko_ratings[name]
+            perf = GLICKO_PERF.get(result, 1500)
+
+            # Surprise detection: widen sigma if result far from expected
+            surprise = abs(perf - r['mu'])
+            if surprise > GLICKO_SURPRISE_THRESHOLD:
+                r['sigma'] = min(r['sigma'] + (surprise - GLICKO_SURPRISE_THRESHOLD) * GLICKO_SURPRISE_FACTOR,
+                                 GLICKO_SIGMA_CAP)
+
+            # Update rating
+            lr = r['sigma']**2 / (r['sigma']**2 + GLICKO_TAU**2)
+            r['mu'] = r['mu'] + lr * (perf - r['mu'])
+            r['sigma'] = max(math.sqrt((1 - lr) * r['sigma']**2), GLICKO_SIGMA_FLOOR)
+            r['history'].append({'k': kid, 'mu': round(r['mu'], 1), 'sigma': round(r['sigma'], 1), 'result': result})
+            break
+
+# Build glicko output — only players with scoring results
+glicko_list = []
+for name, r in glicko_ratings.items():
+    if not any(h['result'] != 'o' for h in r['history']):
+        continue
+    apps = len(r['history'])
+    results = [h['result'] for h in r['history']]
+    wins = sum(1 for x in results if x.startswith('w'))
+    glicko_list.append({
+        'name': name,
+        'mu': round(r['mu'], 1),
+        'sigma': round(r['sigma'], 1),
+        'apps': apps,
+        'wins': wins,
+        'w1': results.count('w1'), 'w2': results.count('w2'),
+        'w3': results.count('w3'), 'w4': results.count('w4'),
+        'w5': results.count('w5'), 'finalist': results.count('f'),
+        'history': r['history'],
+    })
+
+glicko_list.sort(key=lambda x: -x['mu'])
+for i, g in enumerate(glicko_list):
+    g['rank'] = i + 1
+
+print(f"\nGlicko Skill Rating (decay={GLICKO_MU_DECAY}, surprise={GLICKO_SURPRISE_THRESHOLD}):")
+for g in glicko_list[:15]:
+    print(f"  #{g['rank']:>2}  {g['name']:20s}  {g['mu']:>6.0f} +/-{g['sigma']:<.0f}  ({g['apps']} apps)")
+
 output = {
     'meta': {
         'total_kerkis': len(all_kerkis),
@@ -299,6 +454,19 @@ output = {
     },
     'kerkis': all_kerkis,
     'players': player_list,
+    'ranking': {
+        'window': RANK_WINDOW,
+        'best_of': RANK_BEST_OF,
+        'window_start': min(eligible),
+        'window_end': max(eligible),
+        'eligible_kerkis': len(eligible),
+        'players': ranking_list,
+    },
+    'glicko': {
+        'start': GLICKO_MU_START,
+        'decay': GLICKO_MU_DECAY,
+        'players': glicko_list,
+    },
 }
 
 with open('kerki.json', 'w', encoding='utf-8') as f:
