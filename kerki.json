@@ -1,8 +1,8 @@
 {
  "meta": {
-  "total_kerkis": 32,
-  "total_players": 148,
-  "last_kerki": 32
+  "total_kerkis": 33,
+  "total_players": 149,
+  "last_kerki": 33
  },
  "kerkis": [
   {
@@ -900,14 +900,38 @@
    ],
    "others": [],
    "lobby_size": 7
+  },
+  {
+   "id": 33,
+   "date": "12/4/26",
+   "troll": false,
+   "winners": [
+    "Quickracer10",
+    "PandaMane",
+    "RoundNzt",
+    "microways",
+    "JakeAdjacent"
+   ],
+   "finalists": [
+    "JobW",
+    "agix",
+    "Sterben",
+    "brrryy",
+    "Renergy",
+    "M4rv",
+    "Hi Im Yolo",
+    "Kernkob"
+   ],
+   "others": [],
+   "lobby_size": 13
   }
  ],
  "players": [
   {
    "name": "Quickracer10",
-   "apps": 25,
-   "wins": 20,
-   "w1": 4,
+   "apps": 26,
+   "wins": 21,
+   "w1": 5,
    "w2": 8,
    "w3": 4,
    "w4": 4,
@@ -1014,16 +1038,20 @@
     {
      "k": 32,
      "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "w1"
     }
    ]
   },
   {
    "name": "RoundNzt",
-   "apps": 21,
-   "wins": 19,
+   "apps": 22,
+   "wins": 20,
    "w1": 2,
    "w2": 6,
-   "w3": 5,
+   "w3": 6,
    "w4": 4,
    "w5": 2,
    "finalist": 2,
@@ -1112,6 +1140,10 @@
     {
      "k": 32,
      "result": "w3"
+    },
+    {
+     "k": 33,
+     "result": "w3"
     }
    ]
   },
@@ -1187,10 +1219,10 @@
   },
   {
    "name": "PandaMane",
-   "apps": 22,
-   "wins": 11,
+   "apps": 23,
+   "wins": 12,
    "w1": 0,
-   "w2": 1,
+   "w2": 2,
    "w3": 3,
    "w4": 5,
    "w5": 2,
@@ -1283,6 +1315,10 @@
     },
     {
      "k": 32,
+     "result": "w2"
+    },
+    {
+     "k": 33,
      "result": "w2"
     }
    ]
@@ -1601,14 +1637,14 @@
   },
   {
    "name": "Kernkob",
-   "apps": 8,
+   "apps": 9,
    "wins": 8,
    "w1": 7,
    "w2": 0,
    "w3": 0,
    "w4": 0,
    "w5": 1,
-   "finalist": 0,
+   "finalist": 1,
    "best": 1,
    "history": [
     {
@@ -1642,6 +1678,10 @@
     {
      "k": 32,
      "result": "w1"
+    },
+    {
+     "k": 33,
+     "result": "f"
     }
    ]
   },
@@ -1693,14 +1733,14 @@
   },
   {
    "name": "JobW",
-   "apps": 16,
+   "apps": 17,
    "wins": 5,
    "w1": 1,
    "w2": 0,
    "w3": 3,
    "w4": 0,
    "w5": 1,
-   "finalist": 9,
+   "finalist": 10,
    "best": 1,
    "history": [
     {
@@ -1766,6 +1806,52 @@
     {
      "k": 31,
      "result": "w3"
+    },
+    {
+     "k": 33,
+     "result": "f"
+    }
+   ]
+  },
+  {
+   "name": "JakeAdjacent",
+   "apps": 7,
+   "wins": 5,
+   "w1": 0,
+   "w2": 2,
+   "w3": 1,
+   "w4": 1,
+   "w5": 1,
+   "finalist": 2,
+   "best": 2,
+   "history": [
+    {
+     "k": 26,
+     "result": "w2"
+    },
+    {
+     "k": 27,
+     "result": "f"
+    },
+    {
+     "k": 28,
+     "result": "f"
+    },
+    {
+     "k": 29,
+     "result": "w4"
+    },
+    {
+     "k": 30,
+     "result": "w3"
+    },
+    {
+     "k": 31,
+     "result": "w2"
+    },
+    {
+     "k": 33,
+     "result": "w5"
     }
    ]
   },
@@ -1804,53 +1890,15 @@
    ]
   },
   {
-   "name": "JakeAdjacent",
-   "apps": 6,
-   "wins": 4,
-   "w1": 0,
-   "w2": 2,
-   "w3": 1,
-   "w4": 1,
-   "w5": 0,
-   "finalist": 2,
-   "best": 2,
-   "history": [
-    {
-     "k": 26,
-     "result": "w2"
-    },
-    {
-     "k": 27,
-     "result": "f"
-    },
-    {
-     "k": 28,
-     "result": "f"
-    },
-    {
-     "k": 29,
-     "result": "w4"
-    },
-    {
-     "k": 30,
-     "result": "w3"
-    },
-    {
-     "k": 31,
-     "result": "w2"
-    }
-   ]
-  },
-  {
    "name": "Sterben",
-   "apps": 4,
+   "apps": 5,
    "wins": 3,
    "w1": 0,
    "w2": 0,
    "w3": 0,
    "w4": 0,
    "w5": 3,
-   "finalist": 1,
+   "finalist": 2,
    "best": 5,
    "history": [
     {
@@ -1867,6 +1915,10 @@
     },
     {
      "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 33,
      "result": "f"
     }
    ]
@@ -1910,6 +1962,40 @@
     {
      "k": 27,
      "result": "w2"
+    }
+   ]
+  },
+  {
+   "name": "microways",
+   "apps": 5,
+   "wins": 2,
+   "w1": 0,
+   "w2": 1,
+   "w3": 0,
+   "w4": 1,
+   "w5": 0,
+   "finalist": 3,
+   "best": 2,
+   "history": [
+    {
+     "k": 29,
+     "result": "f"
+    },
+    {
+     "k": 30,
+     "result": "w2"
+    },
+    {
+     "k": 31,
+     "result": "f"
+    },
+    {
+     "k": 32,
+     "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "w4"
     }
    ]
   },
@@ -2330,36 +2416,6 @@
    ]
   },
   {
-   "name": "microways",
-   "apps": 4,
-   "wins": 1,
-   "w1": 0,
-   "w2": 1,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 3,
-   "best": 2,
-   "history": [
-    {
-     "k": 29,
-     "result": "f"
-    },
-    {
-     "k": 30,
-     "result": "w2"
-    },
-    {
-     "k": 31,
-     "result": "f"
-    },
-    {
-     "k": 32,
-     "result": "f"
-    }
-   ]
-  },
-  {
    "name": "Northwind",
    "apps": 3,
    "wins": 1,
@@ -2545,14 +2601,14 @@
   },
   {
    "name": "agix",
-   "apps": 12,
+   "apps": 13,
    "wins": 0,
    "w1": 0,
    "w2": 0,
    "w3": 0,
    "w4": 0,
    "w5": 0,
-   "finalist": 2,
+   "finalist": 3,
    "best": 6,
    "history": [
     {
@@ -2601,6 +2657,10 @@
     },
     {
      "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 33,
      "result": "f"
     }
    ]
@@ -2664,6 +2724,56 @@
    ]
   },
   {
+   "name": "Hi Im Yolo",
+   "apps": 9,
+   "wins": 0,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 0,
+   "w5": 0,
+   "finalist": 3,
+   "best": 6,
+   "history": [
+    {
+     "k": 1,
+     "result": "o"
+    },
+    {
+     "k": 4,
+     "result": "o"
+    },
+    {
+     "k": 6,
+     "result": "o"
+    },
+    {
+     "k": 7,
+     "result": "o"
+    },
+    {
+     "k": 8,
+     "result": "o"
+    },
+    {
+     "k": 9,
+     "result": "o"
+    },
+    {
+     "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 31,
+     "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "f"
+    }
+   ]
+  },
+  {
    "name": "GuAlexItar",
    "apps": 9,
    "wins": 0,
@@ -2710,52 +2820,6 @@
     {
      "k": 12,
      "result": "o"
-    }
-   ]
-  },
-  {
-   "name": "Hi Im Yolo",
-   "apps": 8,
-   "wins": 0,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 2,
-   "best": 6,
-   "history": [
-    {
-     "k": 1,
-     "result": "o"
-    },
-    {
-     "k": 4,
-     "result": "o"
-    },
-    {
-     "k": 6,
-     "result": "o"
-    },
-    {
-     "k": 7,
-     "result": "o"
-    },
-    {
-     "k": 8,
-     "result": "o"
-    },
-    {
-     "k": 9,
-     "result": "o"
-    },
-    {
-     "k": 26,
-     "result": "f"
-    },
-    {
-     "k": 31,
-     "result": "f"
     }
    ]
   },
@@ -3334,6 +3398,32 @@
    ]
   },
   {
+   "name": "M4rv",
+   "apps": 3,
+   "wins": 0,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 0,
+   "w5": 0,
+   "finalist": 2,
+   "best": 6,
+   "history": [
+    {
+     "k": 15,
+     "result": "o"
+    },
+    {
+     "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "f"
+    }
+   ]
+  },
+  {
    "name": "Noxitu",
    "apps": 3,
    "wins": 0,
@@ -3355,6 +3445,32 @@
     },
     {
      "k": 26,
+     "result": "f"
+    }
+   ]
+  },
+  {
+   "name": "brrryy",
+   "apps": 3,
+   "wins": 0,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 0,
+   "w5": 0,
+   "finalist": 1,
+   "best": 6,
+   "history": [
+    {
+     "k": 16,
+     "result": "o"
+    },
+    {
+     "k": 18,
+     "result": "o"
+    },
+    {
+     "k": 33,
      "result": "f"
     }
    ]
@@ -3685,50 +3801,6 @@
     },
     {
      "k": 12,
-     "result": "o"
-    }
-   ]
-  },
-  {
-   "name": "M4rv",
-   "apps": 2,
-   "wins": 0,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 1,
-   "best": 6,
-   "history": [
-    {
-     "k": 15,
-     "result": "o"
-    },
-    {
-     "k": 26,
-     "result": "f"
-    }
-   ]
-  },
-  {
-   "name": "brrryy",
-   "apps": 2,
-   "wins": 0,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 0,
-   "best": null,
-   "history": [
-    {
-     "k": 16,
-     "result": "o"
-    },
-    {
-     "k": 18,
      "result": "o"
     }
    ]
@@ -5094,23 +5166,41 @@
      "result": "f"
     }
    ]
+  },
+  {
+   "name": "Renergy",
+   "apps": 1,
+   "wins": 0,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 0,
+   "w5": 0,
+   "finalist": 1,
+   "best": 6,
+   "history": [
+    {
+     "k": 33,
+     "result": "f"
+    }
+   ]
   }
  ],
  "ranking": {
   "window": 26,
   "best_of": 18,
-  "window_start": 4,
-  "window_end": 32,
+  "window_start": 5,
+  "window_end": 33,
   "eligible_kerkis": 26,
   "players": [
    {
     "name": "Quickracer10",
-    "points": 2360,
-    "points_all": 2380,
+    "points": 2420,
+    "points_all": 2440,
     "apps": 21,
     "wins": 18,
-    "w1": 4,
-    "w2": 7,
+    "w1": 5,
+    "w2": 6,
     "w3": 3,
     "w4": 4,
     "w5": 0,
@@ -5118,12 +5208,6 @@
     "counted": 18,
     "dropped": 2,
     "history": [
-     {
-      "k": 4,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
      {
       "k": 5,
       "result": "w4",
@@ -5237,31 +5321,33 @@
       "result": "f",
       "points": 10,
       "counted": false
+     },
+     {
+      "k": 33,
+      "result": "w1",
+      "points": 200,
+      "counted": true
      }
     ],
-    "rank": 1
+    "rank": 1,
+    "prev_rank": 1,
+    "prev_points": 2360
    },
    {
     "name": "Hydro",
-    "points": 1740,
-    "points_all": 1740,
-    "apps": 12,
-    "wins": 12,
+    "points": 1700,
+    "points_all": 1700,
+    "apps": 11,
+    "wins": 11,
     "w1": 5,
     "w2": 4,
     "w3": 1,
     "w4": 0,
-    "w5": 2,
+    "w5": 1,
     "finalist": 0,
-    "counted": 12,
+    "counted": 11,
     "dropped": 0,
     "history": [
-     {
-      "k": 4,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     },
      {
       "k": 5,
       "result": "w2",
@@ -5329,21 +5415,23 @@
       "counted": true
      }
     ],
-    "rank": 2
+    "rank": 2,
+    "prev_rank": 2,
+    "prev_points": 1740
    },
    {
     "name": "RoundNzt",
-    "points": 1510,
-    "points_all": 1510,
-    "apps": 16,
-    "wins": 14,
+    "points": 1610,
+    "points_all": 1610,
+    "apps": 17,
+    "wins": 15,
     "w1": 1,
     "w2": 5,
-    "w3": 3,
+    "w3": 4,
     "w4": 3,
     "w5": 2,
     "finalist": 2,
-    "counted": 16,
+    "counted": 17,
     "dropped": 0,
     "history": [
      {
@@ -5441,9 +5529,17 @@
       "result": "w3",
       "points": 100,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "w3",
+      "points": 100,
+      "counted": true
      }
     ],
-    "rank": 3
+    "rank": 3,
+    "prev_rank": 3,
+    "prev_points": 1510
    },
    {
     "name": "ZOMAN",
@@ -5515,29 +5611,25 @@
       "counted": true
      }
     ],
-    "rank": 4
+    "rank": 4,
+    "prev_rank": 4,
+    "prev_points": 1510
    },
    {
     "name": "Kernkob",
-    "points": 1240,
-    "points_all": 1240,
+    "points": 1050,
+    "points_all": 1050,
     "apps": 7,
-    "wins": 7,
-    "w1": 6,
+    "wins": 6,
+    "w1": 5,
     "w2": 0,
     "w3": 0,
     "w4": 0,
     "w5": 1,
-    "finalist": 0,
+    "finalist": 1,
     "counted": 7,
     "dropped": 0,
     "history": [
-     {
-      "k": 4,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
      {
       "k": 7,
       "result": "w5",
@@ -5573,23 +5665,31 @@
       "result": "w1",
       "points": 200,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
      }
     ],
-    "rank": 5
+    "rank": 5,
+    "prev_rank": 5,
+    "prev_points": 1240
    },
    {
     "name": "PandaMane",
-    "points": 900,
-    "points_all": 900,
+    "points": 1040,
+    "points_all": 1040,
     "apps": 20,
-    "wins": 11,
+    "wins": 12,
     "w1": 0,
-    "w2": 1,
+    "w2": 2,
     "w3": 3,
     "w4": 5,
     "w5": 2,
     "finalist": 3,
-    "counted": 14,
+    "counted": 15,
     "dropped": 0,
     "history": [
      {
@@ -5675,31 +5775,33 @@
       "result": "w2",
       "points": 140,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "w2",
+      "points": 140,
+      "counted": true
      }
     ],
-    "rank": 6
+    "rank": 6,
+    "prev_rank": 6,
+    "prev_points": 900
    },
    {
     "name": "Lexer",
     "points": 770,
-    "points_all": 780,
-    "apps": 24,
+    "points_all": 770,
+    "apps": 23,
     "wins": 8,
     "w1": 0,
     "w2": 2,
     "w3": 1,
     "w4": 3,
     "w5": 2,
-    "finalist": 11,
+    "finalist": 10,
     "counted": 18,
-    "dropped": 1,
+    "dropped": 0,
     "history": [
-     {
-      "k": 4,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
      {
       "k": 7,
       "result": "f",
@@ -5806,10 +5908,12 @@
       "k": 31,
       "result": "f",
       "points": 10,
-      "counted": false
+      "counted": true
      }
     ],
-    "rank": 7
+    "rank": 7,
+    "prev_rank": 7,
+    "prev_points": 770
    },
    {
     "name": "Sandals",
@@ -5887,7 +5991,9 @@
       "counted": true
      }
     ],
-    "rank": 8
+    "rank": 8,
+    "prev_rank": 8,
+    "prev_points": 740
    },
    {
     "name": "JobW",
@@ -5904,12 +6010,6 @@
     "counted": 12,
     "dropped": 0,
     "history": [
-     {
-      "k": 4,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
      {
       "k": 7,
       "result": "f",
@@ -5975,9 +6075,17 @@
       "result": "w3",
       "points": 100,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
      }
     ],
-    "rank": 9
+    "rank": 9,
+    "prev_rank": 9,
+    "prev_points": 610
    },
    {
     "name": "Linzi",
@@ -6037,7 +6145,9 @@
       "counted": true
      }
     ],
-    "rank": 10
+    "rank": 10,
+    "prev_rank": 10,
+    "prev_points": 560
    },
    {
     "name": "rtube",
@@ -6121,7 +6231,9 @@
       "counted": true
      }
     ],
-    "rank": 11
+    "rank": 11,
+    "prev_rank": 11,
+    "prev_points": 530
    },
    {
     "name": "Naomi",
@@ -6163,51 +6275,23 @@
       "counted": true
      }
     ],
-    "rank": 12
-   },
-   {
-    "name": "justMaki",
-    "points": 400,
-    "points_all": 400,
-    "apps": 2,
-    "wins": 2,
-    "w1": 2,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 0,
-    "counted": 2,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 5,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 19,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     }
-    ],
-    "rank": 13
+    "rank": 12,
+    "prev_rank": 12,
+    "prev_points": 420
    },
    {
     "name": "JakeAdjacent",
-    "points": 370,
-    "points_all": 370,
-    "apps": 5,
-    "wins": 3,
+    "points": 410,
+    "points_all": 410,
+    "apps": 6,
+    "wins": 4,
     "w1": 0,
     "w2": 2,
     "w3": 0,
     "w4": 1,
-    "w5": 0,
+    "w5": 1,
     "finalist": 2,
-    "counted": 5,
+    "counted": 6,
     "dropped": 0,
     "history": [
      {
@@ -6239,9 +6323,49 @@
       "result": "w2",
       "points": 140,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "w5",
+      "points": 40,
+      "counted": true
      }
     ],
-    "rank": 14
+    "rank": 13,
+    "prev_rank": 14,
+    "prev_points": 370
+   },
+   {
+    "name": "justMaki",
+    "points": 400,
+    "points_all": 400,
+    "apps": 2,
+    "wins": 2,
+    "w1": 2,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 0,
+    "counted": 2,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 5,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 19,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     }
+    ],
+    "rank": 14,
+    "prev_rank": 13,
+    "prev_points": 400
    },
    {
     "name": "Tommygaming",
@@ -6277,21 +6401,23 @@
       "counted": true
      }
     ],
-    "rank": 15
+    "rank": 15,
+    "prev_rank": 15,
+    "prev_points": 220
    },
    {
     "name": "Sterben",
-    "points": 130,
-    "points_all": 130,
-    "apps": 4,
+    "points": 140,
+    "points_all": 140,
+    "apps": 5,
     "wins": 3,
     "w1": 0,
     "w2": 0,
     "w3": 0,
     "w4": 0,
     "w5": 3,
-    "finalist": 1,
-    "counted": 4,
+    "finalist": 2,
+    "counted": 5,
     "dropped": 0,
     "history": [
      {
@@ -6317,9 +6443,17 @@
       "result": "f",
       "points": 10,
       "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
      }
     ],
-    "rank": 16
+    "rank": 16,
+    "prev_rank": 16,
+    "prev_points": 130
    },
    {
     "name": "MackCheesy",
@@ -6373,7 +6507,9 @@
       "counted": true
      }
     ],
-    "rank": 17
+    "rank": 17,
+    "prev_rank": 17,
+    "prev_points": 120
    },
    {
     "name": "schmxrg",
@@ -6403,31 +6539,53 @@
       "counted": true
      }
     ],
-    "rank": 18
+    "rank": 18,
+    "prev_rank": 18,
+    "prev_points": 110
    },
    {
-    "name": "Hawk",
+    "name": "microways",
     "points": 100,
     "points_all": 100,
-    "apps": 2,
+    "apps": 4,
     "wins": 1,
     "w1": 0,
     "w2": 0,
-    "w3": 1,
-    "w4": 0,
+    "w3": 0,
+    "w4": 1,
     "w5": 0,
-    "finalist": 0,
-    "counted": 1,
+    "finalist": 3,
+    "counted": 4,
     "dropped": 0,
     "history": [
      {
-      "k": 4,
-      "result": "w3",
-      "points": 100,
+      "k": 29,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 31,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 32,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 33,
+      "result": "w4",
+      "points": 70,
       "counted": true
      }
     ],
-    "rank": 19
+    "rank": 19,
+    "prev_rank": 29,
+    "prev_points": 30
    },
    {
     "name": "Quickracer",
@@ -6451,7 +6609,9 @@
       "counted": true
      }
     ],
-    "rank": 20
+    "rank": 20,
+    "prev_rank": 20,
+    "prev_points": 100
    },
    {
     "name": "AndMe",
@@ -6505,7 +6665,9 @@
       "counted": true
      }
     ],
-    "rank": 21
+    "rank": 21,
+    "prev_rank": 21,
+    "prev_points": 90
    },
    {
     "name": "ping",
@@ -6553,59 +6715,89 @@
       "counted": true
      }
     ],
-    "rank": 22
+    "rank": 22,
+    "prev_rank": 22,
+    "prev_points": 80
    },
    {
-    "name": "R0nanC",
-    "points": 80,
-    "points_all": 80,
-    "apps": 4,
+    "name": "XpERt",
+    "points": 50,
+    "points_all": 50,
+    "apps": 3,
     "wins": 1,
     "w1": 0,
     "w2": 0,
     "w3": 0,
-    "w4": 1,
-    "w5": 0,
+    "w4": 0,
+    "w5": 1,
     "finalist": 1,
     "counted": 2,
     "dropped": 0,
     "history": [
      {
-      "k": 4,
-      "result": "w4",
-      "points": 70,
+      "k": 6,
+      "result": "w5",
+      "points": 40,
       "counted": true
      },
      {
-      "k": 26,
+      "k": 7,
       "result": "f",
       "points": 10,
       "counted": true
      }
     ],
-    "rank": 23
+    "rank": 23,
+    "prev_rank": 25,
+    "prev_points": 50
+   },
+   {
+    "name": "Pants",
+    "points": 50,
+    "points_all": 50,
+    "apps": 2,
+    "wins": 1,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 1,
+    "counted": 2,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 14,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 15,
+      "result": "w5",
+      "points": 40,
+      "counted": true
+     }
+    ],
+    "rank": 24,
+    "prev_rank": 26,
+    "prev_points": 50
    },
    {
     "name": "Warsnac",
-    "points": 60,
-    "points_all": 60,
-    "apps": 6,
+    "points": 50,
+    "points_all": 50,
+    "apps": 5,
     "wins": 0,
     "w1": 0,
     "w2": 0,
     "w3": 0,
     "w4": 0,
     "w5": 0,
-    "finalist": 6,
-    "counted": 6,
+    "finalist": 5,
+    "counted": 5,
     "dropped": 0,
     "history": [
-     {
-      "k": 4,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
      {
       "k": 7,
       "result": "f",
@@ -6637,67 +6829,9 @@
       "counted": true
      }
     ],
-    "rank": 24
-   },
-   {
-    "name": "XpERt",
-    "points": 50,
-    "points_all": 50,
-    "apps": 4,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 1,
-    "counted": 2,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 6,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     },
-     {
-      "k": 7,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     }
-    ],
-    "rank": 25
-   },
-   {
-    "name": "Pants",
-    "points": 50,
-    "points_all": 50,
-    "apps": 2,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 1,
-    "counted": 2,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 14,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 15,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     }
-    ],
-    "rank": 26
+    "rank": 25,
+    "prev_rank": 24,
+    "prev_points": 60
    },
    {
     "name": "Murrl",
@@ -6739,7 +6873,9 @@
       "counted": true
      }
     ],
-    "rank": 27
+    "rank": 26,
+    "prev_rank": 27,
+    "prev_points": 40
    },
    {
     "name": "St Nicholas",
@@ -6775,13 +6911,15 @@
       "counted": true
      }
     ],
-    "rank": 28
+    "rank": 27,
+    "prev_rank": 28,
+    "prev_points": 30
    },
    {
-    "name": "microways",
+    "name": "agix",
     "points": 30,
     "points_all": 30,
-    "apps": 3,
+    "apps": 10,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -6793,7 +6931,45 @@
     "dropped": 0,
     "history": [
      {
-      "k": 29,
+      "k": 13,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 26,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     }
+    ],
+    "rank": 28,
+    "prev_rank": 32,
+    "prev_points": 20
+   },
+   {
+    "name": "Hi Im Yolo",
+    "points": 30,
+    "points_all": 30,
+    "apps": 7,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 3,
+    "counted": 3,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 26,
       "result": "f",
       "points": 10,
       "counted": true
@@ -6805,13 +6981,15 @@
       "counted": true
      },
      {
-      "k": 32,
+      "k": 33,
       "result": "f",
       "points": 10,
       "counted": true
      }
     ],
-    "rank": 29
+    "rank": 29,
+    "prev_rank": 33,
+    "prev_points": 20
    },
    {
     "name": "redal",
@@ -6847,7 +7025,9 @@
       "counted": true
      }
     ],
-    "rank": 30
+    "rank": 30,
+    "prev_rank": 30,
+    "prev_points": 30
    },
    {
     "name": "readfreak7",
@@ -6877,43 +7057,15 @@
       "counted": true
      }
     ],
-    "rank": 31
+    "rank": 31,
+    "prev_rank": 31,
+    "prev_points": 20
    },
    {
-    "name": "agix",
+    "name": "M4rv",
     "points": 20,
     "points_all": 20,
-    "apps": 10,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 2,
-    "counted": 2,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 13,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 26,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     }
-    ],
-    "rank": 32
-   },
-   {
-    "name": "Hi Im Yolo",
-    "points": 20,
-    "points_all": 20,
-    "apps": 7,
+    "apps": 3,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -6931,13 +7083,15 @@
       "counted": true
      },
      {
-      "k": 31,
+      "k": 33,
       "result": "f",
       "points": 10,
       "counted": true
      }
     ],
-    "rank": 33
+    "rank": 32,
+    "prev_rank": 43,
+    "prev_points": 10
    },
    {
     "name": "An Actual g00se",
@@ -6967,7 +7121,9 @@
       "counted": true
      }
     ],
-    "rank": 34
+    "rank": 33,
+    "prev_rank": 34,
+    "prev_points": 20
    },
    {
     "name": "Orthros",
@@ -6997,13 +7153,15 @@
       "counted": true
      }
     ],
-    "rank": 35
+    "rank": 34,
+    "prev_rank": 35,
+    "prev_points": 20
    },
    {
     "name": "Shadynook",
     "points": 10,
     "points_all": 10,
-    "apps": 9,
+    "apps": 8,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -7021,7 +7179,35 @@
       "counted": true
      }
     ],
-    "rank": 36
+    "rank": 35,
+    "prev_rank": 36,
+    "prev_points": 10
+   },
+   {
+    "name": "R0nanC",
+    "points": 10,
+    "points_all": 10,
+    "apps": 3,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "counted": 1,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 26,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     }
+    ],
+    "rank": 36,
+    "prev_rank": 23,
+    "prev_points": 80
    },
    {
     "name": "Northwind",
@@ -7045,13 +7231,15 @@
       "counted": true
      }
     ],
-    "rank": 37
+    "rank": 37,
+    "prev_rank": 37,
+    "prev_points": 10
    },
    {
     "name": "Lazy_Echidna",
     "points": 10,
     "points_all": 10,
-    "apps": 11,
+    "apps": 10,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -7069,13 +7257,15 @@
       "counted": true
      }
     ],
-    "rank": 38
+    "rank": 38,
+    "prev_rank": 38,
+    "prev_points": 10
    },
    {
     "name": "palfly",
     "points": 10,
     "points_all": 10,
-    "apps": 7,
+    "apps": 6,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -7093,7 +7283,9 @@
       "counted": true
      }
     ],
-    "rank": 39
+    "rank": 39,
+    "prev_rank": 39,
+    "prev_points": 10
    },
    {
     "name": "DeeDeeNaNaNa",
@@ -7117,7 +7309,9 @@
       "counted": true
      }
     ],
-    "rank": 40
+    "rank": 40,
+    "prev_rank": 40,
+    "prev_points": 10
    },
    {
     "name": "RadAbsRad",
@@ -7141,7 +7335,9 @@
       "counted": true
      }
     ],
-    "rank": 41
+    "rank": 41,
+    "prev_rank": 41,
+    "prev_points": 10
    },
    {
     "name": "Noxitu",
@@ -7165,13 +7361,15 @@
       "counted": true
      }
     ],
-    "rank": 42
+    "rank": 42,
+    "prev_rank": 42,
+    "prev_points": 10
    },
    {
-    "name": "M4rv",
+    "name": "brrryy",
     "points": 10,
     "points_all": 10,
-    "apps": 2,
+    "apps": 3,
     "wins": 0,
     "w1": 0,
     "w2": 0,
@@ -7183,13 +7381,15 @@
     "dropped": 0,
     "history": [
      {
-      "k": 26,
+      "k": 33,
       "result": "f",
       "points": 10,
       "counted": true
      }
     ],
-    "rank": 43
+    "rank": 43,
+    "prev_rank": null,
+    "prev_points": null
    },
    {
     "name": "variableferret",
@@ -7213,31 +7413,9 @@
       "counted": true
      }
     ],
-    "rank": 44
-   },
-   {
-    "name": "jandje",
-    "points": 10,
-    "points_all": 10,
-    "apps": 1,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "counted": 1,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 4,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     }
-    ],
-    "rank": 45
+    "rank": 44,
+    "prev_rank": 44,
+    "prev_points": 10
    },
    {
     "name": "N/A",
@@ -7261,7 +7439,9 @@
       "counted": true
      }
     ],
-    "rank": 46
+    "rank": 45,
+    "prev_rank": 46,
+    "prev_points": 10
    },
    {
     "name": "Jakie",
@@ -7285,7 +7465,9 @@
       "counted": true
      }
     ],
-    "rank": 47
+    "rank": 46,
+    "prev_rank": 47,
+    "prev_points": 10
    },
    {
     "name": "Redstony",
@@ -7309,7 +7491,9 @@
       "counted": true
      }
     ],
-    "rank": 48
+    "rank": 47,
+    "prev_rank": 48,
+    "prev_points": 10
    },
    {
     "name": "dlwldms",
@@ -7333,7 +7517,9 @@
       "counted": true
      }
     ],
-    "rank": 49
+    "rank": 48,
+    "prev_rank": 49,
+    "prev_points": 10
    },
    {
     "name": "brrrryy",
@@ -7357,7 +7543,9 @@
       "counted": true
      }
     ],
-    "rank": 50
+    "rank": 49,
+    "prev_rank": 50,
+    "prev_points": 10
    },
    {
     "name": "graysonvitek88",
@@ -7381,7 +7569,9 @@
       "counted": true
      }
     ],
-    "rank": 51
+    "rank": 50,
+    "prev_rank": 51,
+    "prev_points": 10
    },
    {
     "name": "MALIYO",
@@ -7405,7 +7595,35 @@
       "counted": true
      }
     ],
-    "rank": 52
+    "rank": 51,
+    "prev_rank": 52,
+    "prev_points": 10
+   },
+   {
+    "name": "Renergy",
+    "points": 10,
+    "points_all": 10,
+    "apps": 1,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "counted": 1,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     }
+    ],
+    "rank": 52,
+    "prev_rank": null,
+    "prev_points": null
    }
   ]
  },
@@ -7414,73 +7632,9 @@
   "decay": 0.02,
   "players": [
    {
-    "name": "Kernkob",
-    "mu": 2072.8,
-    "sigma": 108.7,
-    "apps": 8,
-    "wins": 8,
-    "w1": 7,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 0,
-    "history": [
-     {
-      "k": 3,
-      "mu": 1952.3,
-      "sigma": 173.6,
-      "result": "w1"
-     },
-     {
-      "k": 4,
-      "mu": 2015.8,
-      "sigma": 131.1,
-      "result": "w1"
-     },
-     {
-      "k": 7,
-      "mu": 1918.5,
-      "sigma": 125.5,
-      "result": "w5"
-     },
-     {
-      "k": 11,
-      "mu": 1976.5,
-      "sigma": 122.7,
-      "result": "w1"
-     },
-     {
-      "k": 21,
-      "mu": 2021.3,
-      "sigma": 154.4,
-      "result": "w1"
-     },
-     {
-      "k": 28,
-      "mu": 2044.6,
-      "sigma": 154.8,
-      "result": "w1"
-     },
-     {
-      "k": 31,
-      "mu": 2061.4,
-      "sigma": 129.4,
-      "result": "w1"
-     },
-     {
-      "k": 32,
-      "mu": 2072.8,
-      "sigma": 108.7,
-      "result": "w1"
-     }
-    ],
-    "rank": 1
-   },
-   {
     "name": "ZOMAN",
-    "mu": 1966.7,
-    "sigma": 148.0,
+    "mu": 1957.3,
+    "sigma": 163.0,
     "apps": 9,
     "wins": 9,
     "w1": 6,
@@ -7545,12 +7699,86 @@
       "result": "w4"
      }
     ],
-    "rank": 2
+    "rank": 1,
+    "prev_rank": 2,
+    "prev_mu": 1966.7
+   },
+   {
+    "name": "Kernkob",
+    "mu": 1926.8,
+    "sigma": 125.2,
+    "apps": 9,
+    "wins": 8,
+    "w1": 7,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 3,
+      "mu": 1952.3,
+      "sigma": 173.6,
+      "result": "w1"
+     },
+     {
+      "k": 4,
+      "mu": 2015.8,
+      "sigma": 131.1,
+      "result": "w1"
+     },
+     {
+      "k": 7,
+      "mu": 1918.5,
+      "sigma": 125.5,
+      "result": "w5"
+     },
+     {
+      "k": 11,
+      "mu": 1976.5,
+      "sigma": 122.7,
+      "result": "w1"
+     },
+     {
+      "k": 21,
+      "mu": 2021.3,
+      "sigma": 154.4,
+      "result": "w1"
+     },
+     {
+      "k": 28,
+      "mu": 2044.6,
+      "sigma": 154.8,
+      "result": "w1"
+     },
+     {
+      "k": 31,
+      "mu": 2061.4,
+      "sigma": 129.4,
+      "result": "w1"
+     },
+     {
+      "k": 32,
+      "mu": 2072.8,
+      "sigma": 108.7,
+      "result": "w1"
+     },
+     {
+      "k": 33,
+      "mu": 1926.8,
+      "sigma": 125.2,
+      "result": "f"
+     }
+    ],
+    "rank": 2,
+    "prev_rank": 1,
+    "prev_mu": 2072.8
    },
    {
     "name": "justMaki",
-    "mu": 1932.1,
-    "sigma": 338.6,
+    "mu": 1923.5,
+    "sigma": 350,
     "apps": 2,
     "wins": 2,
     "w1": 2,
@@ -7573,61 +7801,17 @@
       "result": "w1"
      }
     ],
-    "rank": 3
-   },
-   {
-    "name": "Naomi",
-    "mu": 1882.6,
-    "sigma": 191.5,
-    "apps": 5,
-    "wins": 5,
-    "w1": 0,
-    "w2": 3,
-    "w3": 1,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 0,
-    "history": [
-     {
-      "k": 1,
-      "mu": 1839.2,
-      "sigma": 173.6,
-      "result": "w2"
-     },
-     {
-      "k": 8,
-      "mu": 1800.2,
-      "sigma": 159.3,
-      "result": "w5"
-     },
-     {
-      "k": 14,
-      "mu": 1871.4,
-      "sigma": 147.8,
-      "result": "w2"
-     },
-     {
-      "k": 18,
-      "mu": 1861.8,
-      "sigma": 138.8,
-      "result": "w3"
-     },
-     {
-      "k": 29,
-      "mu": 1898.4,
-      "sigma": 161.5,
-      "result": "w2"
-     }
-    ],
-    "rank": 4
+    "rank": 3,
+    "prev_rank": 3,
+    "prev_mu": 1932.1
    },
    {
     "name": "Quickracer10",
-    "mu": 1870.1,
-    "sigma": 88.3,
-    "apps": 24,
-    "wins": 20,
-    "w1": 4,
+    "mu": 1914.1,
+    "sigma": 87.5,
+    "apps": 25,
+    "wins": 21,
+    "w1": 5,
     "w2": 8,
     "w3": 4,
     "w4": 4,
@@ -7777,77 +7961,75 @@
       "mu": 1870.1,
       "sigma": 88.3,
       "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1914.1,
+      "sigma": 87.5,
+      "result": "w1"
      }
     ],
-    "rank": 5
+    "rank": 4,
+    "prev_rank": 5,
+    "prev_mu": 1870.1
    },
    {
-    "name": "Linzi",
-    "mu": 1852.9,
-    "sigma": 170.1,
-    "apps": 7,
-    "wins": 6,
-    "w1": 1,
-    "w2": 0,
-    "w3": 2,
-    "w4": 1,
-    "w5": 2,
-    "finalist": 1,
+    "name": "Naomi",
+    "mu": 1875.0,
+    "sigma": 206.5,
+    "apps": 5,
+    "wins": 5,
+    "w1": 0,
+    "w2": 3,
+    "w3": 1,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 0,
     "history": [
      {
-      "k": 6,
-      "mu": 1763.8,
+      "k": 1,
+      "mu": 1839.2,
       "sigma": 173.6,
-      "result": "w4"
+      "result": "w2"
      },
      {
-      "k": 7,
-      "mu": 1811.6,
-      "sigma": 131.1,
-      "result": "w3"
-     },
-     {
-      "k": 9,
-      "mu": 1803.5,
-      "sigma": 118.0,
+      "k": 8,
+      "mu": 1800.2,
+      "sigma": 159.3,
       "result": "w5"
      },
      {
-      "k": 15,
-      "mu": 1744.6,
-      "sigma": 133.0,
-      "result": "f"
+      "k": 14,
+      "mu": 1871.4,
+      "sigma": 147.8,
+      "result": "w2"
      },
      {
-      "k": 19,
-      "mu": 1794.2,
-      "sigma": 132.9,
+      "k": 18,
+      "mu": 1861.8,
+      "sigma": 138.8,
       "result": "w3"
-     },
-     {
-      "k": 25,
-      "mu": 1959.6,
-      "sigma": 151.4,
-      "result": "w1"
      },
      {
       "k": 29,
-      "mu": 1867.5,
-      "sigma": 140.1,
-      "result": "w5"
+      "mu": 1898.4,
+      "sigma": 161.5,
+      "result": "w2"
      }
     ],
-    "rank": 6
+    "rank": 5,
+    "prev_rank": 4,
+    "prev_mu": 1882.6
    },
    {
     "name": "RoundNzt",
-    "mu": 1843.9,
-    "sigma": 90.3,
-    "apps": 19,
-    "wins": 17,
+    "mu": 1849.2,
+    "sigma": 82.3,
+    "apps": 20,
+    "wins": 18,
     "w1": 1,
     "w2": 6,
-    "w3": 4,
+    "w3": 5,
     "w4": 4,
     "w5": 2,
     "finalist": 2,
@@ -7965,194 +8147,86 @@
       "mu": 1843.9,
       "sigma": 90.3,
       "result": "w3"
+     },
+     {
+      "k": 33,
+      "mu": 1849.2,
+      "sigma": 82.3,
+      "result": "w3"
      }
     ],
-    "rank": 7
+    "rank": 6,
+    "prev_rank": 7,
+    "prev_mu": 1843.9
    },
    {
-    "name": "Hydro",
-    "mu": 1828.4,
-    "sigma": 173.5,
-    "apps": 14,
-    "wins": 14,
-    "w1": 7,
-    "w2": 4,
-    "w3": 1,
-    "w4": 0,
+    "name": "Linzi",
+    "mu": 1845.9,
+    "sigma": 185.1,
+    "apps": 7,
+    "wins": 6,
+    "w1": 1,
+    "w2": 0,
+    "w3": 2,
+    "w4": 1,
     "w5": 2,
-    "finalist": 0,
+    "finalist": 1,
     "history": [
      {
-      "k": 1,
-      "mu": 1952.3,
-      "sigma": 173.6,
-      "result": "w1"
-     },
-     {
-      "k": 2,
-      "mu": 2015.8,
-      "sigma": 131.1,
-      "result": "w1"
-     },
-     {
-      "k": 4,
-      "mu": 1932.9,
-      "sigma": 118.8,
-      "result": "w5"
-     },
-     {
-      "k": 5,
-      "mu": 1937.4,
-      "sigma": 102.2,
-      "result": "w2"
-     },
-     {
       "k": 6,
-      "mu": 1924.5,
-      "sigma": 91.0,
-      "result": "w3"
+      "mu": 1763.8,
+      "sigma": 173.6,
+      "result": "w4"
      },
      {
       "k": 7,
-      "mu": 1954.6,
-      "sigma": 82.8,
-      "result": "w1"
-     },
-     {
-      "k": 8,
-      "mu": 1975.9,
-      "sigma": 80,
-      "result": "w1"
+      "mu": 1811.6,
+      "sigma": 131.1,
+      "result": "w3"
      },
      {
       "k": 9,
-      "mu": 1972.3,
-      "sigma": 80,
-      "result": "w2"
-     },
-     {
-      "k": 11,
-      "mu": 1969.2,
-      "sigma": 80,
-      "result": "w2"
-     },
-     {
-      "k": 12,
-      "mu": 1987.3,
-      "sigma": 80,
-      "result": "w1"
-     },
-     {
-      "k": 13,
-      "mu": 2002.8,
-      "sigma": 80,
-      "result": "w1"
+      "mu": 1803.5,
+      "sigma": 118.0,
+      "result": "w5"
      },
      {
       "k": 15,
-      "mu": 2012.5,
-      "sigma": 85.8,
-      "result": "w1"
-     },
-     {
-      "k": 16,
-      "mu": 2002.8,
-      "sigma": 80,
-      "result": "w2"
-     },
-     {
-      "k": 31,
-      "mu": 1835.1,
-      "sigma": 158.5,
-      "result": "w5"
-     }
-    ],
-    "rank": 8
-   },
-   {
-    "name": "Sandals",
-    "mu": 1817.9,
-    "sigma": 89.4,
-    "apps": 10,
-    "wins": 8,
-    "w1": 0,
-    "w2": 1,
-    "w3": 4,
-    "w4": 2,
-    "w5": 1,
-    "finalist": 2,
-    "history": [
-     {
-      "k": 5,
-      "mu": 1782.7,
-      "sigma": 173.6,
-      "result": "w3"
-     },
-     {
-      "k": 9,
-      "mu": 1825.4,
-      "sigma": 147.6,
-      "result": "w3"
-     },
-     {
-      "k": 12,
-      "mu": 1771.6,
-      "sigma": 126.2,
+      "mu": 1744.6,
+      "sigma": 133.0,
       "result": "f"
      },
      {
-      "k": 13,
-      "mu": 1801.0,
-      "sigma": 106.7,
+      "k": 19,
+      "mu": 1794.2,
+      "sigma": 132.9,
       "result": "w3"
      },
      {
-      "k": 15,
-      "mu": 1816.6,
-      "sigma": 104.0,
-      "result": "w3"
-     },
-     {
-      "k": 23,
-      "mu": 1814.2,
-      "sigma": 139.2,
-      "result": "w4"
-     },
-     {
-      "k": 28,
-      "mu": 1869.6,
-      "sigma": 141.2,
-      "result": "w2"
+      "k": 25,
+      "mu": 1959.6,
+      "sigma": 151.4,
+      "result": "w1"
      },
      {
       "k": 29,
-      "mu": 1813.2,
-      "sigma": 115.3,
-      "result": "f"
-     },
-     {
-      "k": 31,
-      "mu": 1822.4,
-      "sigma": 99.9,
-      "result": "w4"
-     },
-     {
-      "k": 32,
-      "mu": 1817.9,
-      "sigma": 89.4,
+      "mu": 1867.5,
+      "sigma": 140.1,
       "result": "w5"
      }
     ],
-    "rank": 9
+    "rank": 7,
+    "prev_rank": 6,
+    "prev_mu": 1852.9
    },
    {
     "name": "PandaMane",
-    "mu": 1808.8,
-    "sigma": 84.3,
-    "apps": 22,
-    "wins": 11,
+    "mu": 1830.1,
+    "sigma": 80,
+    "apps": 23,
+    "wins": 12,
     "w1": 0,
-    "w2": 1,
+    "w2": 2,
     "w3": 3,
     "w4": 5,
     "w5": 2,
@@ -8289,21 +8363,209 @@
       "mu": 1808.8,
       "sigma": 84.3,
       "result": "w2"
+     },
+     {
+      "k": 33,
+      "mu": 1830.1,
+      "sigma": 80,
+      "result": "w2"
      }
     ],
-    "rank": 10
+    "rank": 8,
+    "prev_rank": 10,
+    "prev_mu": 1808.8
+   },
+   {
+    "name": "Hydro",
+    "mu": 1821.9,
+    "sigma": 188.5,
+    "apps": 14,
+    "wins": 14,
+    "w1": 7,
+    "w2": 4,
+    "w3": 1,
+    "w4": 0,
+    "w5": 2,
+    "finalist": 0,
+    "history": [
+     {
+      "k": 1,
+      "mu": 1952.3,
+      "sigma": 173.6,
+      "result": "w1"
+     },
+     {
+      "k": 2,
+      "mu": 2015.8,
+      "sigma": 131.1,
+      "result": "w1"
+     },
+     {
+      "k": 4,
+      "mu": 1932.9,
+      "sigma": 118.8,
+      "result": "w5"
+     },
+     {
+      "k": 5,
+      "mu": 1937.4,
+      "sigma": 102.2,
+      "result": "w2"
+     },
+     {
+      "k": 6,
+      "mu": 1924.5,
+      "sigma": 91.0,
+      "result": "w3"
+     },
+     {
+      "k": 7,
+      "mu": 1954.6,
+      "sigma": 82.8,
+      "result": "w1"
+     },
+     {
+      "k": 8,
+      "mu": 1975.9,
+      "sigma": 80,
+      "result": "w1"
+     },
+     {
+      "k": 9,
+      "mu": 1972.3,
+      "sigma": 80,
+      "result": "w2"
+     },
+     {
+      "k": 11,
+      "mu": 1969.2,
+      "sigma": 80,
+      "result": "w2"
+     },
+     {
+      "k": 12,
+      "mu": 1987.3,
+      "sigma": 80,
+      "result": "w1"
+     },
+     {
+      "k": 13,
+      "mu": 2002.8,
+      "sigma": 80,
+      "result": "w1"
+     },
+     {
+      "k": 15,
+      "mu": 2012.5,
+      "sigma": 85.8,
+      "result": "w1"
+     },
+     {
+      "k": 16,
+      "mu": 2002.8,
+      "sigma": 80,
+      "result": "w2"
+     },
+     {
+      "k": 31,
+      "mu": 1835.1,
+      "sigma": 158.5,
+      "result": "w5"
+     }
+    ],
+    "rank": 9,
+    "prev_rank": 8,
+    "prev_mu": 1828.4
+   },
+   {
+    "name": "Sandals",
+    "mu": 1811.6,
+    "sigma": 104.4,
+    "apps": 10,
+    "wins": 8,
+    "w1": 0,
+    "w2": 1,
+    "w3": 4,
+    "w4": 2,
+    "w5": 1,
+    "finalist": 2,
+    "history": [
+     {
+      "k": 5,
+      "mu": 1782.7,
+      "sigma": 173.6,
+      "result": "w3"
+     },
+     {
+      "k": 9,
+      "mu": 1825.4,
+      "sigma": 147.6,
+      "result": "w3"
+     },
+     {
+      "k": 12,
+      "mu": 1771.6,
+      "sigma": 126.2,
+      "result": "f"
+     },
+     {
+      "k": 13,
+      "mu": 1801.0,
+      "sigma": 106.7,
+      "result": "w3"
+     },
+     {
+      "k": 15,
+      "mu": 1816.6,
+      "sigma": 104.0,
+      "result": "w3"
+     },
+     {
+      "k": 23,
+      "mu": 1814.2,
+      "sigma": 139.2,
+      "result": "w4"
+     },
+     {
+      "k": 28,
+      "mu": 1869.6,
+      "sigma": 141.2,
+      "result": "w2"
+     },
+     {
+      "k": 29,
+      "mu": 1813.2,
+      "sigma": 115.3,
+      "result": "f"
+     },
+     {
+      "k": 31,
+      "mu": 1822.4,
+      "sigma": 99.9,
+      "result": "w4"
+     },
+     {
+      "k": 32,
+      "mu": 1817.9,
+      "sigma": 89.4,
+      "result": "w5"
+     }
+    ],
+    "rank": 10,
+    "prev_rank": 9,
+    "prev_mu": 1817.9
    },
    {
     "name": "JakeAdjacent",
-    "mu": 1803.6,
-    "sigma": 101.7,
-    "apps": 5,
-    "wins": 3,
+    "mu": 1802.8,
+    "sigma": 90.6,
+    "apps": 6,
+    "wins": 4,
     "w1": 0,
     "w2": 2,
     "w3": 0,
     "w4": 1,
-    "w5": 0,
+    "w5": 1,
     "finalist": 2,
     "history": [
      {
@@ -8335,22 +8597,90 @@
       "mu": 1809.8,
       "sigma": 86.7,
       "result": "w2"
+     },
+     {
+      "k": 33,
+      "mu": 1802.8,
+      "sigma": 90.6,
+      "result": "w5"
      }
     ],
-    "rank": 11
+    "rank": 11,
+    "prev_rank": 11,
+    "prev_mu": 1803.6
+   },
+   {
+    "name": "Tommygaming",
+    "mu": 1771.8,
+    "sigma": 210.3,
+    "apps": 7,
+    "wins": 2,
+    "w1": 0,
+    "w2": 1,
+    "w3": 0,
+    "w4": 1,
+    "w5": 0,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 12,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 14,
+      "mu": 1500.0,
+      "sigma": 137.2,
+      "result": "o"
+     },
+     {
+      "k": 15,
+      "mu": 1500.0,
+      "sigma": 113.2,
+      "result": "o"
+     },
+     {
+      "k": 16,
+      "mu": 1500.0,
+      "sigma": 98.5,
+      "result": "o"
+     },
+     {
+      "k": 22,
+      "mu": 1678.0,
+      "sigma": 142.6,
+      "result": "w4"
+     },
+     {
+      "k": 23,
+      "mu": 1685.4,
+      "sigma": 116.1,
+      "result": "f"
+     },
+     {
+      "k": 27,
+      "mu": 1800.6,
+      "sigma": 135.3,
+      "result": "w2"
+     }
+    ],
+    "rank": 12,
+    "prev_rank": 13,
+    "prev_mu": 1777.3
    },
    {
     "name": "JobW",
-    "mu": 1794.0,
-    "sigma": 122.3,
-    "apps": 15,
+    "mu": 1768.4,
+    "sigma": 104.4,
+    "apps": 16,
     "wins": 5,
     "w1": 1,
     "w2": 0,
     "w3": 3,
     "w4": 0,
     "w5": 1,
-    "finalist": 8,
+    "finalist": 9,
     "history": [
      {
       "k": 1,
@@ -8441,72 +8771,22 @@
       "mu": 1800.0,
       "sigma": 107.3,
       "result": "w3"
-     }
-    ],
-    "rank": 12
-   },
-   {
-    "name": "Tommygaming",
-    "mu": 1777.3,
-    "sigma": 195.3,
-    "apps": 7,
-    "wins": 2,
-    "w1": 0,
-    "w2": 1,
-    "w3": 0,
-    "w4": 1,
-    "w5": 0,
-    "finalist": 1,
-    "history": [
-     {
-      "k": 12,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
      },
      {
-      "k": 14,
-      "mu": 1500.0,
-      "sigma": 137.2,
-      "result": "o"
-     },
-     {
-      "k": 15,
-      "mu": 1500.0,
-      "sigma": 113.2,
-      "result": "o"
-     },
-     {
-      "k": 16,
-      "mu": 1500.0,
-      "sigma": 98.5,
-      "result": "o"
-     },
-     {
-      "k": 22,
-      "mu": 1678.0,
-      "sigma": 142.6,
-      "result": "w4"
-     },
-     {
-      "k": 23,
-      "mu": 1685.4,
-      "sigma": 116.1,
+      "k": 33,
+      "mu": 1768.4,
+      "sigma": 104.4,
       "result": "f"
-     },
-     {
-      "k": 27,
-      "mu": 1800.6,
-      "sigma": 135.3,
-      "result": "w2"
      }
     ],
-    "rank": 13
+    "rank": 13,
+    "prev_rank": 12,
+    "prev_mu": 1794.0
    },
    {
     "name": "Lexer",
-    "mu": 1753.3,
-    "sigma": 95,
+    "mu": 1748.2,
+    "sigma": 110,
     "apps": 26,
     "wins": 8,
     "w1": 0,
@@ -8673,12 +8953,14 @@
       "result": "f"
      }
     ],
-    "rank": 14
+    "rank": 14,
+    "prev_rank": 14,
+    "prev_mu": 1753.3
    },
    {
     "name": "Quickracer",
-    "mu": 1731.0,
-    "sigma": 323.6,
+    "mu": 1726.4,
+    "sigma": 338.6,
     "apps": 1,
     "wins": 1,
     "w1": 0,
@@ -8695,12 +8977,14 @@
       "result": "w3"
      }
     ],
-    "rank": 15
+    "rank": 15,
+    "prev_rank": 15,
+    "prev_mu": 1731.0
    },
    {
     "name": "rtube",
-    "mu": 1727.4,
-    "sigma": 142.8,
+    "mu": 1722.9,
+    "sigma": 157.8,
     "apps": 15,
     "wins": 8,
     "w1": 0,
@@ -8801,52 +9085,56 @@
       "result": "f"
      }
     ],
-    "rank": 16
+    "rank": 16,
+    "prev_rank": 16,
+    "prev_mu": 1727.4
    },
    {
-    "name": "Sterben",
-    "mu": 1725.3,
-    "sigma": 183.0,
+    "name": "microways",
+    "mu": 1719.6,
+    "sigma": 96.2,
     "apps": 4,
-    "wins": 3,
+    "wins": 1,
     "w1": 0,
     "w2": 0,
     "w3": 0,
-    "w4": 0,
-    "w5": 3,
-    "finalist": 1,
+    "w4": 1,
+    "w5": 0,
+    "finalist": 3,
     "history": [
      {
-      "k": 19,
-      "mu": 1726.2,
+      "k": 29,
+      "mu": 1650.8,
       "sigma": 173.6,
-      "result": "w5"
-     },
-     {
-      "k": 22,
-      "mu": 1758.5,
-      "sigma": 137.2,
-      "result": "w5"
-     },
-     {
-      "k": 25,
-      "mu": 1769.6,
-      "sigma": 128.3,
-      "result": "w5"
-     },
-     {
-      "k": 26,
-      "mu": 1749.3,
-      "sigma": 108.0,
       "result": "f"
+     },
+     {
+      "k": 31,
+      "mu": 1671.9,
+      "sigma": 131.1,
+      "result": "f"
+     },
+     {
+      "k": 32,
+      "mu": 1680.4,
+      "sigma": 109.7,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1719.6,
+      "sigma": 96.2,
+      "result": "w4"
      }
     ],
-    "rank": 17
+    "rank": 17,
+    "prev_rank": 22,
+    "prev_mu": 1680.4
    },
    {
     "name": "MackCheesy",
-    "mu": 1722.5,
-    "sigma": 99.7,
+    "mu": 1718.0,
+    "sigma": 114.7,
     "apps": 7,
     "wins": 1,
     "w1": 0,
@@ -8899,11 +9187,61 @@
       "result": "w4"
      }
     ],
-    "rank": 18
+    "rank": 18,
+    "prev_rank": 18,
+    "prev_mu": 1722.5
+   },
+   {
+    "name": "Sterben",
+    "mu": 1713.8,
+    "sigma": 135.0,
+    "apps": 5,
+    "wins": 3,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 3,
+    "finalist": 2,
+    "history": [
+     {
+      "k": 19,
+      "mu": 1726.2,
+      "sigma": 173.6,
+      "result": "w5"
+     },
+     {
+      "k": 22,
+      "mu": 1758.5,
+      "sigma": 137.2,
+      "result": "w5"
+     },
+     {
+      "k": 25,
+      "mu": 1769.6,
+      "sigma": 128.3,
+      "result": "w5"
+     },
+     {
+      "k": 26,
+      "mu": 1749.3,
+      "sigma": 108.0,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1713.8,
+      "sigma": 135.0,
+      "result": "f"
+     }
+    ],
+    "rank": 19,
+    "prev_rank": 17,
+    "prev_mu": 1725.3
    },
    {
     "name": "schmxrg",
-    "mu": 1694.2,
+    "mu": 1690.3,
     "sigma": 350,
     "apps": 2,
     "wins": 2,
@@ -8927,12 +9265,14 @@
       "result": "w5"
      }
     ],
-    "rank": 19
+    "rank": 20,
+    "prev_rank": 19,
+    "prev_mu": 1694.2
    },
    {
     "name": "Warsnac",
-    "mu": 1683.9,
-    "sigma": 158.5,
+    "mu": 1680.2,
+    "sigma": 173.5,
     "apps": 7,
     "wins": 1,
     "w1": 0,
@@ -8985,12 +9325,86 @@
       "result": "f"
      }
     ],
-    "rank": 20
+    "rank": 21,
+    "prev_rank": 20,
+    "prev_mu": 1683.9
+   },
+   {
+    "name": "Hi Im Yolo",
+    "mu": 1677.4,
+    "sigma": 124.9,
+    "apps": 9,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 3,
+    "history": [
+     {
+      "k": 1,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 4,
+      "mu": 1500.0,
+      "sigma": 142.7,
+      "result": "o"
+     },
+     {
+      "k": 6,
+      "mu": 1500.0,
+      "sigma": 123.8,
+      "result": "o"
+     },
+     {
+      "k": 7,
+      "mu": 1500.0,
+      "sigma": 105.3,
+      "result": "o"
+     },
+     {
+      "k": 8,
+      "mu": 1500.0,
+      "sigma": 93.2,
+      "result": "o"
+     },
+     {
+      "k": 9,
+      "mu": 1500.0,
+      "sigma": 84.5,
+      "result": "o"
+     },
+     {
+      "k": 26,
+      "mu": 1636.9,
+      "sigma": 165.4,
+      "result": "f"
+     },
+     {
+      "k": 31,
+      "mu": 1666.2,
+      "sigma": 145.0,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1677.4,
+      "sigma": 124.9,
+      "result": "f"
+     }
+    ],
+    "rank": 22,
+    "prev_rank": 26,
+    "prev_mu": 1662.9
    },
    {
     "name": "ping",
-    "mu": 1680.6,
-    "sigma": 130.1,
+    "mu": 1677.0,
+    "sigma": 145.1,
     "apps": 6,
     "wins": 1,
     "w1": 0,
@@ -9037,46 +9451,14 @@
       "result": "f"
      }
     ],
-    "rank": 21
-   },
-   {
-    "name": "microways",
-    "mu": 1680.4,
-    "sigma": 109.7,
-    "apps": 3,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 3,
-    "history": [
-     {
-      "k": 29,
-      "mu": 1650.8,
-      "sigma": 173.6,
-      "result": "f"
-     },
-     {
-      "k": 31,
-      "mu": 1671.9,
-      "sigma": 131.1,
-      "result": "f"
-     },
-     {
-      "k": 32,
-      "mu": 1680.4,
-      "sigma": 109.7,
-      "result": "f"
-     }
-    ],
-    "rank": 22
+    "rank": 23,
+    "prev_rank": 21,
+    "prev_mu": 1680.6
    },
    {
     "name": "AndMe",
-    "mu": 1677.3,
-    "sigma": 128.8,
+    "mu": 1673.7,
+    "sigma": 143.8,
     "apps": 13,
     "wins": 1,
     "w1": 0,
@@ -9165,12 +9547,50 @@
       "result": "f"
      }
     ],
-    "rank": 23
+    "rank": 24,
+    "prev_rank": 23,
+    "prev_mu": 1677.3
+   },
+   {
+    "name": "M4rv",
+    "mu": 1670.6,
+    "sigma": 154.4,
+    "apps": 3,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 2,
+    "history": [
+     {
+      "k": 15,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 26,
+      "mu": 1640.9,
+      "sigma": 167.8,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1670.6,
+      "sigma": 154.4,
+      "result": "f"
+     }
+    ],
+    "rank": 25,
+    "prev_rank": 37,
+    "prev_mu": 1627.3
    },
    {
     "name": "Orthros",
-    "mu": 1670.1,
-    "sigma": 162.6,
+    "mu": 1666.7,
+    "sigma": 177.6,
     "apps": 2,
     "wins": 0,
     "w1": 0,
@@ -9193,12 +9613,14 @@
       "result": "f"
      }
     ],
-    "rank": 24
+    "rank": 26,
+    "prev_rank": 24,
+    "prev_mu": 1670.1
    },
    {
     "name": "Murrl",
-    "mu": 1664.2,
-    "sigma": 204.7,
+    "mu": 1660.9,
+    "sigma": 219.7,
     "apps": 4,
     "wins": 0,
     "w1": 0,
@@ -9233,76 +9655,14 @@
       "result": "f"
      }
     ],
-    "rank": 25
-   },
-   {
-    "name": "Hi Im Yolo",
-    "mu": 1662.9,
-    "sigma": 160.0,
-    "apps": 8,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 2,
-    "history": [
-     {
-      "k": 1,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 4,
-      "mu": 1500.0,
-      "sigma": 142.7,
-      "result": "o"
-     },
-     {
-      "k": 6,
-      "mu": 1500.0,
-      "sigma": 123.8,
-      "result": "o"
-     },
-     {
-      "k": 7,
-      "mu": 1500.0,
-      "sigma": 105.3,
-      "result": "o"
-     },
-     {
-      "k": 8,
-      "mu": 1500.0,
-      "sigma": 93.2,
-      "result": "o"
-     },
-     {
-      "k": 9,
-      "mu": 1500.0,
-      "sigma": 84.5,
-      "result": "o"
-     },
-     {
-      "k": 26,
-      "mu": 1636.9,
-      "sigma": 165.4,
-      "result": "f"
-     },
-     {
-      "k": 31,
-      "mu": 1666.2,
-      "sigma": 145.0,
-      "result": "f"
-     }
-    ],
-    "rank": 26
+    "rank": 27,
+    "prev_rank": 25,
+    "prev_mu": 1664.2
    },
    {
     "name": "redal",
-    "mu": 1662.6,
-    "sigma": 161.3,
+    "mu": 1659.3,
+    "sigma": 176.3,
     "apps": 4,
     "wins": 0,
     "w1": 0,
@@ -9337,11 +9697,13 @@
       "result": "f"
      }
     ],
-    "rank": 27
+    "rank": 28,
+    "prev_rank": 27,
+    "prev_mu": 1662.6
    },
    {
     "name": "Pants",
-    "mu": 1658.7,
+    "mu": 1655.6,
     "sigma": 350,
     "apps": 2,
     "wins": 1,
@@ -9365,12 +9727,110 @@
       "result": "w5"
      }
     ],
-    "rank": 28
+    "rank": 29,
+    "prev_rank": 28,
+    "prev_mu": 1658.7
+   },
+   {
+    "name": "agix",
+    "mu": 1654.9,
+    "sigma": 147.5,
+    "apps": 13,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 3,
+    "history": [
+     {
+      "k": 1,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 3,
+      "mu": 1500.0,
+      "sigma": 137.2,
+      "result": "o"
+     },
+     {
+      "k": 4,
+      "mu": 1500.0,
+      "sigma": 113.2,
+      "result": "o"
+     },
+     {
+      "k": 5,
+      "mu": 1500.0,
+      "sigma": 98.5,
+      "result": "o"
+     },
+     {
+      "k": 7,
+      "mu": 1500.0,
+      "sigma": 98.7,
+      "result": "o"
+     },
+     {
+      "k": 8,
+      "mu": 1500.0,
+      "sigma": 88.5,
+      "result": "o"
+     },
+     {
+      "k": 9,
+      "mu": 1500.0,
+      "sigma": 80.9,
+      "result": "o"
+     },
+     {
+      "k": 12,
+      "mu": 1500.0,
+      "sigma": 86.5,
+      "result": "o"
+     },
+     {
+      "k": 13,
+      "mu": 1531.5,
+      "sigma": 80,
+      "result": "f"
+     },
+     {
+      "k": 14,
+      "mu": 1527.2,
+      "sigma": 80,
+      "result": "o"
+     },
+     {
+      "k": 16,
+      "mu": 1521.7,
+      "sigma": 85.8,
+      "result": "o"
+     },
+     {
+      "k": 26,
+      "mu": 1611.8,
+      "sigma": 143.4,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1654.9,
+      "sigma": 147.5,
+      "result": "f"
+     }
+    ],
+    "rank": 30,
+    "prev_rank": 42,
+    "prev_mu": 1601.1
    },
    {
     "name": "An Actual g00se",
-    "mu": 1656.9,
-    "sigma": 222.6,
+    "mu": 1653.7,
+    "sigma": 237.6,
     "apps": 2,
     "wins": 0,
     "w1": 0,
@@ -9393,12 +9853,38 @@
       "result": "f"
      }
     ],
-    "rank": 29
+    "rank": 31,
+    "prev_rank": 29,
+    "prev_mu": 1656.9
+   },
+   {
+    "name": "Renergy",
+    "mu": 1650.8,
+    "sigma": 173.6,
+    "apps": 1,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 33,
+      "mu": 1650.8,
+      "sigma": 173.6,
+      "result": "f"
+     }
+    ],
+    "rank": 32,
+    "prev_rank": null,
+    "prev_mu": null
    },
    {
     "name": "St Nicholas",
-    "mu": 1651.1,
-    "sigma": 147.4,
+    "mu": 1648.1,
+    "sigma": 162.4,
     "apps": 12,
     "wins": 1,
     "w1": 0,
@@ -9481,12 +9967,14 @@
       "result": "f"
      }
     ],
-    "rank": 30
+    "rank": 33,
+    "prev_rank": 30,
+    "prev_mu": 1651.1
    },
    {
     "name": "R0nanC",
-    "mu": 1648.9,
-    "sigma": 248.6,
+    "mu": 1645.9,
+    "sigma": 263.6,
     "apps": 4,
     "wins": 1,
     "w1": 0,
@@ -9521,12 +10009,14 @@
       "result": "f"
      }
     ],
-    "rank": 31
+    "rank": 34,
+    "prev_rank": 31,
+    "prev_mu": 1648.9
    },
    {
     "name": "MALIYO",
-    "mu": 1647.8,
-    "sigma": 188.6,
+    "mu": 1644.8,
+    "sigma": 203.6,
     "apps": 1,
     "wins": 0,
     "w1": 0,
@@ -9543,12 +10033,50 @@
       "result": "f"
      }
     ],
-    "rank": 32
+    "rank": 35,
+    "prev_rank": 32,
+    "prev_mu": 1647.8
+   },
+   {
+    "name": "brrryy",
+    "mu": 1643.1,
+    "sigma": 169.2,
+    "apps": 3,
+    "wins": 0,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 16,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 18,
+      "mu": 1500.0,
+      "sigma": 137.2,
+      "result": "o"
+     },
+     {
+      "k": 33,
+      "mu": 1643.1,
+      "sigma": 169.2,
+      "result": "f"
+     }
+    ],
+    "rank": 36,
+    "prev_rank": null,
+    "prev_mu": null
    },
    {
     "name": "brrrryy",
-    "mu": 1636.3,
-    "sigma": 248.6,
+    "mu": 1633.6,
+    "sigma": 263.6,
     "apps": 1,
     "wins": 0,
     "w1": 0,
@@ -9565,12 +10093,14 @@
       "result": "f"
      }
     ],
-    "rank": 33
+    "rank": 37,
+    "prev_rank": 33,
+    "prev_mu": 1636.3
    },
    {
     "name": "graysonvitek88",
-    "mu": 1636.3,
-    "sigma": 248.6,
+    "mu": 1633.6,
+    "sigma": 263.6,
     "apps": 1,
     "wins": 0,
     "w1": 0,
@@ -9587,11 +10117,13 @@
       "result": "f"
      }
     ],
-    "rank": 34
+    "rank": 38,
+    "prev_rank": 34,
+    "prev_mu": 1636.3
    },
    {
     "name": "Northwind",
-    "mu": 1632.4,
+    "mu": 1629.7,
     "sigma": 350,
     "apps": 3,
     "wins": 1,
@@ -9621,12 +10153,14 @@
       "result": "f"
      }
     ],
-    "rank": 35
+    "rank": 39,
+    "prev_rank": 35,
+    "prev_mu": 1632.4
    },
    {
     "name": "dlwldms",
-    "mu": 1630.9,
-    "sigma": 278.6,
+    "mu": 1628.3,
+    "sigma": 293.6,
     "apps": 1,
     "wins": 0,
     "w1": 0,
@@ -9643,39 +10177,13 @@
       "result": "f"
      }
     ],
-    "rank": 36
-   },
-   {
-    "name": "M4rv",
-    "mu": 1627.3,
-    "sigma": 242.8,
-    "apps": 2,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "history": [
-     {
-      "k": 15,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 26,
-      "mu": 1640.9,
-      "sigma": 167.8,
-      "result": "f"
-     }
-    ],
-    "rank": 37
+    "rank": 40,
+    "prev_rank": 36,
+    "prev_mu": 1630.9
    },
    {
     "name": "Redstony",
-    "mu": 1618.3,
+    "mu": 1615.9,
     "sigma": 350,
     "apps": 1,
     "wins": 0,
@@ -9693,12 +10201,14 @@
       "result": "f"
      }
     ],
-    "rank": 38
+    "rank": 41,
+    "prev_rank": 38,
+    "prev_mu": 1618.3
    },
    {
     "name": "variableferret",
-    "mu": 1614.8,
-    "sigma": 234.3,
+    "mu": 1612.5,
+    "sigma": 249.3,
     "apps": 2,
     "wins": 0,
     "w1": 0,
@@ -9721,11 +10231,13 @@
       "result": "f"
      }
     ],
-    "rank": 39
+    "rank": 42,
+    "prev_rank": 39,
+    "prev_mu": 1614.8
    },
    {
     "name": "readfreak7",
-    "mu": 1612.5,
+    "mu": 1610.2,
     "sigma": 350,
     "apps": 2,
     "wins": 0,
@@ -9749,12 +10261,14 @@
       "result": "f"
      }
     ],
-    "rank": 40
+    "rank": 43,
+    "prev_rank": 40,
+    "prev_mu": 1612.5
    },
    {
     "name": "Noxitu",
-    "mu": 1601.9,
-    "sigma": 225.1,
+    "mu": 1599.8,
+    "sigma": 240.1,
     "apps": 3,
     "wins": 0,
     "w1": 0,
@@ -9783,100 +10297,14 @@
       "result": "f"
      }
     ],
-    "rank": 41
-   },
-   {
-    "name": "agix",
-    "mu": 1601.1,
-    "sigma": 218.4,
-    "apps": 12,
-    "wins": 0,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 2,
-    "history": [
-     {
-      "k": 1,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 3,
-      "mu": 1500.0,
-      "sigma": 137.2,
-      "result": "o"
-     },
-     {
-      "k": 4,
-      "mu": 1500.0,
-      "sigma": 113.2,
-      "result": "o"
-     },
-     {
-      "k": 5,
-      "mu": 1500.0,
-      "sigma": 98.5,
-      "result": "o"
-     },
-     {
-      "k": 7,
-      "mu": 1500.0,
-      "sigma": 98.7,
-      "result": "o"
-     },
-     {
-      "k": 8,
-      "mu": 1500.0,
-      "sigma": 88.5,
-      "result": "o"
-     },
-     {
-      "k": 9,
-      "mu": 1500.0,
-      "sigma": 80.9,
-      "result": "o"
-     },
-     {
-      "k": 12,
-      "mu": 1500.0,
-      "sigma": 86.5,
-      "result": "o"
-     },
-     {
-      "k": 13,
-      "mu": 1531.5,
-      "sigma": 80,
-      "result": "f"
-     },
-     {
-      "k": 14,
-      "mu": 1527.2,
-      "sigma": 80,
-      "result": "o"
-     },
-     {
-      "k": 16,
-      "mu": 1521.7,
-      "sigma": 85.8,
-      "result": "o"
-     },
-     {
-      "k": 26,
-      "mu": 1611.8,
-      "sigma": 143.4,
-      "result": "f"
-     }
-    ],
-    "rank": 42
+    "rank": 44,
+    "prev_rank": 41,
+    "prev_mu": 1601.9
    },
    {
     "name": "DeeDeeNaNaNa",
-    "mu": 1600.8,
-    "sigma": 224.4,
+    "mu": 1598.8,
+    "sigma": 239.4,
     "apps": 4,
     "wins": 0,
     "w1": 0,
@@ -9911,11 +10339,13 @@
       "result": "f"
      }
     ],
-    "rank": 43
+    "rank": 45,
+    "prev_rank": 43,
+    "prev_mu": 1600.8
    },
    {
     "name": "Jakie",
-    "mu": 1596.7,
+    "mu": 1594.7,
     "sigma": 350,
     "apps": 1,
     "wins": 0,
@@ -9933,12 +10363,14 @@
       "result": "f"
      }
     ],
-    "rank": 44
+    "rank": 46,
+    "prev_rank": 44,
+    "prev_mu": 1596.7
    },
    {
     "name": "Shadynook",
-    "mu": 1595.5,
-    "sigma": 216.7,
+    "mu": 1593.5,
+    "sigma": 231.7,
     "apps": 11,
     "wins": 1,
     "w1": 0,
@@ -10015,11 +10447,13 @@
       "result": "f"
      }
     ],
-    "rank": 45
+    "rank": 47,
+    "prev_rank": 45,
+    "prev_mu": 1595.5
    },
    {
     "name": "N/A",
-    "mu": 1592.8,
+    "mu": 1591.0,
     "sigma": 350,
     "apps": 1,
     "wins": 0,
@@ -10037,11 +10471,13 @@
       "result": "f"
      }
     ],
-    "rank": 46
+    "rank": 48,
+    "prev_rank": 46,
+    "prev_mu": 1592.8
    },
    {
     "name": "jandje",
-    "mu": 1591.0,
+    "mu": 1589.2,
     "sigma": 350,
     "apps": 1,
     "wins": 0,
@@ -10059,11 +10495,13 @@
       "result": "f"
      }
     ],
-    "rank": 47
+    "rank": 49,
+    "prev_rank": 47,
+    "prev_mu": 1591.0
    },
    {
     "name": "XpERt",
-    "mu": 1590.5,
+    "mu": 1588.7,
     "sigma": 350,
     "apps": 4,
     "wins": 1,
@@ -10099,12 +10537,14 @@
       "result": "f"
      }
     ],
-    "rank": 48
+    "rank": 50,
+    "prev_rank": 48,
+    "prev_mu": 1590.5
    },
    {
     "name": "RadAbsRad",
-    "mu": 1586.5,
-    "sigma": 279.0,
+    "mu": 1584.7,
+    "sigma": 294.0,
     "apps": 3,
     "wins": 0,
     "w1": 0,
@@ -10133,11 +10573,13 @@
       "result": "f"
      }
     ],
-    "rank": 49
+    "rank": 51,
+    "prev_rank": 49,
+    "prev_mu": 1586.5
    },
    {
     "name": "Hawk",
-    "mu": 1571.9,
+    "mu": 1570.4,
     "sigma": 350,
     "apps": 2,
     "wins": 1,
@@ -10161,12 +10603,14 @@
       "result": "o"
      }
     ],
-    "rank": 50
+    "rank": 52,
+    "prev_rank": 50,
+    "prev_mu": 1571.9
    },
    {
     "name": "Lazy_Echidna",
-    "mu": 1546.8,
-    "sigma": 241.0,
+    "mu": 1545.9,
+    "sigma": 256.0,
     "apps": 14,
     "wins": 0,
     "w1": 0,
@@ -10261,11 +10705,13 @@
       "result": "f"
      }
     ],
-    "rank": 51
+    "rank": 53,
+    "prev_rank": 51,
+    "prev_mu": 1546.8
    },
    {
     "name": "Kaiser64",
-    "mu": 1528.6,
+    "mu": 1528.1,
     "sigma": 350,
     "apps": 3,
     "wins": 0,
@@ -10295,12 +10741,14 @@
       "result": "o"
      }
     ],
-    "rank": 52
+    "rank": 54,
+    "prev_rank": 52,
+    "prev_mu": 1528.6
    },
    {
     "name": "palfly",
-    "mu": 1527.4,
-    "sigma": 342.9,
+    "mu": 1526.8,
+    "sigma": 350,
     "apps": 7,
     "wins": 0,
     "w1": 0,
@@ -10353,7 +10801,9 @@
       "result": "f"
      }
     ],
-    "rank": 53
+    "rank": 55,
+    "prev_rank": 53,
+    "prev_mu": 1527.4
    }
   ]
  }

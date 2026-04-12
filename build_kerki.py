@@ -66,7 +66,7 @@ CANONICAL = {
     'DeeDeeNaNaNa': ['[CSC] DeeDeeNaNaNa', '[CSC]DeeDeeNaNaNa'],
     'Redstony': ['[Stc3]Redstony', '[TILT]Redstony'],
     'RadAbsRad': ['[Meow]RadAbsRad'],
-    'Hi Im Yolo': ['[HRR]Hi Im Yolo', '[RIP]Hi Im Yolo'],
+    'Hi Im Yolo': ['[HRR]Hi Im Yolo', '[RIP]Hi Im Yolo', 'Yolo'],
     'variableferret': ['[CSC] variableferret'],
     'Noxitu': [],
     'vortex': ['[mib]vortex'],
@@ -88,6 +88,7 @@ CANONICAL = {
     'Heart-TGV': ['[TTR]Heart-TGV'],
     'Hawk': [],
     'graysonvitek88': [],
+    'Renergy': [],
 }
 
 NAME_MAP = {}
@@ -445,6 +446,27 @@ for i, g in enumerate(glicko_list):
 print(f"\nGlicko Skill Rating (decay={GLICKO_MU_DECAY}, surprise={GLICKO_SURPRISE_THRESHOLD}):")
 for g in glicko_list[:15]:
     print(f"  #{g['rank']:>2}  {g['name']:20s}  {g['mu']:>6.0f} +/-{g['sigma']:<.0f}  ({g['apps']} apps)")
+
+# ── Load previous ranks for delta arrows ──────────────────────────
+old_ranking = {}
+old_glicko = {}
+try:
+    with open('kerki.json', 'r', encoding='utf-8') as f:
+        old_data = json.load(f)
+    old_ranking = {p['name']: p for p in old_data.get('ranking', {}).get('players', [])}
+    old_glicko = {p['name']: p for p in old_data.get('glicko', {}).get('players', [])}
+except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    pass
+
+for r in ranking_list:
+    old = old_ranking.get(r['name'])
+    r['prev_rank'] = old['rank'] if old else None
+    r['prev_points'] = old['points'] if old else None
+
+for g in glicko_list:
+    old = old_glicko.get(g['name'])
+    g['prev_rank'] = old['rank'] if old else None
+    g['prev_mu'] = old['mu'] if old else None
 
 output = {
     'meta': {

@@ -126,13 +126,20 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   grid-template-columns: 36px 1fr 58px 40px 40px 40px 52px;
 }
 .view-ranking .table-header, .view-ranking .row {
-  grid-template-columns: 36px 1fr 62px 42px 42px 36px 36px 36px 46px;
+  grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
 }
 .view-glicko .table-header, .view-glicko .row {
-  grid-template-columns: 36px 1fr 62px 42px 42px 36px 36px 36px 46px;
+  grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
 }
 
 .row .rank { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+.rank-delta { font-size: 9px; font-weight: 600; margin-left: 3px; }
+.rank-delta.up { color: var(--green); }
+.rank-delta.down { color: var(--red); }
+.rank-delta.new { color: var(--accent); font-size: 8px; }
+.val-delta { font-size: 8px; font-weight: 600; margin-left: 2px; }
+.val-delta.up { color: var(--green); }
+.val-delta.down { color: var(--red); }
 .row .pname { font-size: 13px; font-weight: 600; color: var(--pname); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; }
 .row .num { text-align: right; font-family: var(--mono); font-size: 12px; }
 .row .num-c { text-align: center; font-family: var(--mono); font-size: 12px; }
@@ -276,7 +283,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 
   /* Ranking view mobile: hide Apps(4), 2nd(7), 3rd(8) */
   .view-ranking .table-header, .view-ranking .row {
-    grid-template-columns: 28px 1fr 50px 36px 36px 36px !important;
+    grid-template-columns: 40px 1fr 50px 36px 36px 36px !important;
     padding: 6px 8px;
   }
   .view-ranking .table-header > :nth-child(4),
@@ -291,7 +298,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 
   /* Glicko view mobile: hide sigma(4), Apps(5), 2nd(7), 3rd(8) */
   .view-glicko .table-header, .view-glicko .row {
-    grid-template-columns: 28px 1fr 50px 36px 36px !important;
+    grid-template-columns: 40px 1fr 50px 36px 36px !important;
     padding: 6px 8px;
   }
   .view-glicko .table-header > :nth-child(4),
@@ -600,9 +607,9 @@ function renderRanking() {
     const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
 
     row.innerHTML = `
-      <div class="rank">${i + 1}</div>
+      <div class="rank">${p.rank}${rankDelta(p.prev_rank, p.rank)}</div>
       <div class="pname">${dotHtml}${esc(p.name)}</div>
-      <div class="num"${ptsStyle}><b>${p.points}</b></div>
+      <div class="num"${ptsStyle}><b>${p.points}</b>${valDelta(p.prev_points, p.points)}</div>
       <div class="num">${p.apps}</div>
       <div class="num">${p.wins || '-'}</div>
       <div class="num-c">${w1h}</div>
@@ -798,9 +805,9 @@ function renderGlicko() {
     const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
 
     row.innerHTML = `
-      <div class="rank">${i + 1}</div>
+      <div class="rank">${p.rank}${rankDelta(p.prev_rank, p.rank)}</div>
       <div class="pname">${dotHtml}${esc(p.name)}</div>
-      <div class="num"${muStyle}><b>${Math.round(p.mu)}</b></div>
+      <div class="num"${muStyle}><b>${Math.round(p.mu)}</b>${valDelta(p.prev_mu, p.mu)}</div>
       <div class="num" style="color:var(--text-muted)">${Math.round(p.sigma)}</div>
       <div class="num">${p.apps}</div>
       <div class="num-c">${w1h}</div>
@@ -1064,6 +1071,22 @@ function esc(s) {
   const d = document.createElement('div');
   d.textContent = s;
   return d.innerHTML;
+}
+
+function rankDelta(prevRank, currentRank) {
+  if (prevRank == null) return '<span class="rank-delta new">NEW</span>';
+  const diff = prevRank - currentRank;
+  if (diff > 0) return `<span class="rank-delta up">\u25B2${diff}</span>`;
+  if (diff < 0) return `<span class="rank-delta down">\u25BC${Math.abs(diff)}</span>`;
+  return '';
+}
+
+function valDelta(prev, current) {
+  if (prev == null) return '';
+  const diff = Math.round(current - prev);
+  if (diff > 0) return `<span class="val-delta up">+${diff}</span>`;
+  if (diff < 0) return `<span class="val-delta down">${diff}</span>`;
+  return '';
 }
 
 /* ── Event Listeners ── */
