@@ -89,6 +89,28 @@ CANONICAL = {
     'Hawk': [],
     'graysonvitek88': [],
     'Renergy': [],
+    'justMaki': ['[KERN]justMaki', 'JustMaki'],
+    'aizpun': ['[KURK]aizpun', '[KURK] aizpun'],
+    'wokonbike': [],
+    'Victor': ['[FPV]Victor', '[RFV]Victor'],
+    'LoudSentinel': ['[EUB]LoudSentinel'],
+    'Six': [],
+    'Eclipse135': ['Eclipse125'],
+    'PlusMicron': ['plusmicron'],
+    '376': [],
+    'SharKy': ['Sharky'],
+    'MrBunny_666': ['MrBunny666', 'Mr Bunny 666'],
+    'LArk': ['[MMM]LArk', 'Lark', '[MMM]Lark'],
+    'Tudge Boat': ['Tudge'],
+    'FedtStensDyr': [],
+    'DorthJohson': ['Dorth Johson', 'DorthJohnson'],
+    'timesprout': [],
+    'lil_zwimpie': ['[KURK]lil_zwimpie', '[KURK] lil_zwimpie'],
+    'Unfortunate Inc': ['UnfortunateInc'],
+    'FlyBoy': ['Flyboy', 'flyboy'],
+    'Smullie': ['[KURK]Smullie'],
+    'logix': ['[CT]logix', '[CTR]logix'],
+    'GuillaumePN': ['[FR]GuillaumePN', '[FR] GuillaumePN'],
 }
 
 NAME_MAP = {}
@@ -143,6 +165,7 @@ def read_kerki_tab(ws, tab_start_kerki, col_offsets=None):
         winners = []
         finalists = []
         others = []
+        nuisances = []
         current_section = None
 
         for row in range(3, ws.max_row + 1):
@@ -163,6 +186,9 @@ def read_kerki_tab(ws, tab_start_kerki, col_offsets=None):
             elif p_str.lower() in ('other', 'others'):
                 current_section = 'others'
                 continue
+            elif p_str.lower() in ('nuisance', 'nuisances'):
+                current_section = 'nuisances'
+                continue
             elif p_str.lower() == 'placement':
                 continue
 
@@ -177,17 +203,14 @@ def read_kerki_tab(ws, tab_start_kerki, col_offsets=None):
             if any(x in str(name).lower() for x in ['data lost', 'tech issues', 'did not reach']):
                 continue
 
-            # Skip known nuisances/spectators
-            if name.lower() in ('justmaki', 'kernkob') and current_section == 'others':
-                # They might be nuisances in others, but keep them if they're winners/finalists
-                pass  # actually keep them — they might genuinely be "others" in some kerkis
-
             if current_section == 'winners':
                 winners.append(name)
             elif current_section == 'finalists':
                 finalists.append(name)
             elif current_section == 'others':
                 others.append(name)
+            elif current_section == 'nuisances':
+                nuisances.append(name)
 
         if winners or finalists:
             lobby = len(set(winners + finalists + others))
@@ -198,6 +221,7 @@ def read_kerki_tab(ws, tab_start_kerki, col_offsets=None):
                 'winners': winners,
                 'finalists': finalists,
                 'others': others,
+                'nuisances': nuisances,
                 'lobby_size': lobby,
             })
 
