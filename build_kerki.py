@@ -70,7 +70,7 @@ CANONICAL = {
     'variableferret': ['[CSC] variableferret'],
     'Noxitu': [],
     'vortex': ['[mib]vortex'],
-    'brrryy': ['brryyy'],
+    'brrryy': ['brryyy', 'brrrryy'],
     'Orthros': [],
     'MALIYO': [],
     'dlwldms': [],
