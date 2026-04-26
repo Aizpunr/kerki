@@ -474,11 +474,13 @@ for g in glicko_list[:15]:
 # ── Load previous ranks for delta arrows ──────────────────────────
 old_ranking = {}
 old_glicko = {}
+old_players = {}
 try:
     with open('kerki.json', 'r', encoding='utf-8') as f:
         old_data = json.load(f)
     old_ranking = {p['name']: p for p in old_data.get('ranking', {}).get('players', [])}
     old_glicko = {p['name']: p for p in old_data.get('glicko', {}).get('players', [])}
+    old_players = {p['name']: p for p in old_data.get('players', [])}
 except (FileNotFoundError, json.JSONDecodeError, KeyError):
     pass
 
@@ -491,6 +493,12 @@ for g in glicko_list:
     old = old_glicko.get(g['name'])
     g['prev_rank'] = old['rank'] if old else None
     g['prev_mu'] = old['mu'] if old else None
+
+# Records tab deltas: save the previous full history per player so the
+# frontend can recompute prev stats with the same troll-toggle filter as current.
+for p in player_list:
+    old = old_players.get(p['name'])
+    p['prev_history'] = old['history'] if (old and 'history' in old) else []
 
 output = {
     'meta': {

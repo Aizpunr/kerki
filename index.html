@@ -968,7 +968,16 @@ function getFiltered() {
     const fin = hist.filter(h => h.result === 'f').length;
     const apps = hist.length;
     const pct = apps > 0 ? Math.round((wins + fin) / apps * 100) : 0;
-    return { name: p.name, apps, wins, w1, w2, w3, finalist: fin, pct, history: p.history, best: p.best };
+    // Recompute prev stats from prev_history with same troll filter
+    const prevHist = (p.prev_history || []).filter(h => validKerkis.has(h.k));
+    const prev_wins = prevHist.filter(h => h.result.startsWith('w')).length;
+    const prev_w1 = prevHist.filter(h => h.result === 'w1').length;
+    const prev_w2 = prevHist.filter(h => h.result === 'w2').length;
+    const prev_w3 = prevHist.filter(h => h.result === 'w3').length;
+    const prev_fin = prevHist.filter(h => h.result === 'f').length;
+    const prev_apps = prevHist.length;
+    return { name: p.name, apps, wins, w1, w2, w3, finalist: fin, pct, history: p.history, best: p.best,
+             prev_apps, prev_wins, prev_w1, prev_w2, prev_w3, prev_finalist: prev_fin };
   }).filter(p => p !== null && (p.wins > 0 || p.finalist > 0) && p.apps >= minApps && p.name.toLowerCase().includes(search));
 }
 
@@ -994,16 +1003,19 @@ function renderRecords() {
     row.className = 'row' + (p.name === selected ? ' selected' : '');
     row.dataset.name = p.name;
 
-    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>` : `<span class="dim">-</span>`;
-    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>` : `<span class="dim">-</span>`;
-    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>` : `<span class="dim">-</span>`;
-    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
+    const dlt = (cur, prev) => (prev != null && cur > prev)
+      ? `<span class="val-delta up">+${cur - prev}</span>` : '';
+    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>${dlt(p.w1, p.prev_w1)}` : `<span class="dim">-</span>`;
+    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>${dlt(p.w2, p.prev_w2)}` : `<span class="dim">-</span>`;
+    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>${dlt(p.w3, p.prev_w3)}` : `<span class="dim">-</span>`;
+    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>${dlt(p.finalist, p.prev_finalist)}` : `<span class="dim">-</span>`;
     const winsCls = p.wins > 0 ? 'wins-cell' : 'dim';
+    const winsDelta = dlt(p.wins, p.prev_wins);
 
     row.innerHTML = `
       <div class="rank">${i + 1}</div>
       <div class="pname">${esc(p.name)}</div>
-      <div class="num ${winsCls}">${p.wins || '-'}</div>
+      <div class="num ${winsCls}">${p.wins || '-'}${winsDelta}</div>
       <div class="num-c">${w1h}</div>
       <div class="num-c">${w2h}</div>
       <div class="num-c">${w3h}</div>
