@@ -967,7 +967,8 @@ function getFiltered() {
     const w3 = hist.filter(h => h.result === 'w3').length;
     const fin = hist.filter(h => h.result === 'f').length;
     const apps = hist.length;
-    const pct = apps > 0 ? Math.round((wins + fin) / apps * 100) : 0;
+    const pct = apps > 0 ? Math.round(wins / apps * 100) : 0;
+    const pctFin = apps > 0 ? Math.round((wins + fin) / apps * 100) : 0;
     // Recompute prev stats from prev_history with same troll filter
     const prevHist = (p.prev_history || []).filter(h => validKerkis.has(h.k));
     const prev_wins = prevHist.filter(h => h.result.startsWith('w')).length;
@@ -976,7 +977,7 @@ function getFiltered() {
     const prev_w3 = prevHist.filter(h => h.result === 'w3').length;
     const prev_fin = prevHist.filter(h => h.result === 'f').length;
     const prev_apps = prevHist.length;
-    return { name: p.name, apps, wins, w1, w2, w3, finalist: fin, pct, history: p.history, best: p.best,
+    return { name: p.name, apps, wins, w1, w2, w3, finalist: fin, pct, pctFin, history: p.history, best: p.best,
              prev_apps, prev_wins, prev_w1, prev_w2, prev_w3, prev_finalist: prev_fin };
   }).filter(p => p !== null && (p.wins > 0 || p.finalist > 0) && p.apps >= minApps && p.name.toLowerCase().includes(search));
 }
@@ -1048,6 +1049,7 @@ function renderRecords() {
           <div class="detail-stat">Finalist <span class="val">${p.finalist}</span></div>
           <div class="detail-stat">Best <span class="val">${bestLabel}</span></div>
           <div class="detail-stat">Win% <span class="val">${p.pct}%</span></div>
+          <div class="detail-stat">Finals+% <span class="val">${p.pctFin}%</span></div>
         </div>
         <div class="history-grid">
       `;
