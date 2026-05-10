@@ -131,6 +131,36 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .view-glicko .table-header, .view-glicko .row {
   grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
 }
+.view-events .table-header, .view-events .row {
+  grid-template-columns: 52px 78px 1fr 1fr 1fr 60px;
+}
+.event-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px;
+  margin-top: 6px;
+}
+.event-detail-grid h5 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--accent); margin: 0 0 6px 0; font-weight: 700;
+}
+.event-detail-grid ol, .event-detail-grid ul {
+  margin: 0; padding-left: 22px; font-size: 12px; line-height: 1.6;
+}
+.event-detail-grid .winners li { color: var(--gold); font-weight: 600; }
+.event-detail-grid .finalists li { color: var(--finalist); }
+.event-detail-grid .others li { color: var(--text); }
+.event-detail-grid .nuisance li { color: var(--text-muted); font-style: italic; }
+.event-row.troll .pname, .event-row.troll .num { color: var(--text-muted); font-style: italic; }
+@media (max-width: 720px) {
+  .view-events .table-header, .view-events .row {
+    grid-template-columns: 36px 60px 1fr 60px;
+  }
+  .view-events .table-header > :nth-child(4),
+  .view-events .row > :nth-child(4),
+  .view-events .table-header > :nth-child(5),
+  .view-events .row > :nth-child(5) { display: none; }
+  .event-detail-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .event-detail-grid ol, .event-detail-grid ul { font-size: 11px; }
+}
 
 .row .rank { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
 .rank-delta { font-size: 9px; font-weight: 600; margin-left: 3px; }
@@ -332,6 +362,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
     <button class="view-tab" data-view="ranking">Ranking</button>
     <button class="view-tab" data-view="glicko">Skill</button>
     <button class="view-tab active" data-view="records">Records</button>
+    <button class="view-tab" data-view="events">Events</button>
   </div>
   <input type="text" class="search-input" id="search" placeholder="Search player...">
   <label class="toggle-wrap" id="trollWrap">
@@ -499,6 +530,15 @@ const GLICKO_COLS = [
   { key: 'finalist', label: 'Fin', cls: 'right' },
 ];
 
+const EVENTS_COLS = [
+  { key: 'id', label: '#', cls: '' },
+  { key: 'date', label: 'Date', cls: '' },
+  { key: 'w1', label: '1st', cls: '' },
+  { key: 'w2', label: '2nd', cls: '' },
+  { key: 'w3', label: '3rd', cls: '' },
+  { key: 'lobby_size', label: 'Lobby', cls: 'right' },
+];
+
 const TIER_THRESHOLDS = [2600, 1300, 800, 200];
 const TIER_COLORS = ['#dc2626', '#a855f7', '#3b82f6', '#10b981'];
 const TIER_NAMES = ['Legend', 'Pro', 'Master', 'Gold'];
@@ -513,6 +553,7 @@ function ptsColor(pts) {
 function getCols() {
   if (viewMode === 'ranking') return RANKING_COLS;
   if (viewMode === 'glicko') return GLICKO_COLS;
+  if (viewMode === 'events') return EVENTS_COLS;
   return RECORDS_COLS;
 }
 
@@ -534,6 +575,8 @@ function updateSubtitle() {
     el.textContent = `Rolling \u00b7 Best ${r.best_of} of last ${r.eligible_kerkis} kerkis`;
   } else if (viewMode === 'glicko') {
     el.textContent = `Skill Rating \u00b7 Convergent with ${(DATA.glicko.decay * 100).toFixed(0)}% decay`;
+  } else if (viewMode === 'events') {
+    el.textContent = `${DATA.meta.total_kerkis} events \u00b7 click a row to see full standings`;
   } else {
     el.textContent = `${DATA.meta.total_kerkis} events \u00b7 ${DATA.meta.total_players} players \u00b7 Sundays 19:00`;
   }
@@ -541,7 +584,8 @@ function updateSubtitle() {
 
 function updateControls() {
   const isRecords = viewMode === 'records';
-  document.getElementById('trollWrap').style.display = isRecords ? '' : 'none';
+  const isEvents = viewMode === 'events';
+  document.getElementById('trollWrap').style.display = (isRecords || isEvents) ? '' : 'none';
   document.getElementById('minCupsWrap').style.display = isRecords ? '' : 'none';
   document.getElementById('tierLegend').style.display = viewMode === 'ranking' ? '' : 'none';
 }
@@ -574,7 +618,96 @@ function buildHeader() {
 function render() {
   if (viewMode === 'ranking') renderRanking();
   else if (viewMode === 'glicko') renderGlicko();
+  else if (viewMode === 'events') renderEvents();
   else renderRecords();
+}
+
+/* ── Events View ── */
+let selectedEvent = null;
+
+function renderEvents() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const includeTroll = document.getElementById('trollToggle').checked;
+  let list = DATA.kerkis.filter(k => includeTroll || !k.troll);
+
+  if (search) {
+    list = list.filter(k => {
+      if (String(k.id) === search) return true;
+      const allNames = [...(k.winners||[]), ...(k.finalists||[]), ...(k.others||[]), ...(k.nuisances||[])];
+      return allNames.some(n => n.toLowerCase().includes(search));
+    });
+  }
+
+  // Sort
+  list = [...list];
+  list.sort((a, b) => {
+    if (sortCol === 'id') return sortDir * (a.id - b.id);
+    if (sortCol === 'date') return sortDir * (a.id - b.id); // dates correlate to ids
+    if (sortCol === 'lobby_size') return sortDir * ((a.lobby_size||0) - (b.lobby_size||0));
+    if (sortCol === 'w1' || sortCol === 'w2' || sortCol === 'w3') {
+      const idx = { w1: 0, w2: 1, w3: 2 }[sortCol];
+      const an = (a.winners && a.winners[idx]) || '';
+      const bn = (b.winners && b.winners[idx]) || '';
+      return sortDir * an.localeCompare(bn);
+    }
+    return 0;
+  });
+
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+
+  list.forEach(k => {
+    const row = document.createElement('div');
+    row.className = 'row event-row' + (k.troll ? ' troll' : '') + (selectedEvent === k.id ? ' selected' : '');
+    const w = k.winners || [];
+    const w1 = w[0] || '<span class="dim">-</span>';
+    const w2 = w[1] || '<span class="dim">-</span>';
+    const w3 = w[2] || '<span class="dim">-</span>';
+
+    row.innerHTML = `
+      <div class="rank">#${k.id}</div>
+      <div class="num" style="text-align:left">${k.date || '?'}</div>
+      <div class="pname"><span class="w1">${esc(w1)}</span></div>
+      <div class="pname"><span class="w2">${esc(w2)}</span></div>
+      <div class="pname"><span class="w3">${esc(w3)}</span></div>
+      <div class="num">${k.lobby_size || '-'}</div>
+    `;
+    row.onclick = () => {
+      selectedEvent = (selectedEvent === k.id) ? null : k.id;
+      render();
+    };
+    body.appendChild(row);
+
+    if (selectedEvent === k.id) {
+      body.appendChild(buildEventDetail(k));
+    }
+  });
+}
+
+function buildEventDetail(k) {
+  const wrap = document.createElement('div');
+  wrap.className = 'detail-panel';
+  const winners = k.winners || [], finalists = k.finalists || [];
+  const others = k.others || [], nuisances = k.nuisances || [];
+
+  const winList = winners.map(n => `<li>${esc(n)}</li>`).join('') || '<li class="dim">none</li>';
+  const finList = finalists.map(n => `<li>${esc(n)}</li>`).join('') || '<li class="dim">none</li>';
+  const othList = others.map(n => `<li>${esc(n)}</li>`).join('') || '<li class="dim">none</li>';
+  const nuiList = nuisances.map(n => `<li>${esc(n)}</li>`).join('') || '<li class="dim">none</li>';
+
+  wrap.innerHTML = `
+    <div class="detail-header">
+      <div class="name">Kerki #${k.id} · ${esc(k.date || '?')}${k.troll ? ' <span class="dim">[troll]</span>' : ''}</div>
+      <button class="close-btn" onclick="event.stopPropagation();selectedEvent=null;render();">close</button>
+    </div>
+    <div class="event-detail-grid">
+      <div><h5>Winners</h5><ol class="winners">${winList}</ol></div>
+      <div><h5>Finalists</h5><ol class="finalists">${finList}</ol></div>
+      <div><h5>Others (sorted by points)</h5><ol class="others">${othList}</ol></div>
+      <div><h5>Nuisance${nuisances.length ? '' : ' <span class="dim">(none)</span>'}</h5><ol class="nuisance">${nuiList}</ol></div>
+    </div>
+  `;
+  return wrap;
 }
 
 /* ── Ranking View ── */
@@ -1121,6 +1254,7 @@ document.querySelectorAll('.view-tab').forEach(tab => {
     // Reset sort for each view
     if (viewMode === 'ranking') { sortCol = 'points'; sortDir = -1; }
     else if (viewMode === 'glicko') { sortCol = 'mu'; sortDir = -1; }
+    else if (viewMode === 'events') { sortCol = 'id'; sortDir = -1; selectedEvent = null; }
     else { sortCol = 'wins'; sortDir = -1; }
     document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
