@@ -245,7 +245,7 @@ wb2.close()
 
 # File 3: Kerkis 31+
 wb3 = load_workbook('Kerki Comp Results 31+.xlsx', read_only=True, data_only=True)
-for tab_name, start_id in [('Kerki 31-35', 31),]:
+for tab_name, start_id in [('Kerki 31-35', 31), ('Kerki 36-40', 36)]:
     if tab_name in wb3.sheetnames:
         all_kerkis.extend(read_kerki_tab(wb3[tab_name], start_id))
 wb3.close()

@@ -1,0 +1,376 @@
+{
+  "kerki": 36,
+  "header": "Kerki Comp #36 - Maps by Renergy, Ferret, PlusMicron",
+  "rotation": [
+    "Kerki #36 - Plumbing Problem",
+    "Kerki #36 - Strawberry Lemonade",
+    "Kerki #36 - Yall should make some Kerki maps"
+  ],
+  "warmup_round_keys": [
+    [
+      1,
+      8
+    ],
+    [
+      1,
+      9
+    ],
+    [
+      1,
+      10
+    ]
+  ],
+  "scoring_rounds_count": 20,
+  "winners": [
+    {
+      "rank": 1,
+      "sid": "76561198050792757",
+      "name": "justMaki",
+      "won_scoring_round": 11,
+      "qualified_scoring_round": 10,
+      "map": "Kerki #36 - Strawberry Lemonade",
+      "time": "37.666"
+    },
+    {
+      "rank": 2,
+      "sid": "76561199024808939",
+      "name": "Kernkob",
+      "won_scoring_round": 12,
+      "qualified_scoring_round": 11,
+      "map": "Kerki #36 - Yall should make some Kerki maps",
+      "time": "36.940"
+    },
+    {
+      "rank": 3,
+      "sid": "76561198149636594",
+      "name": "Quickracer10",
+      "won_scoring_round": 13,
+      "qualified_scoring_round": 12,
+      "map": "Kerki #36 - Plumbing Problem",
+      "time": "37.984"
+    },
+    {
+      "rank": 4,
+      "sid": "76561198877428244",
+      "name": "Sterben",
+      "won_scoring_round": 17,
+      "qualified_scoring_round": 12,
+      "map": "Kerki #36 - Strawberry Lemonade",
+      "time": "37.851"
+    },
+    {
+      "rank": 5,
+      "sid": "76561198896246339",
+      "name": "RoundNzt",
+      "won_scoring_round": 20,
+      "qualified_scoring_round": 16,
+      "map": "Kerki #36 - Strawberry Lemonade",
+      "time": "37.745"
+    }
+  ],
+  "finalists": [
+    {
+      "rank": 1,
+      "sid": "76561198152852852",
+      "name": "JakeAdjacent",
+      "qualified_scoring_round": 14
+    },
+    {
+      "rank": 2,
+      "sid": "76561198851912263",
+      "name": "Lexer",
+      "qualified_scoring_round": 17
+    },
+    {
+      "rank": 3,
+      "sid": "76561198212710700",
+      "name": "Minkus",
+      "qualified_scoring_round": 17
+    },
+    {
+      "rank": 4,
+      "sid": "76561199590715014",
+      "name": "Stick",
+      "qualified_scoring_round": 18
+    },
+    {
+      "rank": 5,
+      "sid": "76561198253679880",
+      "name": "PandaMane",
+      "qualified_scoring_round": 18
+    },
+    {
+      "rank": 6,
+      "sid": "76561199126724675",
+      "name": "ZOMAN",
+      "qualified_scoring_round": 19
+    },
+    {
+      "rank": 7,
+      "sid": "76561199109206781",
+      "name": "ping",
+      "qualified_scoring_round": 19
+    },
+    {
+      "rank": 8,
+      "sid": "76561199448462477",
+      "name": "microways",
+      "qualified_scoring_round": 19
+    },
+    {
+      "rank": 9,
+      "sid": "76561199129302746",
+      "name": "brrryy",
+      "qualified_scoring_round": 19
+    }
+  ],
+  "others": [
+    {
+      "rank": 1,
+      "sid": "76561199208124083",
+      "name": "rtube",
+      "points": 705,
+      "rounds_played": 20,
+      "finishes": 16
+    },
+    {
+      "rank": 2,
+      "sid": "76561198047403251",
+      "name": "St Nicholas",
+      "points": 700,
+      "rounds_played": 20,
+      "finishes": 19
+    },
+    {
+      "rank": 3,
+      "sid": "76561198974231691",
+      "name": "agix",
+      "points": 685,
+      "rounds_played": 20,
+      "finishes": 17
+    },
+    {
+      "rank": 4,
+      "sid": "76561198056113005",
+      "name": "Six",
+      "points": 680,
+      "rounds_played": 20,
+      "finishes": 18
+    },
+    {
+      "rank": 5,
+      "sid": "76561199187327002",
+      "name": "Tommygaming",
+      "points": 680,
+      "rounds_played": 20,
+      "finishes": 15
+    },
+    {
+      "rank": 6,
+      "sid": "76561198091849339",
+      "name": "Hi Im Yolo",
+      "points": 675,
+      "rounds_played": 20,
+      "finishes": 18
+    },
+    {
+      "rank": 7,
+      "sid": "76561198213715297",
+      "name": "stindt",
+      "points": 665,
+      "rounds_played": 20,
+      "finishes": 18
+    },
+    {
+      "rank": 8,
+      "sid": "76561198428660617",
+      "name": "BB_Benji",
+      "points": 650,
+      "rounds_played": 20,
+      "finishes": 18
+    },
+    {
+      "rank": 9,
+      "sid": "76561198364662649",
+      "name": "Heart-TGV",
+      "points": 595,
+      "rounds_played": 20,
+      "finishes": 17
+    },
+    {
+      "rank": 10,
+      "sid": "76561198846673916",
+      "name": "Matic_D",
+      "points": 565,
+      "rounds_played": 20,
+      "finishes": 17
+    },
+    {
+      "rank": 11,
+      "sid": "76561197980151170",
+      "name": "Shadynook",
+      "points": 505,
+      "rounds_played": 20,
+      "finishes": 15
+    },
+    {
+      "rank": 12,
+      "sid": "76561198865432343",
+      "name": "MackCheesy",
+      "points": 460,
+      "rounds_played": 20,
+      "finishes": 11
+    },
+    {
+      "rank": 13,
+      "sid": "76561198305054806",
+      "name": "wokonbike",
+      "points": 425,
+      "rounds_played": 20,
+      "finishes": 13
+    },
+    {
+      "rank": 14,
+      "sid": "76561197972890120",
+      "name": "aizpun",
+      "points": 380,
+      "rounds_played": 20,
+      "finishes": 12
+    },
+    {
+      "rank": 15,
+      "sid": "76561199186342067",
+      "name": "PlusMicron",
+      "points": 310,
+      "rounds_played": 20,
+      "finishes": 8
+    },
+    {
+      "rank": 16,
+      "sid": "76561198360335411",
+      "name": "lil_zwimpie",
+      "points": 285,
+      "rounds_played": 20,
+      "finishes": 9
+    },
+    {
+      "rank": 17,
+      "sid": "76561198126038296",
+      "name": "Noxitu",
+      "points": 260,
+      "rounds_played": 17,
+      "finishes": 8
+    },
+    {
+      "rank": 18,
+      "sid": "76561198123464287",
+      "name": "LILWOOLEY",
+      "points": 240,
+      "rounds_played": 20,
+      "finishes": 8
+    },
+    {
+      "rank": 19,
+      "sid": "76561198748988602",
+      "name": "BrickEdwards",
+      "points": 225,
+      "rounds_played": 20,
+      "finishes": 7
+    },
+    {
+      "rank": 20,
+      "sid": "76561198758353504",
+      "name": "M4DSCOTSM4N",
+      "points": 190,
+      "rounds_played": 20,
+      "finishes": 6
+    },
+    {
+      "rank": 21,
+      "sid": "76561198068823305",
+      "name": "Ritchi",
+      "points": 185,
+      "rounds_played": 20,
+      "finishes": 6
+    },
+    {
+      "rank": 22,
+      "sid": "76561198010296962",
+      "name": "timesprout",
+      "points": 165,
+      "rounds_played": 20,
+      "finishes": 5
+    },
+    {
+      "rank": 23,
+      "sid": "76561199218214543",
+      "name": "Wheelie",
+      "points": 160,
+      "rounds_played": 7,
+      "finishes": 5
+    },
+    {
+      "rank": 24,
+      "sid": "76561198051058993",
+      "name": "MAGS3",
+      "points": 65,
+      "rounds_played": 7,
+      "finishes": 2
+    },
+    {
+      "rank": 25,
+      "sid": "76561198091994639",
+      "name": "cookie",
+      "points": 60,
+      "rounds_played": 13,
+      "finishes": 2
+    },
+    {
+      "rank": 26,
+      "sid": "76561199282497311",
+      "name": "groovy",
+      "points": 30,
+      "rounds_played": 20,
+      "finishes": 1
+    }
+  ],
+  "nuisance": [
+    {
+      "sid": "76561199135775747",
+      "name": "Renergy",
+      "points": 600,
+      "rounds_played": 16,
+      "finishes": 11
+    }
+  ],
+  "excluded": [
+    {
+      "sid": "76561199006040868",
+      "name": "Eclipse135",
+      "points": 110,
+      "rounds_played": 5,
+      "finishes": 3
+    },
+    {
+      "sid": "76561198024241170",
+      "name": "Namo ツ",
+      "points": 30,
+      "rounds_played": 4,
+      "finishes": 1
+    },
+    {
+      "sid": "76561199321598731",
+      "name": "𝒱V𝑜o𝒾i𝒹d𝒱",
+      "points": 70,
+      "rounds_played": 2,
+      "finishes": 2
+    },
+    {
+      "sid": "76561198085317266",
+      "name": "Hang Chang-Pang",
+      "points": 35,
+      "rounds_played": 1,
+      "finishes": 1
+    }
+  ]
+}
