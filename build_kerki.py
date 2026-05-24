@@ -5,6 +5,36 @@ from openpyxl import load_workbook
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+# Cross-comp SOF source: kerkis[].sof comes from the holistic project's
+# allcompdata.json, where SOF is computed pre-event with cross-comp ratings.
+ALLCOMPDATA = os.path.normpath(os.path.join('..', 'zeepkist holistic', 'allcompdata.json'))
+_KERKI_EVENT_RE = re.compile(r'^Kerki #(\d+)$')
+
+def load_cross_comp_sof():
+    """{kerki_id: sof} from allcompdata.json. Returns {} (with a warning) if
+    the file is missing — SOF is non-fatal so kerki can still rebuild."""
+    if not os.path.exists(ALLCOMPDATA):
+        print(f'[sof] {ALLCOMPDATA} not found — skipping SOF attach')
+        return {}
+    try:
+        with open(ALLCOMPDATA, encoding='utf-8') as fp:
+            data = json.load(fp)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f'[sof] failed to read {ALLCOMPDATA}: {e}')
+        return {}
+    out = {}
+    for ev in data.get('events') or []:
+        if ev.get('comp') != 'kerki':
+            continue
+        m = _KERKI_EVENT_RE.match(ev.get('id', ''))
+        if not m:
+            continue
+        sof = ev.get('sof')
+        if sof is None:
+            continue
+        out[int(m.group(1))] = sof
+    return out
+
 # ── Name normalization ──────────────────────────────────────────────
 def strip_tag(name):
     return re.sub(r'\[.*?\]\s*', '', name).strip()
@@ -252,6 +282,16 @@ wb3.close()
 
 # Sort by id
 all_kerkis.sort(key=lambda k: k['id'])
+
+# Attach cross-comp SOF per kerki (non-troll only matches allcompdata)
+sof_map = load_cross_comp_sof()
+sof_attached = 0
+for k in all_kerkis:
+    sof = sof_map.get(k['id'])
+    if sof is not None:
+        k['sof'] = sof
+        sof_attached += 1
+print(f"Cross-comp SOF attached: {sof_attached}/{len(all_kerkis)} kerkis")
 
 print(f"Loaded {len(all_kerkis)} kerkis")
 for k in all_kerkis:

@@ -132,7 +132,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
 }
 .view-events .table-header, .view-events .row {
-  grid-template-columns: 52px 78px 1fr 1fr 1fr 60px;
+  grid-template-columns: 52px 78px 1fr 1fr 1fr 60px 60px;
 }
 .event-detail-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px;
@@ -157,7 +157,9 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   .view-events .table-header > :nth-child(4),
   .view-events .row > :nth-child(4),
   .view-events .table-header > :nth-child(5),
-  .view-events .row > :nth-child(5) { display: none; }
+  .view-events .row > :nth-child(5),
+  .view-events .table-header > :nth-child(7),
+  .view-events .row > :nth-child(7) { display: none; }
   .event-detail-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .event-detail-grid ol, .event-detail-grid ul { font-size: 11px; }
 }
@@ -537,6 +539,7 @@ const EVENTS_COLS = [
   { key: 'w2', label: '2nd', cls: '' },
   { key: 'w3', label: '3rd', cls: '' },
   { key: 'lobby_size', label: 'Lobby', cls: 'right' },
+  { key: 'sof', label: 'SOF', cls: 'right', title: 'Cross-comp Strength of Field' },
 ];
 
 const TIER_THRESHOLDS = [2600, 1300, 800, 200];
@@ -601,7 +604,8 @@ function buildHeader() {
       infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'infoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
     else if (c.key === 'mu' && viewMode === 'glicko')
       infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'glickoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
-    return `<div class="${c.cls}${active}" data-sort="${c.key}">${c.label}${dir}${infoBtn}</div>`;
+    const titleAttr = c.title ? ` title="${c.title}"` : '';
+    return `<div class="${c.cls}${active}" data-sort="${c.key}"${titleAttr}>${c.label}${dir}${infoBtn}</div>`;
   }).join('');
   h.querySelectorAll('[data-sort]').forEach(el => {
     el.onclick = () => {
@@ -644,6 +648,11 @@ function renderEvents() {
     if (sortCol === 'id') return sortDir * (a.id - b.id);
     if (sortCol === 'date') return sortDir * (a.id - b.id); // dates correlate to ids
     if (sortCol === 'lobby_size') return sortDir * ((a.lobby_size||0) - (b.lobby_size||0));
+    if (sortCol === 'sof') {
+      const av = a.sof == null ? -1 : a.sof;
+      const bv = b.sof == null ? -1 : b.sof;
+      return sortDir * (av - bv);
+    }
     if (sortCol === 'w1' || sortCol === 'w2' || sortCol === 'w3') {
       const idx = { w1: 0, w2: 1, w3: 2 }[sortCol];
       const an = (a.winners && a.winners[idx]) || '';
@@ -664,6 +673,7 @@ function renderEvents() {
     const w2 = w[1] || '<span class="dim">-</span>';
     const w3 = w[2] || '<span class="dim">-</span>';
 
+    const sofTxt = (k.sof == null) ? '<span class="dim">&mdash;</span>' : k.sof.toFixed(1);
     row.innerHTML = `
       <div class="rank">#${k.id}</div>
       <div class="num" style="text-align:left">${k.date || '?'}</div>
@@ -671,6 +681,7 @@ function renderEvents() {
       <div class="pname"><span class="w2">${esc(w2)}</span></div>
       <div class="pname"><span class="w3">${esc(w3)}</span></div>
       <div class="num">${k.lobby_size || '-'}</div>
+      <div class="num">${sofTxt}</div>
     `;
     row.onclick = () => {
       selectedEvent = (selectedEvent === k.id) ? null : k.id;
