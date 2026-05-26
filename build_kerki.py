@@ -511,18 +511,23 @@ print(f"\nGlicko Skill Rating (decay={GLICKO_MU_DECAY}, surprise={GLICKO_SURPRIS
 for g in glicko_list[:15]:
     print(f"  #{g['rank']:>2}  {g['name']:20s}  {g['mu']:>6.0f} +/-{g['sigma']:<.0f}  ({g['apps']} apps)")
 
-# ── Load previous ranks for delta arrows ──────────────────────────
+# ── Load previous ranks for delta arrows (from snapshot.json) ─────
+# snapshot.json is written by snapshot.py BEFORE a new kerki is added,
+# freezing the pre-cup state. Rebuilds between snapshots reuse the same
+# baseline so the arrows always reflect "since the last snapshot", not
+# "since the last rebuild".
 old_ranking = {}
 old_glicko = {}
-old_players = {}
+old_history = {}
 try:
-    with open('kerki.json', 'r', encoding='utf-8') as f:
-        old_data = json.load(f)
-    old_ranking = {p['name']: p for p in old_data.get('ranking', {}).get('players', [])}
-    old_glicko = {p['name']: p for p in old_data.get('glicko', {}).get('players', [])}
-    old_players = {p['name']: p for p in old_data.get('players', [])}
+    with open('snapshot.json', 'r', encoding='utf-8') as f:
+        snap = json.load(f)
+    # snapshot.ranking: {name: [rank, points]}, glicko: {name: [rank, mu]}
+    old_ranking = {n: {'rank': v[0], 'points': v[1]} for n, v in snap.get('ranking', {}).items()}
+    old_glicko = {n: {'rank': v[0], 'mu': v[1]} for n, v in snap.get('glicko', {}).items()}
+    old_history = snap.get('history', {})
 except (FileNotFoundError, json.JSONDecodeError, KeyError):
-    pass
+    print('[snapshot] no snapshot.json found — arrows will show NEW for everyone')
 
 for r in ranking_list:
     old = old_ranking.get(r['name'])
@@ -537,8 +542,7 @@ for g in glicko_list:
 # Records tab deltas: save the previous full history per player so the
 # frontend can recompute prev stats with the same troll-toggle filter as current.
 for p in player_list:
-    old = old_players.get(p['name'])
-    p['prev_history'] = old['history'] if (old and 'history' in old) else []
+    p['prev_history'] = old_history.get(p['name'], [])
 
 output = {
     'meta': {
