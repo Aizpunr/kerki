@@ -239,14 +239,6 @@
     },
     {
       "rank": 15,
-      "sid": "76561199186342067",
-      "name": "PlusMicron",
-      "points": 310,
-      "rounds_played": 20,
-      "finishes": 8
-    },
-    {
-      "rank": 16,
       "sid": "76561198360335411",
       "name": "lil_zwimpie",
       "points": 285,
@@ -254,7 +246,7 @@
       "finishes": 9
     },
     {
-      "rank": 17,
+      "rank": 16,
       "sid": "76561198126038296",
       "name": "Noxitu",
       "points": 260,
@@ -262,7 +254,7 @@
       "finishes": 8
     },
     {
-      "rank": 18,
+      "rank": 17,
       "sid": "76561198123464287",
       "name": "LILWOOLEY",
       "points": 240,
@@ -270,7 +262,7 @@
       "finishes": 8
     },
     {
-      "rank": 19,
+      "rank": 18,
       "sid": "76561198748988602",
       "name": "BrickEdwards",
       "points": 225,
@@ -278,7 +270,7 @@
       "finishes": 7
     },
     {
-      "rank": 20,
+      "rank": 19,
       "sid": "76561198758353504",
       "name": "M4DSCOTSM4N",
       "points": 190,
@@ -286,7 +278,7 @@
       "finishes": 6
     },
     {
-      "rank": 21,
+      "rank": 20,
       "sid": "76561198068823305",
       "name": "Ritchi",
       "points": 185,
@@ -294,7 +286,7 @@
       "finishes": 6
     },
     {
-      "rank": 22,
+      "rank": 21,
       "sid": "76561198010296962",
       "name": "timesprout",
       "points": 165,
@@ -302,7 +294,7 @@
       "finishes": 5
     },
     {
-      "rank": 23,
+      "rank": 22,
       "sid": "76561199218214543",
       "name": "Wheelie",
       "points": 160,
@@ -310,7 +302,7 @@
       "finishes": 5
     },
     {
-      "rank": 24,
+      "rank": 23,
       "sid": "76561198051058993",
       "name": "MAGS3",
       "points": 65,
@@ -318,7 +310,7 @@
       "finishes": 2
     },
     {
-      "rank": 25,
+      "rank": 24,
       "sid": "76561198091994639",
       "name": "cookie",
       "points": 60,
@@ -326,7 +318,7 @@
       "finishes": 2
     },
     {
-      "rank": 26,
+      "rank": 25,
       "sid": "76561199282497311",
       "name": "groovy",
       "points": 30,
@@ -341,6 +333,13 @@
       "points": 600,
       "rounds_played": 16,
       "finishes": 11
+    },
+    {
+      "sid": "76561199186342067",
+      "name": "PlusMicron",
+      "points": 310,
+      "rounds_played": 20,
+      "finishes": 8
     }
   ],
   "excluded": [

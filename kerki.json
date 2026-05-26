@@ -1100,7 +1100,7 @@
   },
   {
    "id": 36,
-   "date": "24/5/26",
+   "date": "26/5/26",
    "troll": false,
    "winners": [
     "justMaki",
@@ -1135,7 +1135,6 @@
     "MackCheesy",
     "wokonbike",
     "aizpun",
-    "PlusMicron",
     "lil_zwimpie",
     "Noxitu",
     "LILWOOLEY",
@@ -1149,9 +1148,10 @@
     "groovy"
    ],
    "nuisances": [
-    "Renergy"
+    "Renergy",
+    "PlusMicron"
    ],
-   "lobby_size": 40,
+   "lobby_size": 39,
    "sof": 95.73
   }
  ],
@@ -5965,54 +5965,6 @@
    ]
   },
   {
-   "name": "PlusMicron",
-   "apps": 4,
-   "wins": 0,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 0,
-   "best": null,
-   "history": [
-    {
-     "k": 33,
-     "result": "o"
-    },
-    {
-     "k": 34,
-     "result": "o"
-    },
-    {
-     "k": 35,
-     "result": "o"
-    },
-    {
-     "k": 36,
-     "result": "o"
-    }
-   ],
-   "prev_history": [
-    {
-     "k": 33,
-     "result": "o"
-    },
-    {
-     "k": 34,
-     "result": "o"
-    },
-    {
-     "k": 35,
-     "result": "o"
-    },
-    {
-     "k": 36,
-     "result": "o"
-    }
-   ]
-  },
-  {
    "name": "Kaiser64",
    "apps": 3,
    "wins": 0,
@@ -6604,6 +6556,50 @@
     },
     {
      "k": 34,
+     "result": "o"
+    },
+    {
+     "k": 36,
+     "result": "o"
+    }
+   ]
+  },
+  {
+   "name": "PlusMicron",
+   "apps": 3,
+   "wins": 0,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 0,
+   "w5": 0,
+   "finalist": 0,
+   "best": null,
+   "history": [
+    {
+     "k": 33,
+     "result": "o"
+    },
+    {
+     "k": 34,
+     "result": "o"
+    },
+    {
+     "k": 35,
+     "result": "o"
+    }
+   ],
+   "prev_history": [
+    {
+     "k": 33,
+     "result": "o"
+    },
+    {
+     "k": 34,
+     "result": "o"
+    },
+    {
+     "k": 35,
      "result": "o"
     },
     {
