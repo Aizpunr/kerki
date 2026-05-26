@@ -132,7 +132,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
 }
 .view-events .table-header, .view-events .row {
-  grid-template-columns: 52px 78px 1fr 1fr 1fr 60px 60px;
+  grid-template-columns: 52px 1fr 1fr 1fr 60px 60px;
 }
 .event-detail-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px;
@@ -152,14 +152,14 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .event-row.troll .pname, .event-row.troll .num { color: var(--text-muted); font-style: italic; }
 @media (max-width: 720px) {
   .view-events .table-header, .view-events .row {
-    grid-template-columns: 36px 60px 1fr 60px;
+    grid-template-columns: 36px 1fr 60px;
   }
+  .view-events .table-header > :nth-child(3),
+  .view-events .row > :nth-child(3),
   .view-events .table-header > :nth-child(4),
   .view-events .row > :nth-child(4),
-  .view-events .table-header > :nth-child(5),
-  .view-events .row > :nth-child(5),
-  .view-events .table-header > :nth-child(7),
-  .view-events .row > :nth-child(7) { display: none; }
+  .view-events .table-header > :nth-child(6),
+  .view-events .row > :nth-child(6) { display: none; }
   .event-detail-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .event-detail-grid ol, .event-detail-grid ul { font-size: 11px; }
 }
@@ -534,7 +534,6 @@ const GLICKO_COLS = [
 
 const EVENTS_COLS = [
   { key: 'id', label: '#', cls: '' },
-  { key: 'date', label: 'Date', cls: '' },
   { key: 'w1', label: '1st', cls: '' },
   { key: 'w2', label: '2nd', cls: '' },
   { key: 'w3', label: '3rd', cls: '' },
@@ -646,7 +645,6 @@ function renderEvents() {
   list = [...list];
   list.sort((a, b) => {
     if (sortCol === 'id') return sortDir * (a.id - b.id);
-    if (sortCol === 'date') return sortDir * (a.id - b.id); // dates correlate to ids
     if (sortCol === 'lobby_size') return sortDir * ((a.lobby_size||0) - (b.lobby_size||0));
     if (sortCol === 'sof') {
       const av = a.sof == null ? -1 : a.sof;
@@ -676,7 +674,6 @@ function renderEvents() {
     const sofTxt = (k.sof == null) ? '<span class="dim">&mdash;</span>' : k.sof.toFixed(1);
     row.innerHTML = `
       <div class="rank">#${k.id}</div>
-      <div class="num" style="text-align:left">${k.date || '?'}</div>
       <div class="pname"><span class="w1">${esc(w1)}</span></div>
       <div class="pname"><span class="w2">${esc(w2)}</span></div>
       <div class="pname"><span class="w3">${esc(w3)}</span></div>
