@@ -140,7 +140,7 @@ def parse_log(log_path, target_kerki, restrict_date=None):
     return kerki_rounds, roster
 
 # ── Standings computation ──────────────────────────────────────────
-def compute_standings(kerki_rounds, roster, mapper_sids):
+def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True):
     played = [r for r in kerki_rounds if r["last_lb"] and len(r["last_lb"]) > 0]
 
     # Map rotation: order maps appeared
@@ -153,15 +153,18 @@ def compute_standings(kerki_rounds, roster, mapper_sids):
     if len(rotation) != 3:
         print(f"  WARN: expected 3 unique maps, found {len(rotation)}: {rotation}", file=sys.stderr)
 
-    # Warmup = first played round on each of the 3 unique maps
+    # Warmup = first played round on each of the 3 unique maps.
+    # Skipped entirely when the mod was started AFTER discovery (no warmup
+    # rounds present in the log) — pass skip_warmup=False / --no-warmup.
     warmup_keys = set()
-    seen = set()
-    for r in played:
-        if r["map"] not in seen:
-            seen.add(r["map"])
-            warmup_keys.add((r["session"], r["num"]))
-        if len(seen) == 3:
-            break
+    if skip_warmup:
+        seen = set()
+        for r in played:
+            if r["map"] not in seen:
+                seen.add(r["map"])
+                warmup_keys.add((r["session"], r["num"]))
+            if len(seen) == 3:
+                break
 
     scoring_rounds = [r for r in played if (r["session"], r["num"]) not in warmup_keys]
 
@@ -372,6 +375,9 @@ def main():
     p.add_argument("--header", default=None,
                    help="R2 cell content. Default: 'Kerki Comp #N - Maps by ?, ?, ?'")
     p.add_argument("--write-xlsx", action="store_true", help="Write to the xlsx (creates .bak first)")
+    p.add_argument("--no-warmup", action="store_true",
+                   help="No discovery/warmup rounds in the log (mod started AFTER discovery). "
+                        "Scores every round; without this the first appearance of each map is treated as warmup.")
     args = p.parse_args()
 
     mapper_sids = set(s.strip() for s in args.mappers.split(",") if s.strip())
@@ -388,7 +394,9 @@ def main():
     print(f"  kerki rounds parsed: {len(kerki_rounds)}")
     print(f"  roster size: {len(roster)}")
 
-    standings = compute_standings(kerki_rounds, roster, mapper_sids)
+    standings = compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=not args.no_warmup)
+    if args.no_warmup:
+        print("  warmup: DISABLED (--no-warmup) — all rounds scored")
     print(f"\n  rotation: {[m.replace(f'Kerki #{args.kerki} - ','') for m in standings['rotation']]}")
     print(f"  scoring rounds: {standings['scoring_rounds_count']}")
 
