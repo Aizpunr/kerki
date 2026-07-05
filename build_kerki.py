@@ -49,7 +49,7 @@ CANONICAL = {
                      '[AJSE] Quickracer10', '[ASJE] Quickracer10', '[CC] Quickracer10',
                      'Quick'],
     'Warsnac': ['Warcans', '[CHR]Warcans', '[BAP]Warsnac', '[CHR]Warsnac', '[old]Warsnac'],
-    'JakeAdjacent': ['SadD0ge', '[CD]SadD0ge', '[SWMG]SadD0ge', '[SWMG]JakeAdjacent'],
+    'JakeAdjacent': ['SadD0ge', '[CD]SadD0ge', '[SWMG]SadD0ge', '[SWMG]JakeAdjacent', 'Jake'],
     'Naomi': ['Nyaomi', '[meow]Nyaomi', '[POIN]Fwogiie', '[RTR]Fwogiie',
               '[frog]Fwogiie', 'Fwogiie', '[ASJE]Naomi'],
     'Tommygaming': ['Tommygaming5132', 'TommyGaming5132', '[CSC]Tommygaming',

@@ -61,12 +61,18 @@ def xlsx_target(kerki_id):
 OFFSETS = [1, 7, 13, 19, 25]  # 5 kerkis per tab, 6 cols each (3 data + 3 spacer)
 
 # ── Log parsing ────────────────────────────────────────────────────
-def parse_log(log_path, target_kerki, restrict_date=None):
-    """Return rounds + roster dict for the given kerki id (across all sessions on `restrict_date`).
-    `restrict_date`: 'YYYY-MM-DD' or None. If None, takes latest session containing the kerki."""
+def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
+    """Return (kerki_rounds, roster, logged_nums) for the given kerki id.
+    `restrict_date`: 'YYYY-MM-DD' or None. If None, takes latest session containing the kerki.
+    `extra_maps`: extra map-name substrings to match rounds whose in-game name
+    lacks the 'Kerki #N' tag (mappers don't always tag them).
+    `logged_nums`: {session: set(round nums seen via ROUND_STARTED)} — used to
+    detect rounds that happened before the mod hooked."""
     map_marker = f"Kerki #{target_kerki}"
+    extra_maps = [m.lower() for m in extra_maps if m]
     roster = {}        # sid -> name (latest seen)
     rounds = []
+    logged_nums = {}   # session -> set of round nums with a ROUND_STARTED line
     current_round = None
     current_lb = None
     current_session = 0
@@ -115,6 +121,7 @@ def parse_log(log_path, target_kerki, restrict_date=None):
                     "session": current_session, "last_lb": None, "ended": False,
                     "roster": set(), "ts": ts,
                 }
+                logged_nums.setdefault(current_session, set()).add(int(parts[1]))
                 current_lb = None
             elif kind == "ROUND_ENDED":
                 if current_round is not None:
@@ -136,11 +143,18 @@ def parse_log(log_path, target_kerki, restrict_date=None):
         current_round["last_lb"] = current_lb
         rounds.append(current_round)
 
-    kerki_rounds = [r for r in rounds if map_marker in r["map"]]
-    return kerki_rounds, roster
+    def is_kerki(r):
+        if map_marker in r["map"]:
+            return True
+        ml = r["map"].lower()
+        return any(x in ml for x in extra_maps)
+
+    kerki_rounds = [r for r in rounds if is_kerki(r)]
+    return kerki_rounds, roster, logged_nums
 
 # ── Standings computation ──────────────────────────────────────────
-def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True):
+def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True,
+                      discovered_off_log=()):
     played = [r for r in kerki_rounds if r["last_lb"] and len(r["last_lb"]) > 0]
 
     # Map rotation: order maps appeared
@@ -154,15 +168,19 @@ def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True):
         print(f"  WARN: expected 3 unique maps, found {len(rotation)}: {rotation}", file=sys.stderr)
 
     # Warmup = first played round on each of the 3 unique maps.
-    # Skipped entirely when the mod was started AFTER discovery (no warmup
-    # rounds present in the log) — pass skip_warmup=False / --no-warmup.
+    # Skipped entirely when the mod was started AFTER all discoveries
+    # (--no-warmup), or per-map via `discovered_off_log`: maps whose discovery
+    # happened before logging started — their first LOGGED round is a real
+    # scoring round, so no warmup skip for them.
+    disc_off = [m.lower() for m in discovered_off_log if m]
     warmup_keys = set()
     if skip_warmup:
         seen = set()
         for r in played:
             if r["map"] not in seen:
                 seen.add(r["map"])
-                warmup_keys.add((r["session"], r["num"]))
+                if not any(x in r["map"].lower() for x in disc_off):
+                    warmup_keys.add((r["session"], r["num"]))
             if len(seen) == 3:
                 break
 
@@ -378,23 +396,65 @@ def main():
     p.add_argument("--no-warmup", action="store_true",
                    help="No discovery/warmup rounds in the log (mod started AFTER discovery). "
                         "Scores every round; without this the first appearance of each map is treated as warmup.")
+    p.add_argument("--maps", default="",
+                   help="Comma-separated extra map-name substrings for rounds whose in-game "
+                        "name lacks the 'Kerki #N' tag (mappers don't always tag).")
+    p.add_argument("--discovered", default="",
+                   help="Comma-separated map-name substrings whose DISCOVERY happened before "
+                        "logging started — their first logged round is scored, not warmup. "
+                        "Required when the log is missing early rounds (ask aizpun which maps "
+                        "were already discovered). Pass --discovered none if no discovery was missed.")
     args = p.parse_args()
 
     mapper_sids = set(s.strip() for s in args.mappers.split(",") if s.strip())
+    extra_maps = [s.strip() for s in args.maps.split(",") if s.strip()]
+    discovered = [s.strip() for s in args.discovered.split(",") if s.strip()]
+    discovered_ack = [d for d in discovered if d.lower() != "none"]
 
     print(f"== Kerki #{args.kerki} ==")
     print(f"  log: {args.log}")
     print(f"  date filter: {args.date or '(any)'}")
     print(f"  mappers (exc.): {sorted(mapper_sids) or '(none)'}")
+    if extra_maps:
+        print(f"  extra map matchers: {extra_maps}")
 
-    kerki_rounds, roster = parse_log(args.log, args.kerki, restrict_date=args.date)
+    kerki_rounds, roster, logged_nums = parse_log(
+        args.log, args.kerki, restrict_date=args.date, extra_maps=extra_maps)
     if not kerki_rounds:
         print(f"  ERROR: no rounds tagged 'Kerki #{args.kerki}' found", file=sys.stderr)
         sys.exit(1)
     print(f"  kerki rounds parsed: {len(kerki_rounds)}")
     print(f"  roster size: {len(roster)}")
 
-    standings = compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=not args.no_warmup)
+    # Detect rounds that ran before the mod hooked: round numbers below the
+    # first kerki round with no ROUND_STARTED line in the same session.
+    # If any are missing we can't know which map discoveries happened off-log,
+    # so require an explicit answer instead of guessing (per aizpun 2026-07-05).
+    if not args.no_warmup:
+        sessions = {r["session"] for r in kerki_rounds}
+        missing = {}
+        for s in sessions:
+            first_num = min(r["num"] for r in kerki_rounds if r["session"] == s)
+            seen = logged_nums.get(s, set())
+            gap = [n for n in range(1, first_num) if n not in seen]
+            if gap:
+                missing[s] = gap
+        if missing and not discovered:
+            print(f"\n  ERROR: rounds missing before the first kerki round "
+                  f"(per session: {missing}).", file=sys.stderr)
+            print("  The mod hooked mid-cup — some discovery rounds may be off-log.",
+                  file=sys.stderr)
+            print("  ASK AIZPUN which maps had already had their discovery round, then re-run",
+                  file=sys.stderr)
+            print("  with:  --discovered \"<map name>[,<map name>]\"   (or --discovered none)",
+                  file=sys.stderr)
+            sys.exit(2)
+        if discovered_ack:
+            print(f"  discovery off-log for: {discovered_ack} (their first logged round is scored)")
+
+    standings = compute_standings(kerki_rounds, roster, mapper_sids,
+                                  skip_warmup=not args.no_warmup,
+                                  discovered_off_log=discovered_ack)
     if args.no_warmup:
         print("  warmup: DISABLED (--no-warmup) — all rounds scored")
     print(f"\n  rotation: {[m.replace(f'Kerki #{args.kerki} - ','') for m in standings['rotation']]}")
