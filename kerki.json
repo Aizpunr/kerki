@@ -1047,7 +1047,7 @@
    ],
    "nuisances": [],
    "lobby_size": 43,
-   "sof": 87.14
+   "sof": 86.69
   },
   {
    "id": 35,
@@ -1096,7 +1096,7 @@
     "JobW"
    ],
    "lobby_size": 31,
-   "sof": 85.15
+   "sof": 84.72
   },
   {
    "id": 36,
@@ -1152,7 +1152,7 @@
     "PlusMicron"
    ],
    "lobby_size": 39,
-   "sof": 94.78
+   "sof": 94.29
   },
   {
    "id": 37,
@@ -1206,7 +1206,7 @@
     "bjenk4"
    ],
    "lobby_size": 36,
-   "sof": 85.13
+   "sof": 84.71
   },
   {
    "id": 38,
@@ -1260,7 +1260,7 @@
     "Shadynook"
    ],
    "lobby_size": 35,
-   "sof": 84.36
+   "sof": 83.92
   },
   {
    "id": 39,
@@ -1312,7 +1312,8 @@
     "IronDragon111000",
     "brrryy"
    ],
-   "lobby_size": 35
+   "lobby_size": 35,
+   "sof": 88.65
   }
  ],
  "players": [
