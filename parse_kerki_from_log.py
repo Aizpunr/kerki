@@ -9,10 +9,14 @@ Usage:
 Rules (kept aligned with project_kerki.md):
 - Warmup: first played round on each of the 3 unique maps (3 warmup rounds).
 - Aborted rounds (final LB has 0 finishers) are dropped.
-- Points: 1=100, 2=80, 3=70, 4-5=60, 6-9=50, 10-16=40, 17-24=35, 25+=30
-- Finalist threshold: 750 points (capped). Mappers excluded from championship contention
+- Points v1 (<= #40): 1=100, 2=80, 3=70, 4-5=60, 6-9=50, 10-16=40, 17-24=35, 25+=30, DNF=0
+- Points v2 (>= #41): 150 125 110 100 92 85 79 73 68 63 59 55 52 49 46 44 42 40 38 37 36 35, 22nd+=35, DNF=20
+- Finalist threshold: 750 points through #40, 1000 from #41 (capped; see POINTS_V1/V2).
+  Mappers excluded from championship contention
   (they take points off the pool by occupying slots).
 - Winner = finalist who wins a round AS finalist. Up to 5. Order = round won asc.
+  v2: crossing the threshold while finishing pos 1 wins that same round.
+- --baseline: seed totals from the in-game board when /livelog started late (implies --no-warmup).
 - Finalists section sorted by qualifying-round asc.
 - Last-round-rule: if a player qualifies in the LAST scoring round, no finalist tag.
 - Participation filter: must be rostered ≥6 scoring rounds AND have ≥1 finish.
@@ -29,19 +33,45 @@ from datetime import date as _date
 # ── Config ─────────────────────────────────────────────────────────
 DEFAULT_LOG = r"C:\Program Files (x86)\Steam\steamapps\common\Zeepkist\BepInEx\LiveLeaderboardLogger.log"
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-FINALIST_THRESHOLD = 750
 MIN_ROUNDS_PLAYED = 6
 
-POINTS_TABLE = [
-    (1, 1, 100), (2, 2, 80), (3, 3, 70), (4, 5, 60),
-    (6, 9, 50), (10, 16, 40), (17, 24, 35), (25, 9999, 30),
-]
+# Per-cup points systems. v1 ran through Kerki #40; v2 starts at #41
+# (confirmed by aizpun 2026-09-06, validated against the in-game board).
+POINTS_V1 = {
+    "name": "v1 (<= #40)",
+    "threshold": 750,   # finalist at this total, then capped
+    "dnf": 0,           # rostered but no finish
+    "table": [(1, 1, 100), (2, 2, 80), (3, 3, 70), (4, 5, 60),
+              (6, 9, 50), (10, 16, 40), (17, 24, 35), (25, 9999, 30)],
+    "floor": 30,
+    "win_same_round": False,
+}
+_V2_TOP = [150, 125, 110, 100, 92, 85, 79, 73, 68, 63, 59,
+           55, 52, 49, 46, 44, 42, 40, 38, 37, 36, 35]
+POINTS_V2 = {
+    "name": "v2 (>= #41)",
+    "threshold": 1000,
+    "dnf": 20,
+    "table": [(i, i, pts) for i, pts in enumerate(_V2_TOP, start=1)],
+    "floor": 35,        # 22nd finisher onward
+    # PlusMicron's Top->Out tracker (used from #41) awards the W in the same
+    # round a player crosses the threshold while finishing raw pos 1
+    # (PandaMane #41: 930 -> 1080 at pos 1 = 3rd winner). v1 needed a later round.
+    "win_same_round": True,
+}
 
-def points_for_pos(pos):
-    for lo, hi, pts in POINTS_TABLE:
+def points_system_for(kerki_id):
+    return POINTS_V2 if kerki_id >= 41 else POINTS_V1
+
+def points_for_pos(pos, system):
+    for lo, hi, pts in system["table"]:
         if lo <= pos <= hi:
             return pts
-    return 30
+    return system["floor"]
+
+def strip_tag(name):
+    """'[CSC] Shadynook' -> 'Shadynook' (in-game clan tag prefix)."""
+    return re.sub(r"^\[[^\]]*\]\s*", "", name or "").strip()
 
 # Tab + column for a given kerki id
 # Tab "Kerki 31-35" → col_offsets [1,7,13,19,25] for kerkis 31,32,33,34,35
@@ -56,6 +86,7 @@ def xlsx_target(kerki_id):
     # 31+ block — extend tab list as new ones are created
     if 31 <= kerki_id <= 35:  return ("Kerki Comp Results 31+.xlsx", "Kerki 31-35", kerki_id - 31)
     if 36 <= kerki_id <= 40:  return ("Kerki Comp Results 31+.xlsx", "Kerki 36-40", kerki_id - 36)
+    if 41 <= kerki_id <= 45:  return ("Kerki Comp Results 31+.xlsx", "Kerki 41-45", kerki_id - 41)
     raise ValueError(f"No xlsx mapping for Kerki #{kerki_id} — add a row to xlsx_target()")
 
 OFFSETS = [1, 7, 13, 19, 25]  # 5 kerkis per tab, 6 cols each (3 data + 3 spacer)
@@ -153,8 +184,38 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     return kerki_rounds, roster, logged_nums
 
 # ── Standings computation ──────────────────────────────────────────
-def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True,
-                      discovered_off_log=()):
+def resolve_baseline(baseline, roster):
+    """Map a {name_or_sid: points} baseline onto roster sids.
+    Names are matched with clan tags stripped, case-insensitive.
+    Returns (sid -> points). Raises ValueError listing unmatched names."""
+    by_name = {}
+    for sid, name in roster.items():
+        by_name.setdefault(strip_tag(name).lower(), sid)
+    out, missing = {}, []
+    for key, pts in baseline.items():
+        if key.startswith("_"):
+            continue  # metadata keys
+        if key in roster:
+            out[key] = int(pts)
+            continue
+        sid = by_name.get(strip_tag(key).lower())
+        if sid is None:
+            missing.append(key)
+        else:
+            out[sid] = int(pts)
+    if missing:
+        raise ValueError(f"baseline names not found in roster: {missing}")
+    return out
+
+
+def compute_standings(kerki_rounds, roster, mapper_sids, system, skip_warmup=True,
+                      discovered_off_log=(), baseline=None):
+    """`system`: POINTS_V1 / POINTS_V2. `baseline`: sid -> championship points
+    already earned before the first logged round (in-game board transcription,
+    used when /livelog started late). Baseline players count as having played
+    enough rounds (they were on the board)."""
+    threshold = system["threshold"]
+    baseline = baseline or {}
     played = [r for r in kerki_rounds if r["last_lb"] and len(r["last_lb"]) > 0]
 
     # Map rotation: order maps appeared
@@ -195,6 +256,31 @@ def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True,
     finishes_by = defaultdict(int)
     mapper_points = defaultdict(int)
 
+    # Seed from the pre-log board. Nuisance points stay off-pool; anyone
+    # already at/over the threshold is a finalist before the first logged round.
+    for sid, pts in baseline.items():
+        all_participants.add(sid)
+        if sid in mapper_sids:
+            mapper_points[sid] += pts
+        elif pts >= threshold:
+            points[sid] = threshold
+            qualified_round[sid] = 0
+        else:
+            points[sid] = pts
+
+    def add_points(sid, pts, s_idx):
+        if sid in mapper_sids:
+            mapper_points[sid] += pts
+            return
+        if sid in qualified_round:
+            return  # already capped
+        new_total = points[sid] + pts
+        if new_total >= threshold:
+            points[sid] = threshold
+            qualified_round[sid] = s_idx
+        else:
+            points[sid] = new_total
+
     for s_idx, r in enumerate(scoring_rounds, start=1):
         for sid in r["roster"]:
             rounds_played_by[sid] += 1
@@ -204,37 +290,34 @@ def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True,
             all_participants.add(sid)
             finishes_by[sid] += 1
 
+        # ── Points (raw rank) ──────────────────────────────────────
+        # Nuisance players' points go off-pool (mapper_points, uncapped).
+        # Championship players accumulate at their RAW rank until the threshold.
+        finished = set()
+        for rank0, entry in enumerate(lb):
+            sid = entry["sid"]
+            finished.add(sid)
+            add_points(sid, points_for_pos(rank0 + 1, system), s_idx)
+        # DNF: rostered for the round but not on its leaderboard (v2 = 20 pts).
+        if system["dnf"]:
+            for sid in r["roster"]:
+                if sid not in finished:
+                    all_participants.add(sid)
+                    add_points(sid, system["dnf"], s_idx)
+
         # ── Round winner (W determination) ─────────────────────────
         # Raw pos-1, but skip the round's own-map mapper if applicable.
         # NOTE: own-map-mapper-skip not implemented (would need per-map mapper config).
         # All nuisance/mapper wins block the round (no W produced).
+        # v1: must already be a finalist from an earlier round.
+        # v2: qualifying in this very round while at pos 1 also counts.
         round_winner = lb[0]["sid"] if lb else None
-        if (round_winner
-            and round_winner not in mapper_sids
-            and round_winner in qualified_round
-            and qualified_round[round_winner] < s_idx
-            and round_winner not in won_in_round):
-            won_in_round[round_winner] = s_idx
-            winners_in_order.append(round_winner)
-
-        # ── Points (raw rank) ──────────────────────────────────────
-        # Nuisance players' points go off-pool (mapper_points, uncapped).
-        # Championship players accumulate at their RAW rank until 750.
-        for rank0, entry in enumerate(lb):
-            sid = entry["sid"]
-            rank = rank0 + 1
-            pts = points_for_pos(rank)
-            if sid in mapper_sids:
-                mapper_points[sid] += pts
-                continue
-            if sid in qualified_round:
-                continue  # already capped at 750
-            new_total = points[sid] + pts
-            if new_total >= FINALIST_THRESHOLD:
-                points[sid] = FINALIST_THRESHOLD
-                qualified_round[sid] = s_idx
-            else:
-                points[sid] = new_total
+        if round_winner and round_winner not in mapper_sids and round_winner in qualified_round:
+            q = qualified_round[round_winner]
+            qualified_in_time = q < s_idx or (system.get("win_same_round") and q == s_idx)
+            if qualified_in_time and round_winner not in won_in_round:
+                won_in_round[round_winner] = s_idx
+                winners_in_order.append(round_winner)
 
     last_round_idx = len(scoring_rounds)
     finalists_valid = {sid: q for sid, q in qualified_round.items() if q < last_round_idx}
@@ -244,7 +327,10 @@ def compute_standings(kerki_rounds, roster, mapper_sids, skip_warmup=True,
     def name_of(sid):
         return roster.get(sid, f"<{sid}>")
 
-    qualifies = lambda sid: rounds_played_by[sid] >= MIN_ROUNDS_PLAYED and finishes_by[sid] >= 1
+    def qualifies(sid):
+        enough_rounds = rounds_played_by[sid] >= MIN_ROUNDS_PLAYED or sid in baseline
+        finished_once = finishes_by[sid] >= 1 or baseline.get(sid, 0) > 0
+        return enough_rounds and finished_once
 
     # Build winners detail (winner is raw pos 1 of the won round)
     winners_out = []
@@ -399,6 +485,10 @@ def main():
     p.add_argument("--maps", default="",
                    help="Comma-separated extra map-name substrings for rounds whose in-game "
                         "name lacks the 'Kerki #N' tag (mappers don't always tag).")
+    p.add_argument("--baseline", default=None,
+                   help="JSON {name_or_sid: points} transcribed from the in-game Championship "
+                        "Leaderboard at the moment /livelog started (mod hooked mid-cup). "
+                        "Seeds championship totals; implies --no-warmup.")
     p.add_argument("--discovered", default="",
                    help="Comma-separated map-name substrings whose DISCOVERY happened before "
                         "logging started — their first logged round is scored, not warmup. "
@@ -411,7 +501,12 @@ def main():
     discovered = [s.strip() for s in args.discovered.split(",") if s.strip()]
     discovered_ack = [d for d in discovered if d.lower() != "none"]
 
+    system = points_system_for(args.kerki)
+    if args.baseline:
+        args.no_warmup = True  # every logged round is a scoring round
+
     print(f"== Kerki #{args.kerki} ==")
+    print(f"  points system: {system['name']}  threshold={system['threshold']}  dnf={system['dnf']}")
     print(f"  log: {args.log}")
     print(f"  date filter: {args.date or '(any)'}")
     print(f"  mappers (exc.): {sorted(mapper_sids) or '(none)'}")
@@ -452,9 +547,22 @@ def main():
         if discovered_ack:
             print(f"  discovery off-log for: {discovered_ack} (their first logged round is scored)")
 
-    standings = compute_standings(kerki_rounds, roster, mapper_sids,
+    baseline = None
+    if args.baseline:
+        with open(args.baseline, encoding="utf-8") as f:
+            raw = json.load(f)
+        try:
+            baseline = resolve_baseline(raw, roster)
+        except ValueError as e:
+            print(f"  ERROR: {e}", file=sys.stderr)
+            sys.exit(3)
+        print(f"  baseline: {len(baseline)} players seeded from {args.baseline}")
+
+    standings = compute_standings(kerki_rounds, roster, mapper_sids, system,
                                   skip_warmup=not args.no_warmup,
-                                  discovered_off_log=discovered_ack)
+                                  discovered_off_log=discovered_ack,
+                                  baseline=baseline)
+    standings["points_system"] = system["name"]
     if args.no_warmup:
         print("  warmup: DISABLED (--no-warmup) — all rounds scored")
     print(f"\n  rotation: {[m.replace(f'Kerki #{args.kerki} - ','') for m in standings['rotation']]}")

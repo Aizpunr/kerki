@@ -174,7 +174,7 @@ def normalize(name):
     return stripped
 
 # ── Troll kerkis ────────────────────────────────────────────────────
-TROLL_KERKIS = {10, 20, 30}
+TROLL_KERKIS = {10, 20, 30, 40}
 
 # ── Read xlsx data ──────────────────────────────────────────────────
 def read_kerki_tab(ws, tab_start_kerki, col_offsets=None):
@@ -275,7 +275,7 @@ wb2.close()
 
 # File 3: Kerkis 31+
 wb3 = load_workbook('Kerki Comp Results 31+.xlsx', read_only=True, data_only=True)
-for tab_name, start_id in [('Kerki 31-35', 31), ('Kerki 36-40', 36)]:
+for tab_name, start_id in [('Kerki 31-35', 31), ('Kerki 36-40', 36), ('Kerki 41-45', 41)]:
     if tab_name in wb3.sheetnames:
         all_kerkis.extend(read_kerki_tab(wb3[tab_name], start_id))
 wb3.close()
@@ -413,6 +413,54 @@ for r in ranking_list[:15]:
     print(f"  #{r['rank']:>2}  {r['name']:20s}  {r['points']:>5} pts  "
           f"({r['apps']} apps, {r['counted']} counted, {r['dropped']} dropped)")
 
+# ── Season standings ───────────────────────────────────────────────
+# Season = Maki's Discord season: Rolling points summed inside a kerki range,
+# no best-of drop, troll kerkis excluded. Only S3 (31-39) and S4 (41+) are
+# real seasons; everything before #31 is pre-season and has no standings.
+SEASONS = [
+    {'id': 3, 'start': 31, 'end': 39},
+    {'id': 4, 'start': 41, 'end': None},   # open season
+]
+
+season_list = []
+for sdef in SEASONS:
+    s_start, s_end = sdef['start'], sdef['end']
+    s_ids = [k['id'] for k in all_kerkis
+             if not k['troll'] and k['id'] >= s_start and (s_end is None or k['id'] <= s_end)]
+    s_set = set(s_ids)
+    rows = []
+    for pl in player_list:
+        hist = [{'k': h['k'], 'result': h['result'], 'points': RANK_POINTS.get(h['result'], 0), 'counted': True}
+                for h in pl['history'] if h['k'] in s_set]
+        scoring = [h for h in hist if h['points'] > 0]
+        if not scoring:
+            continue
+        res = [h['result'] for h in scoring]
+        rows.append({
+            'name': pl['name'],
+            'points': sum(h['points'] for h in scoring),
+            'apps': len(hist),
+            'wins': sum(1 for r in res if r.startswith('w')),
+            'w1': res.count('w1'), 'w2': res.count('w2'), 'w3': res.count('w3'),
+            'w4': res.count('w4'), 'w5': res.count('w5'), 'finalist': res.count('f'),
+            'history': sorted(scoring, key=lambda x: x['k']),
+        })
+    rows.sort(key=lambda x: (-x['points'], -x['wins'], -x['w1']))
+    for i, r in enumerate(rows):
+        r['rank'] = i + 1
+    season_list.append({
+        'id': sdef['id'],
+        'start': s_start,
+        'end': s_end,
+        'kerkis': s_ids,
+        'current': s_end is None,
+        'players': rows,
+    })
+    label = f"#{s_start}-#{s_end}" if s_end else f"#{s_start}+ (open)"
+    print(f"\nSeason {sdef['id']} ({label}, {len(s_ids)} kerkis):")
+    for r in rows[:5]:
+        print(f"  #{r['rank']:>2}  {r['name']:20s}  {r['points']:>5} pts  ({r['apps']} apps)")
+
 # ── Glicko-style skill rating ──────────────────────────────────────
 import math
 
@@ -519,6 +567,7 @@ for g in glicko_list[:15]:
 old_ranking = {}
 old_glicko = {}
 old_history = {}
+old_seasons = {}
 try:
     with open('snapshot.json', 'r', encoding='utf-8') as f:
         snap = json.load(f)
@@ -526,6 +575,8 @@ try:
     old_ranking = {n: {'rank': v[0], 'points': v[1]} for n, v in snap.get('ranking', {}).items()}
     old_glicko = {n: {'rank': v[0], 'mu': v[1]} for n, v in snap.get('glicko', {}).items()}
     old_history = snap.get('history', {})
+    old_seasons = {int(sid): {n: {'rank': v[0], 'points': v[1]} for n, v in pl.items()}
+                   for sid, pl in snap.get('seasons', {}).items()}
 except (FileNotFoundError, json.JSONDecodeError, KeyError):
     print('[snapshot] no snapshot.json found — arrows will show NEW for everyone')
 
@@ -538,6 +589,17 @@ for g in glicko_list:
     old = old_glicko.get(g['name'])
     g['prev_rank'] = old['rank'] if old else None
     g['prev_mu'] = old['mu'] if old else None
+
+for sz in season_list:
+    prev = old_seasons.get(sz['id'], {})
+    for r in sz['players']:
+        if not sz['current']:
+            # closed season: standings are final, no movement arrows
+            r['prev_rank'], r['prev_points'] = r['rank'], r['points']
+            continue
+        old = prev.get(r['name'])
+        r['prev_rank'] = old['rank'] if old else None
+        r['prev_points'] = old['points'] if old else None
 
 # Records tab deltas: save the previous full history per player so the
 # frontend can recompute prev stats with the same troll-toggle filter as current.
@@ -565,6 +627,7 @@ output = {
         'decay': GLICKO_MU_DECAY,
         'players': glicko_list,
     },
+    'seasons': season_list,
 }
 
 with open('kerki.json', 'w', encoding='utf-8') as f:

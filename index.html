@@ -134,6 +134,14 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
 .view-events .table-header, .view-events .row {
   grid-template-columns: 52px 1fr 1fr 1fr 60px 60px;
 }
+.view-season .table-header, .view-season .row {
+  grid-template-columns: 52px 1fr 62px 42px 42px 36px 36px 36px 46px;
+}
+.season-select {
+  background: var(--surface-hover); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 10px; border-radius: 8px; font-family: var(--mono); font-size: 11px;
+  outline: none; cursor: pointer;
+}
 .event-detail-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px;
   margin-top: 6px;
@@ -327,6 +335,20 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   .view-ranking .table-header { font-size: 8px; }
   .view-ranking .row .pname { font-size: 12px; }
   .view-ranking .row .num, .view-ranking .row .num-c { font-size: 11px; }
+  /* Season view mobile: hide Apps(4), 2nd(7), 3rd(8) */
+  .view-season .table-header, .view-season .row {
+    grid-template-columns: 40px 1fr 50px 36px 36px 36px !important;
+    padding: 6px 8px;
+  }
+  .view-season .table-header > :nth-child(4),
+  .view-season .row > :nth-child(4),
+  .view-season .table-header > :nth-child(7),
+  .view-season .row > :nth-child(7),
+  .view-season .table-header > :nth-child(8),
+  .view-season .row > :nth-child(8) { display: none !important; }
+  .view-season .table-header { font-size: 8px; }
+  .view-season .row .pname { font-size: 12px; }
+  .view-season .row .num, .view-season .row .num-c { font-size: 11px; }
 
   /* Glicko view mobile: hide sigma(4), Apps(5), 2nd(7), 3rd(8) */
   .view-glicko .table-header, .view-glicko .row {
@@ -363,10 +385,12 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   <div class="view-tabs">
     <button class="view-tab" data-view="ranking">Ranking</button>
     <button class="view-tab" data-view="glicko">Skill</button>
+    <button class="view-tab" data-view="season">Season</button>
     <button class="view-tab active" data-view="records">Records</button>
     <button class="view-tab" data-view="events">Events</button>
   </div>
   <input type="text" class="search-input" id="search" placeholder="Search player...">
+  <select class="season-select" id="seasonSel" style="display:none"></select>
   <label class="toggle-wrap" id="trollWrap">
     <input type="checkbox" id="trollToggle">
     <span>Include Troll</span>
@@ -419,7 +443,7 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
     <ul>
       <li>Only the last <code>26</code> non-troll kerkis count (roughly half a year).</li>
       <li>Of those, only your <b>best 18</b> results are summed &mdash; the rest are dropped.</li>
-      <li>Troll kerkis (#10, #20, #30) are excluded entirely.</li>
+      <li>Troll kerkis (#10, #20, #30, #40) are excluded entirely.</li>
     </ul>
 
     <h4>How it works</h4>
@@ -488,6 +512,34 @@ input[type="range"] { width: 70px; accent-color: var(--accent); }
   </div>
 </div>
 
+<div class="modal-overlay" id="seasonModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Season Standings</h3>
+      <button class="modal-close" onclick="document.getElementById('seasonModal').classList.remove('open')">&#10005; close</button>
+    </div>
+    <p>The season table Maki announces on Discord: the same points as the Rolling ranking, summed over one season only.</p>
+
+    <h4>How it works</h4>
+    <ul>
+      <li>Points per placement are identical to Rolling: 1st Winner 200, 2nd 140, 3rd 100, 4th 70, 5th 40, Finalist 10.</li>
+      <li><b>Every kerki in the season counts.</b> No sliding window and no best-of drop.</li>
+      <li>Troll kerkis are excluded. The troll finale closes a season.</li>
+      <li>Ties are broken by total wins, then by 1st Winner count.</li>
+    </ul>
+
+    <h4>Seasons</h4>
+    <ul>
+      <li><b>Season 3</b>: Kerki #31 to #39 (finale #40).</li>
+      <li><b>Season 4</b>: Kerki #41 onwards, in progress.</li>
+      <li>Kerkis before #31 predate the season format and have no season table.</li>
+    </ul>
+
+    <h4>Rolling vs Season</h4>
+    <p><b>Rolling</b> is the long-run form ranking (best 18 of the last 26 kerkis). <b>Season</b> is the title race: it resets after every troll finale.</p>
+  </div>
+</div>
+
 <img src="maki.png" class="mascot mascot-left" alt="" onerror="this.style.display='none'">
 <img src="kernkob.png" class="mascot mascot-right" alt="" onerror="this.style.display='none'">
 
@@ -512,6 +564,18 @@ const RANKING_COLS = [
   { key: 'rank', label: '#', cls: '' },
   { key: 'name', label: 'Player', cls: '' },
   { key: 'points', label: 'Rolling', cls: 'right' },
+  { key: 'apps', label: 'Apps', cls: 'right' },
+  { key: 'wins', label: 'W', cls: 'right' },
+  { key: 'w1', label: '1st', cls: 'center' },
+  { key: 'w2', label: '2nd', cls: 'center' },
+  { key: 'w3', label: '3rd', cls: 'center' },
+  { key: 'finalist', label: 'Fin', cls: 'right' },
+];
+
+const SEASON_COLS = [
+  { key: 'rank', label: '#', cls: '' },
+  { key: 'name', label: 'Player', cls: '' },
+  { key: 'points', label: 'Season', cls: 'right' },
   { key: 'apps', label: 'Apps', cls: 'right' },
   { key: 'wins', label: 'W', cls: 'right' },
   { key: 'w1', label: '1st', cls: 'center' },
@@ -555,6 +619,7 @@ function ptsColor(pts) {
 function getCols() {
   if (viewMode === 'ranking') return RANKING_COLS;
   if (viewMode === 'glicko') return GLICKO_COLS;
+  if (viewMode === 'season') return SEASON_COLS;
   if (viewMode === 'events') return EVENTS_COLS;
   return RECORDS_COLS;
 }
@@ -563,7 +628,25 @@ fetch('kerki.json')
   .then(r => r.json())
   .then(data => { DATA = data; init(); });
 
+let seasonId = null;
+function currentSeason() {
+  const list = DATA.seasons || [];
+  return list.find(sz => sz.id === seasonId) || list.find(sz => sz.current) || list[list.length - 1] || null;
+}
+function seasonLabel(sz) {
+  return sz.end ? `Kerki #${sz.start}\u2013#${sz.end}` : `Kerki #${sz.start}+ (in progress)`;
+}
+function initSeasonSelect() {
+  const sel = document.getElementById('seasonSel');
+  const list = [...(DATA.seasons || [])].sort((a, b) => b.id - a.id);
+  sel.innerHTML = list.map(sz => `<option value="${sz.id}">Season ${sz.id} \u00b7 ${seasonLabel(sz)}</option>`).join('');
+  const cur = currentSeason();
+  if (cur) { seasonId = cur.id; sel.value = String(cur.id); }
+  sel.onchange = () => { seasonId = parseInt(sel.value, 10); selected = null; updateSubtitle(); render(); };
+}
+
 function init() {
+  initSeasonSelect();
   updateSubtitle();
   updateControls();
   buildHeader();
@@ -577,6 +660,9 @@ function updateSubtitle() {
     el.textContent = `Rolling \u00b7 Best ${r.best_of} of last ${r.eligible_kerkis} kerkis`;
   } else if (viewMode === 'glicko') {
     el.textContent = `Skill Rating \u00b7 Convergent with ${(DATA.glicko.decay * 100).toFixed(0)}% decay`;
+  } else if (viewMode === 'season') {
+    const sz = currentSeason();
+    el.textContent = sz ? `Season ${sz.id} \u00b7 ${seasonLabel(sz)} \u00b7 ${sz.kerkis.length} kerki${sz.kerkis.length === 1 ? '' : 's'} played` : 'No seasons yet';
   } else if (viewMode === 'events') {
     el.textContent = `${DATA.meta.total_kerkis} events \u00b7 click a row to see full standings`;
   } else {
@@ -590,6 +676,7 @@ function updateControls() {
   document.getElementById('trollWrap').style.display = (isRecords || isEvents) ? '' : 'none';
   document.getElementById('minCupsWrap').style.display = isRecords ? '' : 'none';
   document.getElementById('tierLegend').style.display = viewMode === 'ranking' ? '' : 'none';
+  document.getElementById('seasonSel').style.display = viewMode === 'season' ? '' : 'none';
 }
 
 function buildHeader() {
@@ -603,6 +690,8 @@ function buildHeader() {
       infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'infoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
     else if (c.key === 'mu' && viewMode === 'glicko')
       infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'glickoModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
+    else if (c.key === 'points' && viewMode === 'season')
+      infoBtn = ' <button class="info-btn" onclick="event.stopPropagation();document.getElementById(\'seasonModal\').classList.add(\'open\')" style="pointer-events:auto;margin-left:2px;font-size:9px;padding:0 4px">\u2139</button>';
     const titleAttr = c.title ? ` title="${c.title}"` : '';
     return `<div class="${c.cls}${active}" data-sort="${c.key}"${titleAttr}>${c.label}${dir}${infoBtn}</div>`;
   }).join('');
@@ -621,6 +710,7 @@ function buildHeader() {
 function render() {
   if (viewMode === 'ranking') renderRanking();
   else if (viewMode === 'glicko') renderGlicko();
+  else if (viewMode === 'season') renderSeason();
   else if (viewMode === 'events') renderEvents();
   else renderRecords();
 }
@@ -913,6 +1003,81 @@ function buildRankingDetail(p) {
     }, 0);
   }
 
+  return panel;
+}
+
+/* ── Season View ── */
+function renderSeason() {
+  const body = document.getElementById('tableBody');
+  body.innerHTML = '';
+  const sz = currentSeason();
+  if (!sz) return;
+
+  const search = document.getElementById('search').value.toLowerCase();
+  let list = sz.players.filter(p => p.name.toLowerCase().includes(search));
+  list = [...list];
+  list.sort((a, b) => {
+    if (sortCol === 'name') return sortDir * a.name.localeCompare(b.name);
+    const va = a[sortCol] ?? 0, vb = b[sortCol] ?? 0;
+    const d = sortDir * (va - vb);
+    return d !== 0 ? d : (a.rank - b.rank);
+  });
+
+  list.forEach(p => {
+    const row = document.createElement('div');
+    row.className = 'row' + (p.name === selected ? ' selected' : '');
+    const w1h = p.w1 ? `<span class="w1">${p.w1}</span>` : `<span class="dim">-</span>`;
+    const w2h = p.w2 ? `<span class="w2">${p.w2}</span>` : `<span class="dim">-</span>`;
+    const w3h = p.w3 ? `<span class="w3">${p.w3}</span>` : `<span class="dim">-</span>`;
+    const finh = p.finalist ? `<span class="fin">${p.finalist}</span>` : `<span class="dim">-</span>`;
+    row.innerHTML = `
+      <div class="rank">${p.rank}${rankDelta(p.prev_rank, p.rank)}</div>
+      <div class="pname">${esc(p.name)}</div>
+      <div class="num"><b>${p.points}</b>${valDelta(p.prev_points, p.points)}</div>
+      <div class="num">${p.apps}</div>
+      <div class="num">${p.wins || '-'}</div>
+      <div class="num-c">${w1h}</div>
+      <div class="num-c">${w2h}</div>
+      <div class="num-c">${w3h}</div>
+      <div class="num">${finh}</div>
+    `;
+    row.onclick = () => { selected = selected === p.name ? null : p.name; render(); };
+    body.appendChild(row);
+    if (p.name === selected) body.appendChild(buildSeasonDetail(p, sz));
+  });
+}
+
+function buildSeasonDetail(p, sz) {
+  const panel = document.createElement('div');
+  panel.className = 'detail-panel';
+  const fullPlayer = DATA.players.find(fp => fp.name === p.name);
+  const trollSet = new Set(DATA.kerkis.filter(k => k.troll).map(k => k.id));
+  const windowMap = {};
+  p.history.forEach(h => { windowMap[h.k] = h; });
+  const wStart = sz.start;
+  const wEnd = sz.end || DATA.meta.last_kerki;
+
+  panel.innerHTML = `
+    <div class="detail-header">
+      <span class="name">${esc(p.name)}</span>
+      <button class="close-btn" onclick="selected=null;render();event.stopPropagation();">\u2715</button>
+    </div>
+    <div class="detail-stats">
+      <div class="detail-stat">Pts <span class="val">${p.points}</span></div>
+      <div class="detail-stat">Apps <span class="val">${p.apps}/${sz.kerkis.length}</span></div>
+      <div class="detail-stat">Winner <span class="val">${p.wins}</span></div>
+      <div class="detail-stat">Finalist <span class="val">${p.finalist}</span></div>
+      <div class="detail-stat" style="color:var(--text-dark)">Season ${sz.id} \u00b7 ${seasonLabel(sz)}</div>
+    </div>
+    <div class="chart-canvas"><canvas></canvas><div class="chart-tooltip"></div></div>
+  `;
+  if (fullPlayer) {
+    setTimeout(() => {
+      const canvas = panel.querySelector('canvas');
+      const tip = panel.querySelector('.chart-tooltip');
+      if (canvas) drawKerkiChart(canvas, tip, fullPlayer.history, windowMap, trollSet, wStart, wEnd);
+    }, 0);
+  }
   return panel;
 }
 
@@ -1262,6 +1427,7 @@ document.querySelectorAll('.view-tab').forEach(tab => {
     // Reset sort for each view
     if (viewMode === 'ranking') { sortCol = 'points'; sortDir = -1; }
     else if (viewMode === 'glicko') { sortCol = 'mu'; sortDir = -1; }
+    else if (viewMode === 'season') { sortCol = 'points'; sortDir = -1; }
     else if (viewMode === 'events') { sortCol = 'id'; sortDir = -1; selectedEvent = null; }
     else { sortCol = 'wins'; sortDir = -1; }
     document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
@@ -1280,6 +1446,8 @@ document.getElementById('modalCloseBtn').onclick = () => infoModal.classList.rem
 infoModal.addEventListener('click', e => { if (e.target === infoModal) infoModal.classList.remove('open'); });
 const glickoModal = document.getElementById('glickoModal');
 glickoModal.addEventListener('click', e => { if (e.target === glickoModal) glickoModal.classList.remove('open'); });
+const seasonModal = document.getElementById('seasonModal');
+seasonModal.addEventListener('click', e => { if (e.target === seasonModal) seasonModal.classList.remove('open'); });
 
 // Theme
 function setTheme(t) {

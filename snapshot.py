@@ -52,6 +52,9 @@ snap = {
                  for p in data.get('glicko', {}).get('players', [])},
     'history':  {p['name']: p.get('history', [])
                  for p in data.get('players', [])},
+    'seasons':  {str(sz['id']): {p['name']: [p['rank'], p.get('points', 0)]
+                                 for p in sz.get('players', [])}
+                 for sz in data.get('seasons', [])},
 }
 
 tmp = snap_path + '.tmp'
