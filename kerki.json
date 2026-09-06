@@ -1047,7 +1047,7 @@
    ],
    "nuisances": [],
    "lobby_size": 43,
-   "sof": 86.3
+   "sof": 86.14
   },
   {
    "id": 35,
@@ -1096,7 +1096,7 @@
     "JobW"
    ],
    "lobby_size": 31,
-   "sof": 84.34
+   "sof": 84.18
   },
   {
    "id": 36,
@@ -1152,7 +1152,7 @@
     "PlusMicron"
    ],
    "lobby_size": 39,
-   "sof": 93.87
+   "sof": 93.7
   },
   {
    "id": 37,
@@ -1206,7 +1206,7 @@
     "bjenk4"
    ],
    "lobby_size": 36,
-   "sof": 84.33
+   "sof": 84.17
   },
   {
    "id": 38,
@@ -1260,7 +1260,7 @@
     "Shadynook"
    ],
    "lobby_size": 35,
-   "sof": 83.53
+   "sof": 83.37
   },
   {
    "id": 39,
@@ -1313,7 +1313,7 @@
     "brrryy"
    ],
    "lobby_size": 35,
-   "sof": 88.24
+   "sof": 88.08
   },
   {
    "id": 40,
@@ -1337,7 +1337,7 @@
    "others": [],
    "nuisances": [],
    "lobby_size": 11,
-   "sof": 84.66
+   "sof": 84.5
   },
   {
    "id": 41,
@@ -1388,7 +1388,8 @@
     "PlusMicron",
     "justMaki"
    ],
-   "lobby_size": 35
+   "lobby_size": 35,
+   "sof": 77.73
   }
  ],
  "players": [
