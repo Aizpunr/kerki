@@ -82,6 +82,15 @@ def strip_tag(name):
 PLAYERS_MASTER = os.path.normpath(
     os.path.join(PROJECT_DIR, '..', 'zeepkist cotd elo', 'players.json'))
 
+# Steam IDs where the ID does NOT identify the person, so resolution is wrong.
+# Brothers sharing accounts/machines: whoever set the in-game name is the best
+# signal we have, and we genuinely cannot know which of them raced. Keep the
+# observed name. Confirmed by aizpun 2026-09-21.
+IDENTITY_EXCEPTIONS = {
+    '76561199498272376': 'Butter/Pants are brothers and share accounts',
+    '76561199529259554': 'Butter/Pants are brothers and share accounts',
+}
+
 
 def load_registry(path=PLAYERS_MASTER):
     """{sid: (canonical, {aliases lowercased})} from the shared players.json.
@@ -130,7 +139,13 @@ def load_registry(path=PLAYERS_MASTER):
             for n in [c] + list(data[c].get('aliases') or []):
                 names.add(n.lower())
                 names.add(strip_tag(n).lower())
-        registry[sid] = (canons[0], names)
+        # The canonical SPELLINGS for this sid, as opposed to its aliases. A
+        # name in here is a real identity and is never rewritten (the master
+        # holds both 'Fly8oy' and 'FlyBoy' for one sid; picking between them is
+        # not this script's call). A name that is merely an alias, like
+        # 'tatari_lover2008', IS rewritten to the canonical.
+        spellings = {strip_tag(c).lower(): strip_tag(c) for c in canons}
+        registry[sid] = (canons[0], names, spellings)
     return registry, collisions
 
 
@@ -143,41 +158,40 @@ def resolve_roster(roster, roster_names, registry, apply_fix=True):
     exactly the rename case ('tatari_lover2008' belongs to nobody) and the
     identity-theft case (Butter playing as 'Pants', a name owned by another sid).
 
-    Returns (substitutions, unknown_sids)."""
-    subs, unknown = [], []
+    Returns (substitutions, unknown_sids, exceptions)."""
+    subs, unknown, exempt = [], [], []
     # Which names belong to some OTHER sid? Used to flag the stolen-name case.
     owner = {}
-    for sid, (canon, names) in registry.items():
+    for sid, (canon, names, _spellings) in registry.items():
         for n in names:
             owner.setdefault(n, sid)
     for sid, seen in sorted(roster_names.items()):
+        if sid in IDENTITY_EXCEPTIONS:
+            exempt.append((sid, sorted(seen), IDENTITY_EXCEPTIONS[sid]))
+            continue
         entry = registry.get(sid)
         if entry is None:
             unknown.append((sid, sorted(seen)))
             continue
-        canon, known = entry
-        bare = strip_tag(canon)
-        if any(n.lower() in known or strip_tag(n).lower() in known for n in seen):
-            # The sid is legitimate, but `roster` holds the LAST name seen, which
-            # may be the wrong one of several worn this cup (zodiak also played
-            # as the default 'User Data' and that is what reached the xlsx).
-            # If any name worn matches the canonical, display the canonical.
-            if (roster.get(sid, '') != bare
-                    and any(strip_tag(n).lower() == bare.lower() for n in seen)):
-                subs.append((sid, sorted(seen), bare, []))
-                if apply_fix:
-                    roster[sid] = bare
+        canon, known, spellings = entry
+        # Judge the name that will actually be written, i.e. the last one seen.
+        shown = roster.get(sid, '')
+        key = strip_tag(shown).lower()
+        if key in spellings:
+            # A real identity for this sid. Only tidy the tag and the spelling.
+            if apply_fix:
+                roster[sid] = spellings[key]
             continue
-        stolen = sorted({owner[k] for n in seen
-                         for k in (n.lower(), strip_tag(n).lower())
+        target = strip_tag(canon)
+        stolen = sorted({owner[k] for k in (shown.lower(), key)
                          if owner.get(k) and owner[k] != sid})
-        subs.append((sid, sorted(seen), bare, stolen))
+        subs.append((sid, sorted(seen), target, stolen))
         if apply_fix:
-            roster[sid] = bare
-    return subs, unknown
+            roster[sid] = target
+    return subs, unknown, exempt
 
 
-def report_identity(subs, unknown, collisions, registry_loaded, apply_fix):
+def report_identity(subs, unknown, exempt, collisions, registry_loaded, apply_fix):
     """Print the Steam ID resolution report. Never raises."""
     if not registry_loaded:
         print(f"\n  !! STEAM ID CHECK SKIPPED — no registry at {PLAYERS_MASTER}")
@@ -193,6 +207,10 @@ def report_identity(subs, unknown, collisions, registry_loaded, apply_fix):
                       f"without this fix two players would merge")
     else:
         print("\n  Steam ID check: every name matches the registry")
+    if exempt:
+        print(f"  Identity exceptions, name kept as logged ({len(exempt)}):")
+        for sid, seen, why in exempt:
+            print(f"    {sid}  {', '.join(repr(n) for n in seen)}  ({why})")
     if unknown:
         print(f"  Not in the registry ({len(unknown)}) — add them so future renames resolve:")
         for sid, seen in unknown:
@@ -660,9 +678,10 @@ def main():
     # Steam ID is the source of truth for who a player is — resolve before
     # anything downstream (baseline matching, standings, xlsx) sees a name.
     registry, collisions = load_registry()
-    subs, unknown = resolve_roster(roster, roster_names, registry,
-                                   apply_fix=not args.accept_names)
-    report_identity(subs, unknown, collisions, registry, not args.accept_names)
+    subs, unknown, exempt = resolve_roster(roster, roster_names, registry,
+                                           apply_fix=not args.accept_names)
+    report_identity(subs, unknown, exempt, collisions, registry,
+                    not args.accept_names)
 
     # Detect rounds that ran before the mod hooked: round numbers below the
     # first kerki round with no ROUND_STARTED line in the same session.

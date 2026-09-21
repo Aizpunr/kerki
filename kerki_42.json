@@ -1,6 +1,6 @@
 {
   "kerki": 42,
-  "header": null,
+  "header": "Kerki Comp #42 - Maps by Shadynook, IronDragon111000, variableferret",
   "rotation": [
     "Kerki #42 - Symetra",
     "Kerki #42 - Vaporwave Valley",
@@ -312,18 +312,18 @@
   ],
   "excluded": [
     {
-      "sid": "76561198865432343",
-      "name": "MackCheesy",
-      "points": 143,
-      "rounds_played": 5,
-      "finishes": 1
-    },
-    {
       "sid": "76561199014850973",
       "name": "MinMag_LP",
       "points": 130,
       "rounds_played": 5,
       "finishes": 2
+    },
+    {
+      "sid": "76561198865432343",
+      "name": "MackCheesy",
+      "points": 143,
+      "rounds_played": 5,
+      "finishes": 1
     },
     {
       "sid": "76561198388963758",
@@ -340,6 +340,13 @@
       "finishes": 1
     },
     {
+      "sid": "76561199082360966",
+      "name": "B_ES",
+      "points": 20,
+      "rounds_played": 1,
+      "finishes": 0
+    },
+    {
       "sid": "76561198000574574",
       "name": "Tomixcomics",
       "points": 55,
@@ -354,8 +361,15 @@
       "finishes": 0
     },
     {
-      "sid": "76561199082360966",
-      "name": "B_ES",
+      "sid": "76561199006040868",
+      "name": "Eclipse135",
+      "points": 69,
+      "rounds_played": 1,
+      "finishes": 1
+    },
+    {
+      "sid": "76561198966056072",
+      "name": "Pat",
       "points": 20,
       "rounds_played": 1,
       "finishes": 0
@@ -366,20 +380,6 @@
       "points": 75,
       "rounds_played": 1,
       "finishes": 2
-    },
-    {
-      "sid": "76561198966056072",
-      "name": "Pat",
-      "points": 20,
-      "rounds_played": 1,
-      "finishes": 0
-    },
-    {
-      "sid": "76561199006040868",
-      "name": "Eclipse135",
-      "points": 69,
-      "rounds_played": 1,
-      "finishes": 1
     }
   ],
   "points_system": "v2 (>= #41)"
