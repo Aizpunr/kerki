@@ -92,7 +92,10 @@ CANONICAL = {
     'XpERt': ['[TBD]XpERt'],
     'Jakie': ['[CD] Jakie', '[ZET] Jakie'],
     'R0nanC': ['[CTR] R0nanC', '[CTR]R0nanC', 'R0nanc'],
-    'Northwind': [],
+    # Goes by Noweki now; Northwind is the old nickname (aizpun 2026-09-21:
+    # "only oldheads remember his old nickname by now"). Same steamid
+    # 76561198160604987 throughout.
+    'Noweki': ['Northwind', 'Northwind/Noweki'],
     'jandje': ['[BFP] jandje', '[CTR] jandje', '[CTR]jandje'],
     'Kaiser64': ['[TEA]Kaiser64'],
     'microways': ['[Quac] microways'],

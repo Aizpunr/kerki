@@ -21,7 +21,7 @@
     "Lexer",
     "Revenger_19",
     "AndMe",
-    "Northwind",
+    "Noweki",
     "JobW",
     "Kaiser64",
     "Shadynook",
@@ -78,7 +78,7 @@
    "winners": [
     "Kernkob",
     "Quickracer10",
-    "Northwind",
+    "Noweki",
     "RoundNzt",
     "Warsnac"
    ],
@@ -284,7 +284,7 @@
     "Lexer",
     "Warsnac",
     "readfreak7",
-    "Northwind"
+    "Noweki"
    ],
    "others": [
     "A2 Zecklord",
@@ -4906,7 +4906,7 @@
    ]
   },
   {
-   "name": "Northwind",
+   "name": "Noweki",
    "apps": 3,
    "wins": 1,
    "w1": 0,
@@ -4930,20 +4930,7 @@
      "result": "f"
     }
    ],
-   "prev_history": [
-    {
-     "k": 1,
-     "result": "o"
-    },
-    {
-     "k": 3,
-     "result": "w3"
-    },
-    {
-     "k": 8,
-     "result": "f"
-    }
-   ]
+   "prev_history": []
   },
   {
    "name": "readfreak7",
@@ -16611,7 +16598,7 @@
     "prev_mu": 1626.9
    },
    {
-    "name": "Northwind",
+    "name": "Noweki",
     "mu": 1610.4,
     "sigma": 350,
     "apps": 3,
@@ -16643,8 +16630,8 @@
      }
     ],
     "rank": 28,
-    "prev_rank": 29,
-    "prev_mu": 1612.6
+    "prev_rank": null,
+    "prev_mu": null
    },
    {
     "name": "dlwldms",
