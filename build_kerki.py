@@ -60,8 +60,10 @@ CANONICAL = {
                         '[CSC] BaBa is g00se', '[CSC] CantFindTheg00se'],
     'St Nicholas': ['St Nic', 'St. Nicholas', 'St NIcholas', '[cozy]St Nicholas'],
     'JobW': ['Job'],
+    # AndMe increments the number periodically; AndMe18 (#41) and any later
+    # bump are the same steamid 76561198067925412.
     'AndMe': ['AndMe16', 'AndMe17', 'Andme17', '[COMY]AndMe17', '[CSC]AndMe17',
-              '[ORIG]AndMe16', 'AndMe14', 'AndMe15'],
+              '[ORIG]AndMe16', 'AndMe14', 'AndMe15', 'AndMe18', '[CSC]AndMe18'],
     'Hydro': ['[BFP] Hydro', '[CTR]Hydro', '[RTR] Hydro', '[SLOW] Hydro',
               '[WOW]Hydro', '[ZOMN] Hydro'],
     'ZOMAN': ['[ARMS] ZOMAN', '[Bath] ZOMAN', '[Blub] ZOMAN', '[Choo] ZOMAN',
@@ -72,7 +74,10 @@ CANONICAL = {
     'Lexer': ['[BRIT] Lexer'],
     'PandaMane': ['[FOV]PandaMane', '[FPV]PandaMane', '[CHEZ]PandaMane'],
     'Linzi': [],
-    'Sterben': ['[BAP]Sterben', '[PNCK]Mini P.E.K.K.A', '[FPV]Lλmbda', '[PCDJ]Sterben'],
+    # tatari_lover2008: renamed mid-cup during #42 and took the 5th win under
+    # that name. Same steamid 76561198877428244.
+    'Sterben': ['[BAP]Sterben', '[PNCK]Mini P.E.K.K.A', '[FPV]Lλmbda', '[PCDJ]Sterben',
+                'tatari_lover2008'],
     'Lazy_Echidna': ['Lazy Echidna', '[NIL]Lazy_Echidna', '[TOG]Lazy_Echidna'],
     'Metalted': ['[ZMS] Metalted', '[ZMS]Metalted'],
     'LILWOOLEY': ['[ZET]LILWOOLEY', '[ZST]LILWOOLEY'],

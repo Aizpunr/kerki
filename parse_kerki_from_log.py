@@ -73,6 +73,131 @@ def strip_tag(name):
     """'[CSC] Shadynook' -> 'Shadynook' (in-game clan tag prefix)."""
     return re.sub(r"^\[[^\]]*\]\s*", "", name or "").strip()
 
+# ── Steam ID registry ──────────────────────────────────────────────
+# ONE registry for all Zeepkist comps (aizpun 2026-09-21: "zeepkist players
+# are zeepkist players"). Kerki reads the shared master and never keeps its
+# own copy. Steam ID is the source of truth; the in-game name is not, because
+# players rename mid-cup (Sterben -> tatari_lover2008 during #42 walked off
+# with a win as a phantom player until this check existed).
+PLAYERS_MASTER = os.path.normpath(
+    os.path.join(PROJECT_DIR, '..', 'zeepkist cotd elo', 'players.json'))
+
+
+def load_registry(path=PLAYERS_MASTER):
+    """{sid: (canonical, {aliases lowercased})} from the shared players.json.
+
+    Returns ({}, []) when the file is missing so a cup can still be parsed;
+    mirrors new_cup.py's skip-with-a-banner behaviour rather than hard failing.
+    Second element is the list of sid collisions found, for reporting."""
+    if not os.path.exists(path):
+        return {}, []
+    try:
+        with open(path, encoding='utf-8') as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"  WARN: could not read {path}: {e}", file=sys.stderr)
+        return {}, []
+
+    # Which canonicals appear as somebody else's alias? Those lose a tiebreak.
+    aliased = set()
+    for canon, rec in data.items():
+        for a in (rec.get('aliases') or []):
+            if a != canon:
+                aliased.add(a.lower())
+
+    by_sid = {}
+    for canon, rec in data.items():
+        sid = rec.get('steam_id')
+        if sid:
+            by_sid.setdefault(str(sid), []).append(canon)
+
+    registry, collisions = {}, []
+    for sid, canons in by_sid.items():
+        if len(canons) > 1:
+            collisions.append((sid, sorted(canons)))
+            # Prefer an untagged name, then one nobody lists as an alias, then
+            # most aliases, then alphabetical. Untagged first matters: the master
+            # holds entries like '[BORK] Valco' beside 'Valco' for one sid, and
+            # the bare name is the real canonical.
+            canons = sorted(canons, key=lambda c: (
+                c.startswith('['), c.lower() in aliased,
+                -len(data[c].get('aliases') or []), c.lower()))
+        # Every name bound to this sid, across ALL its duplicate entries. A name
+        # already in here is legitimate and must never be "corrected" (that is
+        # what tried to rewrite Aurum -> [ARL]Aurum and Fly8oy -> FlyBoy).
+        names = set()
+        for c in canons:
+            for n in [c] + list(data[c].get('aliases') or []):
+                names.add(n.lower())
+                names.add(strip_tag(n).lower())
+        registry[sid] = (canons[0], names)
+    return registry, collisions
+
+
+def resolve_roster(roster, roster_names, registry, apply_fix=True):
+    """Rewrite roster names to the registry's canonical, keyed on Steam ID.
+
+    Deliberately conservative: a name already bound to this sid (as a canonical
+    or an alias, with or without a clan tag) is left alone. Only a name the
+    registry does not associate with this sid at all gets substituted, which is
+    exactly the rename case ('tatari_lover2008' belongs to nobody) and the
+    identity-theft case (Butter playing as 'Pants', a name owned by another sid).
+
+    Returns (substitutions, unknown_sids)."""
+    subs, unknown = [], []
+    # Which names belong to some OTHER sid? Used to flag the stolen-name case.
+    owner = {}
+    for sid, (canon, names) in registry.items():
+        for n in names:
+            owner.setdefault(n, sid)
+    for sid, seen in sorted(roster_names.items()):
+        entry = registry.get(sid)
+        if entry is None:
+            unknown.append((sid, sorted(seen)))
+            continue
+        canon, known = entry
+        bare = strip_tag(canon)
+        if any(n.lower() in known or strip_tag(n).lower() in known for n in seen):
+            # The sid is legitimate, but `roster` holds the LAST name seen, which
+            # may be the wrong one of several worn this cup (zodiak also played
+            # as the default 'User Data' and that is what reached the xlsx).
+            # If any name worn matches the canonical, display the canonical.
+            if (roster.get(sid, '') != bare
+                    and any(strip_tag(n).lower() == bare.lower() for n in seen)):
+                subs.append((sid, sorted(seen), bare, []))
+                if apply_fix:
+                    roster[sid] = bare
+            continue
+        stolen = sorted({owner[k] for n in seen
+                         for k in (n.lower(), strip_tag(n).lower())
+                         if owner.get(k) and owner[k] != sid})
+        subs.append((sid, sorted(seen), bare, stolen))
+        if apply_fix:
+            roster[sid] = bare
+    return subs, unknown
+
+
+def report_identity(subs, unknown, collisions, registry_loaded, apply_fix):
+    """Print the Steam ID resolution report. Never raises."""
+    if not registry_loaded:
+        print(f"\n  !! STEAM ID CHECK SKIPPED — no registry at {PLAYERS_MASTER}")
+        print("     Names go in as the log saw them; a rename would create a phantom player.")
+        return
+    if subs:
+        verb = "resolved" if apply_fix else "NOT resolved (--accept-names)"
+        print(f"\n  Steam ID {verb}: {len(subs)}")
+        for sid, seen, canon, stolen in subs:
+            print(f"    {sid}  saw {', '.join(repr(n) for n in seen)}  ->  {canon!r}")
+            if stolen:
+                print(f"      !! that name belongs to {', '.join(stolen)} — "
+                      f"without this fix two players would merge")
+    else:
+        print("\n  Steam ID check: every name matches the registry")
+    if unknown:
+        print(f"  Not in the registry ({len(unknown)}) — add them so future renames resolve:")
+        for sid, seen in unknown:
+            print(f"    {sid}  {', '.join(repr(n) for n in seen)}")
+
 # Tab + column for a given kerki id
 # Tab "Kerki 31-35" → col_offsets [1,7,13,19,25] for kerkis 31,32,33,34,35
 # Tab "Kerki 36-40" → col_offsets [1,7,13,19,25] for 36,37,38,39,40
@@ -98,10 +223,13 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     `extra_maps`: extra map-name substrings to match rounds whose in-game name
     lacks the 'Kerki #N' tag (mappers don't always tag them).
     `logged_nums`: {session: set(round nums seen via ROUND_STARTED)} — used to
-    detect rounds that happened before the mod hooked."""
+    detect rounds that happened before the mod hooked.
+    `roster_names`: {sid: set(names)} — every name a sid wore, so a mid-cup
+    rename is visible instead of silently overwriting the earlier name."""
     map_marker = f"Kerki #{target_kerki}"
     extra_maps = [m.lower() for m in extra_maps if m]
     roster = {}        # sid -> name (latest seen)
+    roster_names = {}  # sid -> {every name this sid wore} (catches mid-cup renames)
     rounds = []
     logged_nums = {}   # session -> set of round nums with a ROUND_STARTED line
     current_round = None
@@ -140,6 +268,7 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
             elif kind == "ROSTER":
                 sid, name = parts[1], parts[2]
                 roster[sid] = name
+                roster_names.setdefault(sid, set()).add(name)
                 if current_round is not None:
                     current_round["roster"].add(sid)
             elif kind == "ROUND_STARTED":
@@ -181,7 +310,7 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
         return any(x in ml for x in extra_maps)
 
     kerki_rounds = [r for r in rounds if is_kerki(r)]
-    return kerki_rounds, roster, logged_nums
+    return kerki_rounds, roster, logged_nums, roster_names
 
 # ── Standings computation ──────────────────────────────────────────
 def resolve_baseline(baseline, roster):
@@ -403,7 +532,8 @@ def compute_standings(kerki_rounds, roster, mapper_sids, system, skip_warmup=Tru
     }
 
 # ── xlsx writer ─────────────────────────────────────────────────────
-def write_to_xlsx(kerki_id, standings, header_text, project_dir=PROJECT_DIR, dry_run=False):
+def write_to_xlsx(kerki_id, standings, header_text, project_dir=PROJECT_DIR, dry_run=False,
+                  cup_date=None):
     from openpyxl import load_workbook
     fname, sheet, idx = xlsx_target(kerki_id)
     col = OFFSETS[idx]
@@ -425,8 +555,11 @@ def write_to_xlsx(kerki_id, standings, header_text, project_dir=PROJECT_DIR, dry
         for c in (col, name_col, points_col):
             ws.cell(row=r, column=c).value = None
 
-    today = _date.today()
-    date_str = f"{today.day}/{today.month}/{today.year % 100}"
+    # Date the CUP, not the day we happen to run this. Re-parsing an old cup
+    # used to silently stamp today's date, and a wrong date here has already
+    # crashed the cross-comp refresh once (K40 entered M/D/YY). Always D/M/YY.
+    d = _date.fromisoformat(cup_date) if cup_date else _date.today()
+    date_str = f"{d.day}/{d.month}/{d.year % 100}"
 
     ws.cell(row=1, column=col).value = date_str
     ws.cell(row=2, column=col).value = header_text
@@ -485,6 +618,9 @@ def main():
     p.add_argument("--maps", default="",
                    help="Comma-separated extra map-name substrings for rounds whose in-game "
                         "name lacks the 'Kerki #N' tag (mappers don't always tag).")
+    p.add_argument("--accept-names", action="store_true",
+                   help="Trust the in-game names and skip Steam ID resolution. "
+                        "Only for when the shared registry is known to be wrong.")
     p.add_argument("--baseline", default=None,
                    help="JSON {name_or_sid: points} transcribed from the in-game Championship "
                         "Leaderboard at the moment /livelog started (mod hooked mid-cup). "
@@ -513,13 +649,20 @@ def main():
     if extra_maps:
         print(f"  extra map matchers: {extra_maps}")
 
-    kerki_rounds, roster, logged_nums = parse_log(
+    kerki_rounds, roster, logged_nums, roster_names = parse_log(
         args.log, args.kerki, restrict_date=args.date, extra_maps=extra_maps)
     if not kerki_rounds:
         print(f"  ERROR: no rounds tagged 'Kerki #{args.kerki}' found", file=sys.stderr)
         sys.exit(1)
     print(f"  kerki rounds parsed: {len(kerki_rounds)}")
     print(f"  roster size: {len(roster)}")
+
+    # Steam ID is the source of truth for who a player is — resolve before
+    # anything downstream (baseline matching, standings, xlsx) sees a name.
+    registry, collisions = load_registry()
+    subs, unknown = resolve_roster(roster, roster_names, registry,
+                                   apply_fix=not args.accept_names)
+    report_identity(subs, unknown, collisions, registry, not args.accept_names)
 
     # Detect rounds that ran before the mod hooked: round numbers below the
     # first kerki round with no ROUND_STARTED line in the same session.
@@ -598,7 +741,7 @@ def main():
     if args.write_xlsx:
         header = args.header or f"Kerki Comp #{args.kerki} - Maps by ?, ?, ?"
         print(f"\nWriting xlsx (header='{header}'):")
-        write_to_xlsx(args.kerki, standings, header)
+        write_to_xlsx(args.kerki, standings, header, cup_date=args.date)
         print(f"  Done. Now run: python build_kerki.py")
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 {
  "meta": {
   "total_kerkis": 42,
-  "total_players": 227,
+  "total_players": 225,
   "last_kerki": 42
  },
  "kerkis": [
@@ -1187,7 +1187,7 @@
     "Joe Beidl",
     "ping",
     "Andrew8Kavanagh",
-    "User Data",
+    "Zodiak",
     "MALIYO",
     "icRS",
     "Waaksaam",
@@ -1373,7 +1373,7 @@
     "gilgool",
     "Akane",
     "Fly8oy",
-    "AndMe18",
+    "AndMe",
     "Heart-TGV",
     "LILWOOLEY",
     "St Nicholas",
@@ -1400,7 +1400,7 @@
     "Kernkob",
     "ZOMAN",
     "microways",
-    "tatari_lover2008"
+    "Sterben"
    ],
    "finalists": [
     "Lexer",
@@ -3462,6 +3462,90 @@
    ]
   },
   {
+   "name": "Sterben",
+   "apps": 9,
+   "wins": 6,
+   "w1": 0,
+   "w2": 0,
+   "w3": 0,
+   "w4": 2,
+   "w5": 4,
+   "finalist": 3,
+   "best": 4,
+   "history": [
+    {
+     "k": 19,
+     "result": "w5"
+    },
+    {
+     "k": 22,
+     "result": "w5"
+    },
+    {
+     "k": 25,
+     "result": "w5"
+    },
+    {
+     "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "f"
+    },
+    {
+     "k": 36,
+     "result": "w4"
+    },
+    {
+     "k": 38,
+     "result": "w4"
+    },
+    {
+     "k": 39,
+     "result": "f"
+    },
+    {
+     "k": 42,
+     "result": "w5"
+    }
+   ],
+   "prev_history": [
+    {
+     "k": 19,
+     "result": "w5"
+    },
+    {
+     "k": 22,
+     "result": "w5"
+    },
+    {
+     "k": 25,
+     "result": "w5"
+    },
+    {
+     "k": 26,
+     "result": "f"
+    },
+    {
+     "k": 33,
+     "result": "f"
+    },
+    {
+     "k": 36,
+     "result": "w4"
+    },
+    {
+     "k": 38,
+     "result": "w4"
+    },
+    {
+     "k": 39,
+     "result": "f"
+    }
+   ]
+  },
+  {
    "name": "JobW",
    "apps": 18,
    "wins": 5,
@@ -3618,86 +3702,6 @@
     {
      "k": 34,
      "result": "o"
-    }
-   ]
-  },
-  {
-   "name": "Sterben",
-   "apps": 8,
-   "wins": 5,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 2,
-   "w5": 3,
-   "finalist": 3,
-   "best": 4,
-   "history": [
-    {
-     "k": 19,
-     "result": "w5"
-    },
-    {
-     "k": 22,
-     "result": "w5"
-    },
-    {
-     "k": 25,
-     "result": "w5"
-    },
-    {
-     "k": 26,
-     "result": "f"
-    },
-    {
-     "k": 33,
-     "result": "f"
-    },
-    {
-     "k": 36,
-     "result": "w4"
-    },
-    {
-     "k": 38,
-     "result": "w4"
-    },
-    {
-     "k": 39,
-     "result": "f"
-    }
-   ],
-   "prev_history": [
-    {
-     "k": 19,
-     "result": "w5"
-    },
-    {
-     "k": 22,
-     "result": "w5"
-    },
-    {
-     "k": 25,
-     "result": "w5"
-    },
-    {
-     "k": 26,
-     "result": "f"
-    },
-    {
-     "k": 33,
-     "result": "f"
-    },
-    {
-     "k": 36,
-     "result": "w4"
-    },
-    {
-     "k": 38,
-     "result": "w4"
-    },
-    {
-     "k": 39,
-     "result": "f"
     }
    ]
   },
@@ -4411,7 +4415,7 @@
   },
   {
    "name": "AndMe",
-   "apps": 13,
+   "apps": 14,
    "wins": 1,
    "w1": 0,
    "w2": 0,
@@ -4472,6 +4476,10 @@
     {
      "k": 31,
      "result": "f"
+    },
+    {
+     "k": 41,
+     "result": "o"
     }
    ],
    "prev_history": [
@@ -5088,25 +5096,6 @@
      "result": "w2"
     }
    ]
-  },
-  {
-   "name": "tatari_lover2008",
-   "apps": 1,
-   "wins": 1,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 1,
-   "finalist": 0,
-   "best": 5,
-   "history": [
-    {
-     "k": 42,
-     "result": "w5"
-    }
-   ],
-   "prev_history": []
   },
   {
    "name": "agix",
@@ -11237,7 +11226,7 @@
    ]
   },
   {
-   "name": "User Data",
+   "name": "Zodiak",
    "apps": 1,
    "wins": 0,
    "w1": 0,
@@ -11253,12 +11242,7 @@
      "result": "o"
     }
    ],
-   "prev_history": [
-    {
-     "k": 37,
-     "result": "o"
-    }
-   ]
+   "prev_history": []
   },
   {
    "name": "MetalCJ",
@@ -11646,30 +11630,6 @@
   },
   {
    "name": "gilgool",
-   "apps": 1,
-   "wins": 0,
-   "w1": 0,
-   "w2": 0,
-   "w3": 0,
-   "w4": 0,
-   "w5": 0,
-   "finalist": 0,
-   "best": null,
-   "history": [
-    {
-     "k": 41,
-     "result": "o"
-    }
-   ],
-   "prev_history": [
-    {
-     "k": 41,
-     "result": "o"
-    }
-   ]
-  },
-  {
-   "name": "AndMe18",
    "apps": 1,
    "wins": 0,
    "w1": 0,
@@ -13166,17 +13126,17 @@
    },
    {
     "name": "Sterben",
-    "points": 290,
-    "points_all": 290,
-    "apps": 8,
-    "wins": 5,
+    "points": 330,
+    "points_all": 330,
+    "apps": 9,
+    "wins": 6,
     "w1": 0,
     "w2": 0,
     "w3": 0,
     "w4": 2,
-    "w5": 3,
+    "w5": 4,
     "finalist": 3,
-    "counted": 8,
+    "counted": 9,
     "dropped": 0,
     "history": [
      {
@@ -13225,6 +13185,12 @@
       "k": 39,
       "result": "f",
       "points": 10,
+      "counted": true
+     },
+     {
+      "k": 42,
+      "result": "w5",
+      "points": 40,
       "counted": true
      }
     ],
@@ -13430,7 +13396,7 @@
     "name": "AndMe",
     "points": 80,
     "points_all": 80,
-    "apps": 6,
+    "apps": 7,
     "wins": 1,
     "w1": 0,
     "w2": 0,
@@ -13609,32 +13575,6 @@
     "prev_points": 50
    },
    {
-    "name": "tatari_lover2008",
-    "points": 40,
-    "points_all": 40,
-    "apps": 1,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 0,
-    "counted": 1,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 42,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     }
-    ],
-    "rank": 25,
-    "prev_rank": null,
-    "prev_points": null
-   },
-   {
     "name": "Hi Im Yolo",
     "points": 40,
     "points_all": 40,
@@ -13674,7 +13614,7 @@
       "counted": true
      }
     ],
-    "rank": 26,
+    "rank": 25,
     "prev_rank": 26,
     "prev_points": 40
    },
@@ -13718,7 +13658,7 @@
       "counted": true
      }
     ],
-    "rank": 27,
+    "rank": 26,
     "prev_rank": 29,
     "prev_points": 30
    },
@@ -13756,7 +13696,7 @@
       "counted": true
      }
     ],
-    "rank": 28,
+    "rank": 27,
     "prev_rank": 27,
     "prev_points": 30
    },
@@ -13794,7 +13734,7 @@
       "counted": true
      }
     ],
-    "rank": 29,
+    "rank": 28,
     "prev_rank": 28,
     "prev_points": 30
    },
@@ -13832,7 +13772,7 @@
       "counted": true
      }
     ],
-    "rank": 30,
+    "rank": 29,
     "prev_rank": 25,
     "prev_points": 40
    },
@@ -13870,7 +13810,7 @@
       "counted": true
      }
     ],
-    "rank": 31,
+    "rank": 30,
     "prev_rank": 30,
     "prev_points": 30
    },
@@ -13902,7 +13842,7 @@
       "counted": true
      }
     ],
-    "rank": 32,
+    "rank": 31,
     "prev_rank": 31,
     "prev_points": 20
    },
@@ -13934,7 +13874,7 @@
       "counted": true
      }
     ],
-    "rank": 33,
+    "rank": 32,
     "prev_rank": 32,
     "prev_points": 20
    },
@@ -13966,7 +13906,7 @@
       "counted": true
      }
     ],
-    "rank": 34,
+    "rank": 33,
     "prev_rank": 33,
     "prev_points": 20
    },
@@ -13998,7 +13938,7 @@
       "counted": true
      }
     ],
-    "rank": 35,
+    "rank": 34,
     "prev_rank": 34,
     "prev_points": 20
    },
@@ -14024,7 +13964,7 @@
       "counted": true
      }
     ],
-    "rank": 36,
+    "rank": 35,
     "prev_rank": 35,
     "prev_points": 10
    },
@@ -14050,7 +13990,7 @@
       "counted": true
      }
     ],
-    "rank": 37,
+    "rank": 36,
     "prev_rank": 36,
     "prev_points": 10
    },
@@ -14076,7 +14016,7 @@
       "counted": true
      }
     ],
-    "rank": 38,
+    "rank": 37,
     "prev_rank": 37,
     "prev_points": 10
    },
@@ -14102,7 +14042,7 @@
       "counted": true
      }
     ],
-    "rank": 39,
+    "rank": 38,
     "prev_rank": 38,
     "prev_points": 10
    },
@@ -14128,7 +14068,7 @@
       "counted": true
      }
     ],
-    "rank": 40,
+    "rank": 39,
     "prev_rank": 40,
     "prev_points": 10
    },
@@ -14154,7 +14094,7 @@
       "counted": true
      }
     ],
-    "rank": 41,
+    "rank": 40,
     "prev_rank": 41,
     "prev_points": 10
    },
@@ -14180,7 +14120,7 @@
       "counted": true
      }
     ],
-    "rank": 42,
+    "rank": 41,
     "prev_rank": 42,
     "prev_points": 10
    },
@@ -14206,7 +14146,7 @@
       "counted": true
      }
     ],
-    "rank": 43,
+    "rank": 42,
     "prev_rank": 43,
     "prev_points": 10
    },
@@ -14232,7 +14172,7 @@
       "counted": true
      }
     ],
-    "rank": 44,
+    "rank": 43,
     "prev_rank": 44,
     "prev_points": 10
    },
@@ -14258,7 +14198,7 @@
       "counted": true
      }
     ],
-    "rank": 45,
+    "rank": 44,
     "prev_rank": 45,
     "prev_points": 10
    },
@@ -14284,7 +14224,7 @@
       "counted": true
      }
     ],
-    "rank": 46,
+    "rank": 45,
     "prev_rank": 46,
     "prev_points": 10
    },
@@ -14310,7 +14250,7 @@
       "counted": true
      }
     ],
-    "rank": 47,
+    "rank": 46,
     "prev_rank": 47,
     "prev_points": 10
    },
@@ -14336,7 +14276,7 @@
       "counted": true
      }
     ],
-    "rank": 48,
+    "rank": 47,
     "prev_rank": 48,
     "prev_points": 10
    },
@@ -14362,7 +14302,7 @@
       "counted": true
      }
     ],
-    "rank": 49,
+    "rank": 48,
     "prev_rank": 49,
     "prev_points": 10
    }
@@ -15633,6 +15573,78 @@
     "prev_mu": 1784.0
    },
    {
+    "name": "Sterben",
+    "mu": 1771.1,
+    "sigma": 99.9,
+    "apps": 9,
+    "wins": 6,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 2,
+    "w5": 4,
+    "finalist": 3,
+    "history": [
+     {
+      "k": 19,
+      "mu": 1726.2,
+      "sigma": 173.6,
+      "result": "w5"
+     },
+     {
+      "k": 22,
+      "mu": 1758.5,
+      "sigma": 137.2,
+      "result": "w5"
+     },
+     {
+      "k": 25,
+      "mu": 1769.6,
+      "sigma": 128.3,
+      "result": "w5"
+     },
+     {
+      "k": 26,
+      "mu": 1749.3,
+      "sigma": 108.0,
+      "result": "f"
+     },
+     {
+      "k": 33,
+      "mu": 1713.8,
+      "sigma": 135.0,
+      "result": "f"
+     },
+     {
+      "k": 36,
+      "mu": 1763.9,
+      "sigma": 127.3,
+      "result": "w4"
+     },
+     {
+      "k": 38,
+      "mu": 1789.3,
+      "sigma": 115.9,
+      "result": "w4"
+     },
+     {
+      "k": 39,
+      "mu": 1766.9,
+      "sigma": 100.3,
+      "result": "f"
+     },
+     {
+      "k": 42,
+      "mu": 1771.1,
+      "sigma": 99.9,
+      "result": "w5"
+     }
+    ],
+    "rank": 11,
+    "prev_rank": 11,
+    "prev_mu": 1761.5
+   },
+   {
     "name": "ZOMAN",
     "mu": 1767.4,
     "sigma": 127.9,
@@ -15724,75 +15736,9 @@
       "result": "w3"
      }
     ],
-    "rank": 11,
+    "rank": 12,
     "prev_rank": 15,
     "prev_mu": 1692.9
-   },
-   {
-    "name": "Sterben",
-    "mu": 1756.3,
-    "sigma": 130.3,
-    "apps": 8,
-    "wins": 5,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 2,
-    "w5": 3,
-    "finalist": 3,
-    "history": [
-     {
-      "k": 19,
-      "mu": 1726.2,
-      "sigma": 173.6,
-      "result": "w5"
-     },
-     {
-      "k": 22,
-      "mu": 1758.5,
-      "sigma": 137.2,
-      "result": "w5"
-     },
-     {
-      "k": 25,
-      "mu": 1769.6,
-      "sigma": 128.3,
-      "result": "w5"
-     },
-     {
-      "k": 26,
-      "mu": 1749.3,
-      "sigma": 108.0,
-      "result": "f"
-     },
-     {
-      "k": 33,
-      "mu": 1713.8,
-      "sigma": 135.0,
-      "result": "f"
-     },
-     {
-      "k": 36,
-      "mu": 1763.9,
-      "sigma": 127.3,
-      "result": "w4"
-     },
-     {
-      "k": 38,
-      "mu": 1789.3,
-      "sigma": 115.9,
-      "result": "w4"
-     },
-     {
-      "k": 39,
-      "mu": 1766.9,
-      "sigma": 100.3,
-      "result": "f"
-     }
-    ],
-    "rank": 12,
-    "prev_rank": 11,
-    "prev_mu": 1761.5
    },
    {
     "name": "Linzi",
@@ -15859,30 +15805,6 @@
     "rank": 13,
     "prev_rank": 12,
     "prev_mu": 1737.0
-   },
-   {
-    "name": "tatari_lover2008",
-    "mu": 1726.2,
-    "sigma": 173.6,
-    "apps": 1,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 0,
-    "history": [
-     {
-      "k": 42,
-      "mu": 1726.2,
-      "sigma": 173.6,
-      "result": "w5"
-     }
-    ],
-    "rank": 14,
-    "prev_rank": null,
-    "prev_mu": null
    },
    {
     "name": "Sandals",
@@ -15976,7 +15898,7 @@
       "result": "f"
      }
     ],
-    "rank": 15,
+    "rank": 14,
     "prev_rank": 13,
     "prev_mu": 1697.6
    },
@@ -16000,7 +15922,7 @@
       "result": "w3"
      }
     ],
-    "rank": 16,
+    "rank": 15,
     "prev_rank": 14,
     "prev_mu": 1696.5
    },
@@ -16120,7 +16042,7 @@
       "result": "o"
      }
     ],
-    "rank": 17,
+    "rank": 16,
     "prev_rank": 17,
     "prev_mu": 1671.1
    },
@@ -16150,7 +16072,7 @@
       "result": "w5"
      }
     ],
-    "rank": 18,
+    "rank": 17,
     "prev_rank": 18,
     "prev_mu": 1665.2
    },
@@ -16210,7 +16132,7 @@
       "result": "o"
      }
     ],
-    "rank": 19,
+    "rank": 18,
     "prev_rank": 16,
     "prev_mu": 1673.9
    },
@@ -16348,105 +16270,9 @@
       "result": "w3"
      }
     ],
-    "rank": 20,
+    "rank": 19,
     "prev_rank": 19,
     "prev_mu": 1652.8
-   },
-   {
-    "name": "AndMe",
-    "mu": 1647.8,
-    "sigma": 263.8,
-    "apps": 13,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 0,
-    "w4": 0,
-    "w5": 1,
-    "finalist": 6,
-    "history": [
-     {
-      "k": 1,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 2,
-      "mu": 1586.0,
-      "sigma": 131.1,
-      "result": "f"
-     },
-     {
-      "k": 5,
-      "mu": 1550.1,
-      "sigma": 125.5,
-      "result": "o"
-     },
-     {
-      "k": 7,
-      "mu": 1532.9,
-      "sigma": 115.0,
-      "result": "o"
-     },
-     {
-      "k": 9,
-      "mu": 1522.6,
-      "sigma": 109.0,
-      "result": "o"
-     },
-     {
-      "k": 11,
-      "mu": 1563.2,
-      "sigma": 95.7,
-      "result": "f"
-     },
-     {
-      "k": 12,
-      "mu": 1551.5,
-      "sigma": 86.3,
-      "result": "o"
-     },
-     {
-      "k": 15,
-      "mu": 1536.9,
-      "sigma": 100.5,
-      "result": "o"
-     },
-     {
-      "k": 16,
-      "mu": 1569.8,
-      "sigma": 89.8,
-      "result": "f"
-     },
-     {
-      "k": 22,
-      "mu": 1613.2,
-      "sigma": 119.9,
-      "result": "f"
-     },
-     {
-      "k": 24,
-      "mu": 1670.0,
-      "sigma": 111.8,
-      "result": "w5"
-     },
-     {
-      "k": 28,
-      "mu": 1675.3,
-      "sigma": 123.4,
-      "result": "f"
-     },
-     {
-      "k": 31,
-      "mu": 1680.9,
-      "sigma": 113.8,
-      "result": "f"
-     }
-    ],
-    "rank": 21,
-    "prev_rank": 20,
-    "prev_mu": 1650.8
    },
    {
     "name": "ping",
@@ -16522,7 +16348,7 @@
       "result": "o"
      }
     ],
-    "rank": 22,
+    "rank": 20,
     "prev_rank": 21,
     "prev_mu": 1649.4
    },
@@ -16558,7 +16384,7 @@
       "result": "f"
      }
     ],
-    "rank": 23,
+    "rank": 21,
     "prev_rank": 22,
     "prev_mu": 1648.1
    },
@@ -16588,7 +16414,7 @@
       "result": "f"
      }
     ],
-    "rank": 24,
+    "rank": 22,
     "prev_rank": 23,
     "prev_mu": 1644.7
    },
@@ -16666,7 +16492,7 @@
       "result": "o"
      }
     ],
-    "rank": 25,
+    "rank": 23,
     "prev_rank": 24,
     "prev_mu": 1644.5
    },
@@ -16696,7 +16522,7 @@
       "result": "w5"
      }
     ],
-    "rank": 26,
+    "rank": 24,
     "prev_rank": 25,
     "prev_mu": 1635.0
    },
@@ -16726,7 +16552,7 @@
       "result": "f"
      }
     ],
-    "rank": 27,
+    "rank": 25,
     "prev_rank": 26,
     "prev_mu": 1633.5
    },
@@ -16750,7 +16576,7 @@
       "result": "f"
      }
     ],
-    "rank": 28,
+    "rank": 26,
     "prev_rank": 27,
     "prev_mu": 1630.9
    },
@@ -16780,7 +16606,7 @@
       "result": "f"
      }
     ],
-    "rank": 29,
+    "rank": 27,
     "prev_rank": 28,
     "prev_mu": 1626.9
    },
@@ -16816,7 +16642,7 @@
       "result": "f"
      }
     ],
-    "rank": 30,
+    "rank": 28,
     "prev_rank": 29,
     "prev_mu": 1612.6
    },
@@ -16840,7 +16666,7 @@
       "result": "f"
      }
     ],
-    "rank": 31,
+    "rank": 29,
     "prev_rank": 30,
     "prev_mu": 1611.4
    },
@@ -16864,7 +16690,7 @@
       "result": "f"
      }
     ],
-    "rank": 32,
+    "rank": 30,
     "prev_rank": 31,
     "prev_mu": 1600.7
    },
@@ -16936,7 +16762,7 @@
       "result": "f"
      }
     ],
-    "rank": 33,
+    "rank": 31,
     "prev_rank": 41,
     "prev_mu": 1566.0
    },
@@ -16996,7 +16822,7 @@
       "result": "f"
      }
     ],
-    "rank": 34,
+    "rank": 32,
     "prev_rank": 32,
     "prev_mu": 1596.2
    },
@@ -17026,7 +16852,7 @@
       "result": "f"
      }
     ],
-    "rank": 35,
+    "rank": 33,
     "prev_rank": 33,
     "prev_mu": 1595.7
    },
@@ -17068,7 +16894,7 @@
       "result": "f"
      }
     ],
-    "rank": 36,
+    "rank": 34,
     "prev_rank": 34,
     "prev_mu": 1586.9
    },
@@ -17164,7 +16990,7 @@
       "result": "o"
      }
     ],
-    "rank": 37,
+    "rank": 35,
     "prev_rank": 35,
     "prev_mu": 1583.2
    },
@@ -17188,7 +17014,7 @@
       "result": "f"
      }
     ],
-    "rank": 38,
+    "rank": 36,
     "prev_rank": 36,
     "prev_mu": 1582.2
    },
@@ -17212,7 +17038,7 @@
       "result": "f"
      }
     ],
-    "rank": 39,
+    "rank": 37,
     "prev_rank": 37,
     "prev_mu": 1579.0
    },
@@ -17236,7 +17062,7 @@
       "result": "f"
      }
     ],
-    "rank": 40,
+    "rank": 38,
     "prev_rank": 38,
     "prev_mu": 1577.4
    },
@@ -17278,7 +17104,7 @@
       "result": "f"
      }
     ],
-    "rank": 41,
+    "rank": 39,
     "prev_rank": 39,
     "prev_mu": 1577.0
    },
@@ -17314,9 +17140,111 @@
       "result": "f"
      }
     ],
-    "rank": 42,
+    "rank": 40,
     "prev_rank": 40,
     "prev_mu": 1573.6
+   },
+   {
+    "name": "AndMe",
+    "mu": 1563.7,
+    "sigma": 167.0,
+    "apps": 14,
+    "wins": 1,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 6,
+    "history": [
+     {
+      "k": 1,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 2,
+      "mu": 1586.0,
+      "sigma": 131.1,
+      "result": "f"
+     },
+     {
+      "k": 5,
+      "mu": 1550.1,
+      "sigma": 125.5,
+      "result": "o"
+     },
+     {
+      "k": 7,
+      "mu": 1532.9,
+      "sigma": 115.0,
+      "result": "o"
+     },
+     {
+      "k": 9,
+      "mu": 1522.6,
+      "sigma": 109.0,
+      "result": "o"
+     },
+     {
+      "k": 11,
+      "mu": 1563.2,
+      "sigma": 95.7,
+      "result": "f"
+     },
+     {
+      "k": 12,
+      "mu": 1551.5,
+      "sigma": 86.3,
+      "result": "o"
+     },
+     {
+      "k": 15,
+      "mu": 1536.9,
+      "sigma": 100.5,
+      "result": "o"
+     },
+     {
+      "k": 16,
+      "mu": 1569.8,
+      "sigma": 89.8,
+      "result": "f"
+     },
+     {
+      "k": 22,
+      "mu": 1613.2,
+      "sigma": 119.9,
+      "result": "f"
+     },
+     {
+      "k": 24,
+      "mu": 1670.0,
+      "sigma": 111.8,
+      "result": "w5"
+     },
+     {
+      "k": 28,
+      "mu": 1675.3,
+      "sigma": 123.4,
+      "result": "f"
+     },
+     {
+      "k": 31,
+      "mu": 1680.9,
+      "sigma": 113.8,
+      "result": "f"
+     },
+     {
+      "k": 41,
+      "mu": 1565.0,
+      "sigma": 152.0,
+      "result": "o"
+     }
+    ],
+    "rank": 41,
+    "prev_rank": 20,
+    "prev_mu": 1650.8
    },
    {
     "name": "Hawk",
@@ -17344,7 +17272,7 @@
       "result": "o"
      }
     ],
-    "rank": 43,
+    "rank": 42,
     "prev_rank": 44,
     "prev_mu": 1561.2
    },
@@ -17482,7 +17410,7 @@
       "result": "f"
      }
     ],
-    "rank": 44,
+    "rank": 43,
     "prev_rank": 45,
     "prev_mu": 1558.5
    },
@@ -17536,7 +17464,7 @@
       "result": "o"
      }
     ],
-    "rank": 45,
+    "rank": 44,
     "prev_rank": 43,
     "prev_mu": 1564.2
    },
@@ -17584,7 +17512,7 @@
       "result": "o"
      }
     ],
-    "rank": 46,
+    "rank": 45,
     "prev_rank": 47,
     "prev_mu": 1547.2
    },
@@ -17686,7 +17614,7 @@
       "result": "f"
      }
     ],
-    "rank": 47,
+    "rank": 46,
     "prev_rank": 49,
     "prev_mu": 1539.9
    },
@@ -17764,7 +17692,7 @@
       "result": "o"
      }
     ],
-    "rank": 48,
+    "rank": 47,
     "prev_rank": 42,
     "prev_mu": 1565.0
    },
@@ -17842,7 +17770,7 @@
       "result": "o"
      }
     ],
-    "rank": 49,
+    "rank": 48,
     "prev_rank": 46,
     "prev_mu": 1548.8
    },
@@ -17902,7 +17830,7 @@
       "result": "o"
      }
     ],
-    "rank": 50,
+    "rank": 49,
     "prev_rank": 51,
     "prev_mu": 1535.2
    },
@@ -17938,7 +17866,7 @@
       "result": "o"
      }
     ],
-    "rank": 51,
+    "rank": 50,
     "prev_rank": 53,
     "prev_mu": 1527.4
    },
@@ -17998,7 +17926,7 @@
       "result": "o"
      }
     ],
-    "rank": 52,
+    "rank": 51,
     "prev_rank": 48,
     "prev_mu": 1540.4
    },
@@ -18034,7 +17962,7 @@
       "result": "o"
      }
     ],
-    "rank": 53,
+    "rank": 52,
     "prev_rank": 54,
     "prev_mu": 1524.4
    },
@@ -18094,7 +18022,7 @@
       "result": "f"
      }
     ],
-    "rank": 54,
+    "rank": 53,
     "prev_rank": 55,
     "prev_mu": 1523.3
    },
@@ -18208,7 +18136,7 @@
       "result": "o"
      }
     ],
-    "rank": 55,
+    "rank": 54,
     "prev_rank": 52,
     "prev_mu": 1529.3
    },
@@ -18250,7 +18178,7 @@
       "result": "o"
      }
     ],
-    "rank": 56,
+    "rank": 55,
     "prev_rank": 56,
     "prev_mu": 1516.8
    },
@@ -18304,7 +18232,7 @@
       "result": "o"
      }
     ],
-    "rank": 57,
+    "rank": 56,
     "prev_rank": 50,
     "prev_mu": 1538.8
    },
@@ -18412,7 +18340,7 @@
       "result": "o"
      }
     ],
-    "rank": 58,
+    "rank": 57,
     "prev_rank": 57,
     "prev_mu": 1511.1
    },
@@ -18496,7 +18424,7 @@
       "result": "o"
      }
     ],
-    "rank": 59,
+    "rank": 58,
     "prev_rank": 58,
     "prev_mu": 1509.2
    }
@@ -19763,6 +19691,29 @@
      "prev_points": null
     },
     {
+     "name": "Sterben",
+     "points": 40,
+     "apps": 1,
+     "wins": 1,
+     "w1": 0,
+     "w2": 0,
+     "w3": 0,
+     "w4": 0,
+     "w5": 1,
+     "finalist": 0,
+     "history": [
+      {
+       "k": 42,
+       "result": "w5",
+       "points": 40,
+       "counted": true
+      }
+     ],
+     "rank": 8,
+     "prev_rank": null,
+     "prev_points": null
+    },
+    {
      "name": "Minkus",
      "points": 40,
      "apps": 2,
@@ -19781,32 +19732,9 @@
        "counted": true
       }
      ],
-     "rank": 8,
+     "rank": 9,
      "prev_rank": 5,
      "prev_points": 40
-    },
-    {
-     "name": "tatari_lover2008",
-     "points": 40,
-     "apps": 1,
-     "wins": 1,
-     "w1": 0,
-     "w2": 0,
-     "w3": 0,
-     "w4": 0,
-     "w5": 1,
-     "finalist": 0,
-     "history": [
-      {
-       "k": 42,
-       "result": "w5",
-       "points": 40,
-       "counted": true
-      }
-     ],
-     "rank": 9,
-     "prev_rank": null,
-     "prev_points": null
     },
     {
      "name": "JakeAdjacent",

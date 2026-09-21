@@ -1,6 +1,6 @@
 {
   "kerki": 42,
-  "header": "Kerki Comp #42 - Maps by Shadynook, IronDragon111000, variableferret",
+  "header": null,
   "rotation": [
     "Kerki #42 - Symetra",
     "Kerki #42 - Vaporwave Valley",
@@ -48,7 +48,7 @@
     {
       "rank": 5,
       "sid": "76561198877428244",
-      "name": "tatari_lover2008",
+      "name": "Sterben",
       "won_scoring_round": 15,
       "qualified_scoring_round": 13,
       "map": "Kerki #42 - Ferret Found Magnets",
@@ -312,18 +312,18 @@
   ],
   "excluded": [
     {
-      "sid": "76561199014850973",
-      "name": "MinMag_LP",
-      "points": 130,
-      "rounds_played": 5,
-      "finishes": 2
-    },
-    {
       "sid": "76561198865432343",
       "name": "MackCheesy",
       "points": 143,
       "rounds_played": 5,
       "finishes": 1
+    },
+    {
+      "sid": "76561199014850973",
+      "name": "MinMag_LP",
+      "points": 130,
+      "rounds_played": 5,
+      "finishes": 2
     },
     {
       "sid": "76561198388963758",
@@ -340,18 +340,18 @@
       "finishes": 1
     },
     {
-      "sid": "76561198213715297",
-      "name": "stindt",
-      "points": 75,
-      "rounds_played": 1,
-      "finishes": 2
-    },
-    {
       "sid": "76561198000574574",
       "name": "Tomixcomics",
       "points": 55,
       "rounds_played": 1,
       "finishes": 1
+    },
+    {
+      "sid": "76561198107216213",
+      "name": "13Silvers",
+      "points": 20,
+      "rounds_played": 1,
+      "finishes": 0
     },
     {
       "sid": "76561199082360966",
@@ -361,11 +361,11 @@
       "finishes": 0
     },
     {
-      "sid": "76561198107216213",
-      "name": "13Silvers",
-      "points": 20,
+      "sid": "76561198213715297",
+      "name": "stindt",
+      "points": 75,
       "rounds_played": 1,
-      "finishes": 0
+      "finishes": 2
     },
     {
       "sid": "76561198966056072",
