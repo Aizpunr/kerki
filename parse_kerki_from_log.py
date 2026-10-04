@@ -60,8 +60,22 @@ POINTS_V2 = {
     "win_same_round": True,
 }
 
+# The "win in the round you qualify" behaviour CHANGED between #42 and #43.
+# Evidence, all hard: #41's in-game overlay shows two such wins (RoundNzt
+# crossing 910->1060 at pos 1 in S1, PandaMane 930->1080 in S6); #42 matches
+# the same behaviour; #43's honors post from Maki requires the opposite and
+# only reproduces when the win needs an EARLIER qualifying round. That matches
+# what Maki told aizpun: "you need to START a round as finalist". Treated as a
+# dated behaviour change, not a mechanism claim - the cause is unconfirmed.
+WIN_SAME_ROUND_LAST_CUP = 42
+
+
 def points_system_for(kerki_id):
-    return POINTS_V2 if kerki_id >= 41 else POINTS_V1
+    if kerki_id < 41:
+        return POINTS_V1
+    sys_ = dict(POINTS_V2)
+    sys_['win_same_round'] = kerki_id <= WIN_SAME_ROUND_LAST_CUP
+    return sys_
 
 def points_for_pos(pos, system):
     for lo, hi, pts in system["table"]:
@@ -331,11 +345,21 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     return kerki_rounds, roster, logged_nums, roster_names
 
 # ── Standings computation ──────────────────────────────────────────
-def resolve_baseline(baseline, roster):
+def resolve_baseline(baseline, roster, roster_names=None):
     """Map a {name_or_sid: points} baseline onto roster sids.
     Names are matched with clan tags stripped, case-insensitive.
+
+    Indexes EVERY name a sid wore (`roster_names`) rather than just the
+    display name, so a baseline transcribed from the in-game board still
+    matches after Steam ID resolution has renamed someone. Without this,
+    re-running #41 fails on 'Jake', 'AndMe18' and 'Eclipse135', which the
+    registry has since rewritten to JakeAdjacent, AndMe and Azalea.
+
     Returns (sid -> points). Raises ValueError listing unmatched names."""
     by_name = {}
+    for sid, names in (roster_names or {}).items():
+        for n in names:
+            by_name.setdefault(strip_tag(n).lower(), sid)
     for sid, name in roster.items():
         by_name.setdefault(strip_tag(name).lower(), sid)
     out, missing = {}, []
@@ -714,7 +738,7 @@ def main():
         with open(args.baseline, encoding="utf-8") as f:
             raw = json.load(f)
         try:
-            baseline = resolve_baseline(raw, roster)
+            baseline = resolve_baseline(raw, roster, roster_names)
         except ValueError as e:
             print(f"  ERROR: {e}", file=sys.stderr)
             sys.exit(3)

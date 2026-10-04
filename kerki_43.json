@@ -20,24 +20,6 @@
     },
     {
       "rank": 2,
-      "sid": "76561198851912263",
-      "name": "Lexer",
-      "won_scoring_round": 12,
-      "qualified_scoring_round": 12,
-      "map": "Kerki #43 - Silversear",
-      "time": "46.308"
-    },
-    {
-      "rank": 3,
-      "sid": "76561199590715014",
-      "name": "Stick",
-      "won_scoring_round": 13,
-      "qualified_scoring_round": 13,
-      "map": "Kerki #43 Cloud Jumpers",
-      "time": "33.502"
-    },
-    {
-      "rank": 4,
       "sid": "76561198896246339",
       "name": "RoundNzt",
       "won_scoring_round": 14,
@@ -46,13 +28,31 @@
       "time": "43.061"
     },
     {
-      "rank": 5,
+      "rank": 3,
+      "sid": "76561198851912263",
+      "name": "Lexer",
+      "won_scoring_round": 15,
+      "qualified_scoring_round": 12,
+      "map": "Kerki #43 - Silversear",
+      "time": "46.155"
+    },
+    {
+      "rank": 4,
       "sid": "76561199126724675",
       "name": "ZOMAN",
       "won_scoring_round": 16,
       "qualified_scoring_round": 9,
       "map": "Kerki #43 Cloud Jumpers",
       "time": "33.589"
+    },
+    {
+      "rank": 5,
+      "sid": "76561199590715014",
+      "name": "Stick",
+      "won_scoring_round": 17,
+      "qualified_scoring_round": 13,
+      "map": "Kerki #43 - jellyfish",
+      "time": "43.125"
     }
   ],
   "finalists": [
@@ -65,7 +65,7 @@
     {
       "rank": 2,
       "sid": "76561199006040868",
-      "name": "Eclipse135",
+      "name": "Azalea",
       "qualified_scoring_round": 14
     },
     {
@@ -347,13 +347,6 @@
       "finishes": 1
     },
     {
-      "sid": "76561198177623035",
-      "name": "Noot Noot 42.0",
-      "points": 91,
-      "rounds_played": 3,
-      "finishes": 2
-    },
-    {
       "sid": "76561199113163853",
       "name": "dasdrio1",
       "points": 75,
@@ -361,8 +354,22 @@
       "finishes": 1
     },
     {
+      "sid": "76561198177623035",
+      "name": "Noot Noot 42.0",
+      "points": 91,
+      "rounds_played": 3,
+      "finishes": 2
+    },
+    {
       "sid": "76561199589394762",
       "name": "jofk2415",
+      "points": 20,
+      "rounds_played": 1,
+      "finishes": 0
+    },
+    {
+      "sid": "76561198045179319",
+      "name": "rusbus94",
       "points": 20,
       "rounds_played": 1,
       "finishes": 0
@@ -373,13 +380,6 @@
       "points": 55,
       "rounds_played": 1,
       "finishes": 1
-    },
-    {
-      "sid": "76561198045179319",
-      "name": "rusbus94",
-      "points": 20,
-      "rounds_played": 1,
-      "finishes": 0
     }
   ],
   "points_system": "v2 (>= #41)"

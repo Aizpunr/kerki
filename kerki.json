@@ -1449,10 +1449,10 @@
    "troll": false,
    "winners": [
     "Kernkob",
-    "Lexer",
-    "Stick",
     "RoundNzt",
-    "ZOMAN"
+    "Lexer",
+    "ZOMAN",
+    "Stick"
    ],
    "finalists": [
     "microways",
@@ -1504,9 +1504,9 @@
    "apps": 32,
    "wins": 29,
    "w1": 4,
-   "w2": 6,
+   "w2": 7,
    "w3": 9,
-   "w4": 6,
+   "w4": 5,
    "w5": 4,
    "finalist": 3,
    "best": 1,
@@ -1637,7 +1637,7 @@
     },
     {
      "k": 43,
-     "result": "w4"
+     "result": "w2"
     }
    ],
    "prev_history": [
@@ -2306,8 +2306,8 @@
    "w1": 8,
    "w2": 1,
    "w3": 2,
-   "w4": 1,
-   "w5": 2,
+   "w4": 2,
+   "w5": 1,
    "finalist": 2,
    "best": 1,
    "history": [
@@ -2377,7 +2377,7 @@
     },
     {
      "k": 43,
-     "result": "w5"
+     "result": "w4"
     }
    ],
    "prev_history": [
@@ -2720,8 +2720,8 @@
    "apps": 36,
    "wins": 13,
    "w1": 0,
-   "w2": 3,
-   "w3": 3,
+   "w2": 2,
+   "w3": 4,
    "w4": 5,
    "w5": 2,
    "finalist": 17,
@@ -2869,7 +2869,7 @@
     },
     {
      "k": 43,
-     "result": "w2"
+     "result": "w3"
     }
    ],
    "prev_history": [
@@ -5005,11 +5005,11 @@
    "wins": 1,
    "w1": 0,
    "w2": 0,
-   "w3": 1,
+   "w3": 0,
    "w4": 0,
-   "w5": 0,
+   "w5": 1,
    "finalist": 1,
-   "best": 3,
+   "best": 5,
    "history": [
     {
      "k": 8,
@@ -5029,7 +5029,7 @@
     },
     {
      "k": 43,
-     "result": "w3"
+     "result": "w5"
     }
    ],
    "prev_history": [
@@ -12419,101 +12419,15 @@
     "prev_points": 2020
    },
    {
-    "name": "Kernkob",
-    "points": 1830,
-    "points_all": 1830,
-    "apps": 11,
-    "wins": 10,
-    "w1": 7,
-    "w2": 3,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "counted": 11,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 21,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 28,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 31,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 32,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 33,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 35,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 36,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 38,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 39,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 42,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 43,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     }
-    ],
-    "rank": 2,
-    "prev_rank": 3,
-    "prev_points": 1630
-   },
-   {
     "name": "RoundNzt",
-    "points": 1800,
-    "points_all": 1810,
+    "points": 1870,
+    "points_all": 1880,
     "apps": 19,
     "wins": 17,
     "w1": 2,
-    "w2": 4,
+    "w2": 5,
     "w3": 5,
-    "w4": 3,
+    "w4": 2,
     "w5": 3,
     "finalist": 2,
     "counted": 18,
@@ -12629,26 +12543,112 @@
      },
      {
       "k": 43,
-      "result": "w4",
-      "points": 70,
+      "result": "w2",
+      "points": 140,
       "counted": true
      }
     ],
-    "rank": 3,
+    "rank": 2,
     "prev_rank": 2,
     "prev_points": 1930
    },
    {
+    "name": "Kernkob",
+    "points": 1830,
+    "points_all": 1830,
+    "apps": 11,
+    "wins": 10,
+    "w1": 7,
+    "w2": 3,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "counted": 11,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 21,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 28,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 31,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 32,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 35,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 36,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 38,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 39,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 42,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 43,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     }
+    ],
+    "rank": 3,
+    "prev_rank": 3,
+    "prev_points": 1630
+   },
+   {
     "name": "ZOMAN",
-    "points": 1400,
-    "points_all": 1400,
+    "points": 1430,
+    "points_all": 1430,
     "apps": 12,
     "wins": 10,
     "w1": 5,
     "w2": 1,
     "w3": 1,
-    "w4": 1,
-    "w5": 2,
+    "w4": 2,
+    "w5": 1,
     "finalist": 1,
     "counted": 11,
     "dropped": 0,
@@ -12715,8 +12715,8 @@
      },
      {
       "k": 43,
-      "result": "w5",
-      "points": 40,
+      "result": "w4",
+      "points": 70,
       "counted": true
      }
     ],
@@ -12829,14 +12829,130 @@
     "prev_points": 1250
    },
    {
-    "name": "Lexer",
-    "points": 1200,
-    "points_all": 1250,
-    "apps": 24,
+    "name": "PandaMane",
+    "points": 1180,
+    "points_all": 1180,
+    "apps": 17,
     "wins": 13,
     "w1": 0,
     "w2": 3,
-    "w3": 3,
+    "w3": 4,
+    "w4": 3,
+    "w5": 3,
+    "finalist": 3,
+    "counted": 16,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 16,
+      "result": "w4",
+      "points": 70,
+      "counted": true
+     },
+     {
+      "k": 17,
+      "result": "w5",
+      "points": 40,
+      "counted": true
+     },
+     {
+      "k": 18,
+      "result": "w4",
+      "points": 70,
+      "counted": true
+     },
+     {
+      "k": 19,
+      "result": "w4",
+      "points": 70,
+      "counted": true
+     },
+     {
+      "k": 23,
+      "result": "w5",
+      "points": 40,
+      "counted": true
+     },
+     {
+      "k": 24,
+      "result": "w3",
+      "points": 100,
+      "counted": true
+     },
+     {
+      "k": 27,
+      "result": "w3",
+      "points": 100,
+      "counted": true
+     },
+     {
+      "k": 28,
+      "result": "w3",
+      "points": 100,
+      "counted": true
+     },
+     {
+      "k": 31,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 32,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 33,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 34,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 35,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 36,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 39,
+      "result": "w5",
+      "points": 40,
+      "counted": true
+     },
+     {
+      "k": 41,
+      "result": "w3",
+      "points": 100,
+      "counted": true
+     }
+    ],
+    "rank": 6,
+    "prev_rank": 6,
+    "prev_points": 1190
+   },
+   {
+    "name": "Lexer",
+    "points": 1160,
+    "points_all": 1210,
+    "apps": 24,
+    "wins": 13,
+    "w1": 0,
+    "w2": 2,
+    "w3": 4,
     "w4": 5,
     "w5": 2,
     "finalist": 10,
@@ -12977,130 +13093,14 @@
      },
      {
       "k": 43,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     }
-    ],
-    "rank": 6,
-    "prev_rank": 7,
-    "prev_points": 1070
-   },
-   {
-    "name": "PandaMane",
-    "points": 1180,
-    "points_all": 1180,
-    "apps": 17,
-    "wins": 13,
-    "w1": 0,
-    "w2": 3,
-    "w3": 4,
-    "w4": 3,
-    "w5": 3,
-    "finalist": 3,
-    "counted": 16,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 16,
-      "result": "w4",
-      "points": 70,
-      "counted": true
-     },
-     {
-      "k": 17,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     },
-     {
-      "k": 18,
-      "result": "w4",
-      "points": 70,
-      "counted": true
-     },
-     {
-      "k": 19,
-      "result": "w4",
-      "points": 70,
-      "counted": true
-     },
-     {
-      "k": 23,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     },
-     {
-      "k": 24,
-      "result": "w3",
-      "points": 100,
-      "counted": true
-     },
-     {
-      "k": 27,
-      "result": "w3",
-      "points": 100,
-      "counted": true
-     },
-     {
-      "k": 28,
-      "result": "w3",
-      "points": 100,
-      "counted": true
-     },
-     {
-      "k": 31,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 32,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 33,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 34,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 35,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 36,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 39,
-      "result": "w5",
-      "points": 40,
-      "counted": true
-     },
-     {
-      "k": 41,
       "result": "w3",
       "points": 100,
       "counted": true
      }
     ],
     "rank": 7,
-    "prev_rank": 6,
-    "prev_points": 1190
+    "prev_rank": 7,
+    "prev_points": 1070
    },
    {
     "name": "JobW",
@@ -13769,38 +13769,6 @@
     "prev_points": 110
    },
    {
-    "name": "Stick",
-    "points": 110,
-    "points_all": 110,
-    "apps": 3,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 1,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "counted": 2,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 36,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 43,
-      "result": "w3",
-      "points": 100,
-      "counted": true
-     }
-    ],
-    "rank": 20,
-    "prev_rank": 41,
-    "prev_points": 10
-   },
-   {
     "name": "Quickracer",
     "points": 100,
     "points_all": 100,
@@ -13822,7 +13790,7 @@
       "counted": true
      }
     ],
-    "rank": 21,
+    "rank": 20,
     "prev_rank": 20,
     "prev_points": 100
    },
@@ -13878,7 +13846,7 @@
       "counted": true
      }
     ],
-    "rank": 22,
+    "rank": 21,
     "prev_rank": 22,
     "prev_points": 80
    },
@@ -13928,9 +13896,41 @@
       "counted": true
      }
     ],
-    "rank": 23,
+    "rank": 22,
     "prev_rank": 21,
     "prev_points": 80
+   },
+   {
+    "name": "Stick",
+    "points": 50,
+    "points_all": 50,
+    "apps": 3,
+    "wins": 1,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 1,
+    "counted": 2,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 36,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 43,
+      "result": "w5",
+      "points": 40,
+      "counted": true
+     }
+    ],
+    "rank": 23,
+    "prev_rank": 41,
+    "prev_points": 10
    },
    {
     "name": "Murrl",
@@ -14866,14 +14866,14 @@
    },
    {
     "name": "RoundNzt",
-    "mu": 1911.5,
+    "mu": 1927.5,
     "sigma": 80,
     "apps": 29,
     "wins": 26,
     "w1": 3,
-    "w2": 6,
+    "w2": 7,
     "w3": 7,
-    "w4": 6,
+    "w4": 5,
     "w5": 4,
     "finalist": 3,
     "history": [
@@ -15047,9 +15047,9 @@
      },
      {
       "k": 43,
-      "mu": 1911.5,
+      "mu": 1927.5,
       "sigma": 80,
-      "result": "w4"
+      "result": "w2"
      }
     ],
     "rank": 3,
@@ -15393,14 +15393,116 @@
     "prev_mu": 1805.9
    },
    {
+    "name": "ZOMAN",
+    "mu": 1791.4,
+    "sigma": 107.8,
+    "apps": 14,
+    "wins": 12,
+    "w1": 6,
+    "w2": 1,
+    "w3": 2,
+    "w4": 2,
+    "w5": 1,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 6,
+      "mu": 1952.3,
+      "sigma": 173.6,
+      "result": "w1"
+     },
+     {
+      "k": 11,
+      "mu": 1898.1,
+      "sigma": 147.6,
+      "result": "w3"
+     },
+     {
+      "k": 16,
+      "mu": 1993.3,
+      "sigma": 147.2,
+      "result": "w1"
+     },
+     {
+      "k": 17,
+      "mu": 2030.8,
+      "sigma": 118.5,
+      "result": "w1"
+     },
+     {
+      "k": 21,
+      "mu": 1988.5,
+      "sigma": 119.3,
+      "result": "w2"
+     },
+     {
+      "k": 23,
+      "mu": 2016.4,
+      "sigma": 111.5,
+      "result": "w1"
+     },
+     {
+      "k": 24,
+      "mu": 2036.2,
+      "sigma": 97.4,
+      "result": "w1"
+     },
+     {
+      "k": 26,
+      "mu": 2043.4,
+      "sigma": 98.0,
+      "result": "w1"
+     },
+     {
+      "k": 27,
+      "mu": 2006.0,
+      "sigma": 88.0,
+      "result": "w4"
+     },
+     {
+      "k": 34,
+      "mu": 1894.6,
+      "sigma": 126.3,
+      "result": "w5"
+     },
+     {
+      "k": 36,
+      "mu": 1824.5,
+      "sigma": 115.4,
+      "result": "f"
+     },
+     {
+      "k": 37,
+      "mu": 1704.9,
+      "sigma": 121.4,
+      "result": "o"
+     },
+     {
+      "k": 42,
+      "mu": 1767.4,
+      "sigma": 127.9,
+      "result": "w3"
+     },
+     {
+      "k": 43,
+      "mu": 1791.4,
+      "sigma": 107.8,
+      "result": "w4"
+     }
+    ],
+    "rank": 7,
+    "prev_rank": 12,
+    "prev_mu": 1767.4
+   },
+   {
     "name": "Lexer",
-    "mu": 1796.9,
+    "mu": 1786.6,
     "sigma": 80,
     "apps": 35,
     "wins": 13,
     "w1": 0,
-    "w2": 3,
-    "w3": 3,
+    "w2": 2,
+    "w3": 4,
     "w4": 5,
     "w5": 2,
     "finalist": 16,
@@ -15611,12 +15713,12 @@
      },
      {
       "k": 43,
-      "mu": 1796.9,
+      "mu": 1786.6,
       "sigma": 80,
-      "result": "w2"
+      "result": "w3"
      }
     ],
-    "rank": 7,
+    "rank": 8,
     "prev_rank": 10,
     "prev_mu": 1772.4
    },
@@ -15694,111 +15796,9 @@
       "result": "f"
      }
     ],
-    "rank": 8,
+    "rank": 9,
     "prev_rank": 8,
     "prev_mu": 1800.8
-   },
-   {
-    "name": "ZOMAN",
-    "mu": 1776.8,
-    "sigma": 107.8,
-    "apps": 14,
-    "wins": 12,
-    "w1": 6,
-    "w2": 1,
-    "w3": 2,
-    "w4": 1,
-    "w5": 2,
-    "finalist": 1,
-    "history": [
-     {
-      "k": 6,
-      "mu": 1952.3,
-      "sigma": 173.6,
-      "result": "w1"
-     },
-     {
-      "k": 11,
-      "mu": 1898.1,
-      "sigma": 147.6,
-      "result": "w3"
-     },
-     {
-      "k": 16,
-      "mu": 1993.3,
-      "sigma": 147.2,
-      "result": "w1"
-     },
-     {
-      "k": 17,
-      "mu": 2030.8,
-      "sigma": 118.5,
-      "result": "w1"
-     },
-     {
-      "k": 21,
-      "mu": 1988.5,
-      "sigma": 119.3,
-      "result": "w2"
-     },
-     {
-      "k": 23,
-      "mu": 2016.4,
-      "sigma": 111.5,
-      "result": "w1"
-     },
-     {
-      "k": 24,
-      "mu": 2036.2,
-      "sigma": 97.4,
-      "result": "w1"
-     },
-     {
-      "k": 26,
-      "mu": 2043.4,
-      "sigma": 98.0,
-      "result": "w1"
-     },
-     {
-      "k": 27,
-      "mu": 2006.0,
-      "sigma": 88.0,
-      "result": "w4"
-     },
-     {
-      "k": 34,
-      "mu": 1894.6,
-      "sigma": 126.3,
-      "result": "w5"
-     },
-     {
-      "k": 36,
-      "mu": 1824.5,
-      "sigma": 115.4,
-      "result": "f"
-     },
-     {
-      "k": 37,
-      "mu": 1704.9,
-      "sigma": 121.4,
-      "result": "o"
-     },
-     {
-      "k": 42,
-      "mu": 1767.4,
-      "sigma": 127.9,
-      "result": "w3"
-     },
-     {
-      "k": 43,
-      "mu": 1776.8,
-      "sigma": 107.8,
-      "result": "w5"
-     }
-    ],
-    "rank": 9,
-    "prev_rank": 12,
-    "prev_mu": 1767.4
    },
    {
     "name": "Hydro",
@@ -15973,54 +15973,6 @@
     "rank": 11,
     "prev_rank": 11,
     "prev_mu": 1771.1
-   },
-   {
-    "name": "Stick",
-    "mu": 1755.7,
-    "sigma": 153.4,
-    "apps": 5,
-    "wins": 1,
-    "w1": 0,
-    "w2": 0,
-    "w3": 1,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "history": [
-     {
-      "k": 8,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 9,
-      "mu": 1500.0,
-      "sigma": 131.1,
-      "result": "o"
-     },
-     {
-      "k": 34,
-      "mu": 1500.0,
-      "sigma": 173.6,
-      "result": "o"
-     },
-     {
-      "k": 36,
-      "mu": 1594.2,
-      "sigma": 137.2,
-      "result": "f"
-     },
-     {
-      "k": 43,
-      "mu": 1755.7,
-      "sigma": 153.4,
-      "result": "w3"
-     }
-    ],
-    "rank": 12,
-    "prev_rank": 34,
-    "prev_mu": 1585.1
    },
    {
     "name": "Quickracer10",
@@ -16234,7 +16186,7 @@
       "result": "o"
      }
     ],
-    "rank": 13,
+    "rank": 12,
     "prev_rank": 5,
     "prev_mu": 1852.0
    },
@@ -16300,9 +16252,57 @@
       "result": "f"
      }
     ],
-    "rank": 14,
+    "rank": 13,
     "prev_rank": 13,
     "prev_mu": 1732.3
+   },
+   {
+    "name": "Stick",
+    "mu": 1701.2,
+    "sigma": 147.0,
+    "apps": 5,
+    "wins": 1,
+    "w1": 0,
+    "w2": 0,
+    "w3": 0,
+    "w4": 0,
+    "w5": 1,
+    "finalist": 1,
+    "history": [
+     {
+      "k": 8,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 9,
+      "mu": 1500.0,
+      "sigma": 131.1,
+      "result": "o"
+     },
+     {
+      "k": 34,
+      "mu": 1500.0,
+      "sigma": 173.6,
+      "result": "o"
+     },
+     {
+      "k": 36,
+      "mu": 1594.2,
+      "sigma": 137.2,
+      "result": "f"
+     },
+     {
+      "k": 43,
+      "mu": 1701.2,
+      "sigma": 147.0,
+      "result": "w5"
+     }
+    ],
+    "rank": 14,
+    "prev_rank": 34,
+    "prev_mu": 1585.1
    },
    {
     "name": "Sandals",
@@ -20036,13 +20036,13 @@
    "players": [
     {
      "name": "RoundNzt",
-     "points": 470,
+     "points": 540,
      "apps": 3,
      "wins": 3,
      "w1": 2,
-     "w2": 0,
+     "w2": 1,
      "w3": 0,
-     "w4": 1,
+     "w4": 0,
      "w5": 0,
      "finalist": 0,
      "history": [
@@ -20060,8 +20060,8 @@
       },
       {
        "k": 43,
-       "result": "w4",
-       "points": 70,
+       "result": "w2",
+       "points": 140,
        "counted": true
       }
      ],
@@ -20100,12 +20100,12 @@
     },
     {
      "name": "Lexer",
-     "points": 220,
+     "points": 180,
      "apps": 3,
      "wins": 2,
      "w1": 0,
-     "w2": 1,
-     "w3": 0,
+     "w2": 0,
+     "w3": 1,
      "w4": 1,
      "w5": 0,
      "finalist": 1,
@@ -20124,8 +20124,8 @@
       },
       {
        "k": 43,
-       "result": "w2",
-       "points": 140,
+       "result": "w3",
+       "points": 100,
        "counted": true
       }
      ],
@@ -20135,14 +20135,14 @@
     },
     {
      "name": "ZOMAN",
-     "points": 140,
+     "points": 170,
      "apps": 2,
      "wins": 2,
      "w1": 0,
      "w2": 0,
      "w3": 1,
-     "w4": 0,
-     "w5": 1,
+     "w4": 1,
+     "w5": 0,
      "finalist": 0,
      "history": [
       {
@@ -20153,8 +20153,8 @@
       },
       {
        "k": 43,
-       "result": "w5",
-       "points": 40,
+       "result": "w4",
+       "points": 70,
        "counted": true
       }
      ],
@@ -20209,29 +20209,6 @@
      "prev_points": 100
     },
     {
-     "name": "Stick",
-     "points": 100,
-     "apps": 1,
-     "wins": 1,
-     "w1": 0,
-     "w2": 0,
-     "w3": 1,
-     "w4": 0,
-     "w5": 0,
-     "finalist": 0,
-     "history": [
-      {
-       "k": 43,
-       "result": "w3",
-       "points": 100,
-       "counted": true
-      }
-     ],
-     "rank": 7,
-     "prev_rank": null,
-     "prev_points": null
-    },
-    {
      "name": "microways",
      "points": 80,
      "apps": 2,
@@ -20256,7 +20233,7 @@
        "counted": true
       }
      ],
-     "rank": 8,
+     "rank": 7,
      "prev_rank": 7,
      "prev_points": 70
     },
@@ -20285,7 +20262,7 @@
        "counted": true
       }
      ],
-     "rank": 9,
+     "rank": 8,
      "prev_rank": 9,
      "prev_points": 40
     },
@@ -20308,9 +20285,32 @@
        "counted": true
       }
      ],
-     "rank": 10,
+     "rank": 9,
      "prev_rank": 8,
      "prev_points": 40
+    },
+    {
+     "name": "Stick",
+     "points": 40,
+     "apps": 1,
+     "wins": 1,
+     "w1": 0,
+     "w2": 0,
+     "w3": 0,
+     "w4": 0,
+     "w5": 1,
+     "finalist": 0,
+     "history": [
+      {
+       "k": 43,
+       "result": "w5",
+       "points": 40,
+       "counted": true
+      }
+     ],
+     "rank": 10,
+     "prev_rank": null,
+     "prev_points": null
     },
     {
      "name": "JakeAdjacent",
