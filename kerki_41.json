@@ -1,6 +1,6 @@
 {
   "kerki": 41,
-  "header": "Kerki Comp #41 - Maps by DeeDeeNaNaNa, PlusMicron, Kernkob & Maki",
+  "header": "Kerki Comp #41 - Maps by PlusMicron, DeeDeeNaNaNa, Maki & Kernkob",
   "rotation": [
     "Kerki #41 - Azurite Network",
     "Kerki #41 - Dee's Nuts & Bolts",
@@ -13,10 +13,10 @@
       "rank": 1,
       "sid": "76561198896246339",
       "name": "RoundNzt",
-      "won_scoring_round": 1,
+      "won_scoring_round": 4,
       "qualified_scoring_round": 1,
       "map": "Kerki #41 - Azurite Network",
-      "time": "38.626"
+      "time": "38.692"
     },
     {
       "rank": 2,
@@ -32,7 +32,7 @@
       "sid": "76561198253679880",
       "name": "PandaMane",
       "won_scoring_round": 6,
-      "qualified_scoring_round": 6,
+      "qualified_scoring_round": 5,
       "map": "Kerki #41 - Rainbow Island",
       "time": "42.522"
     },
