@@ -1396,8 +1396,8 @@
    "date": "20/9/26",
    "troll": false,
    "winners": [
-    "RoundNzt",
     "Kernkob",
+    "RoundNzt",
     "ZOMAN",
     "microways",
     "Sterben"
@@ -1503,8 +1503,8 @@
    "name": "RoundNzt",
    "apps": 32,
    "wins": 29,
-   "w1": 4,
-   "w2": 7,
+   "w1": 3,
+   "w2": 8,
    "w3": 9,
    "w4": 5,
    "w5": 4,
@@ -1633,7 +1633,7 @@
     },
     {
      "k": 42,
-     "result": "w1"
+     "result": "w2"
     },
     {
      "k": 43,
@@ -2451,8 +2451,8 @@
    "name": "Kernkob",
    "apps": 16,
    "wins": 14,
-   "w1": 10,
-   "w2": 3,
+   "w1": 11,
+   "w2": 2,
    "w3": 0,
    "w4": 0,
    "w5": 1,
@@ -2517,7 +2517,7 @@
     },
     {
      "k": 42,
-     "result": "w2"
+     "result": "w1"
     },
     {
      "k": 43,
@@ -12419,13 +12419,99 @@
     "prev_points": 2020
    },
    {
+    "name": "Kernkob",
+    "points": 1890,
+    "points_all": 1890,
+    "apps": 11,
+    "wins": 10,
+    "w1": 8,
+    "w2": 2,
+    "w3": 0,
+    "w4": 0,
+    "w5": 0,
+    "finalist": 1,
+    "counted": 11,
+    "dropped": 0,
+    "history": [
+     {
+      "k": 21,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 28,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 31,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 32,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 33,
+      "result": "f",
+      "points": 10,
+      "counted": true
+     },
+     {
+      "k": 35,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 36,
+      "result": "w2",
+      "points": 140,
+      "counted": true
+     },
+     {
+      "k": 38,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 39,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 42,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     },
+     {
+      "k": 43,
+      "result": "w1",
+      "points": 200,
+      "counted": true
+     }
+    ],
+    "rank": 2,
+    "prev_rank": 3,
+    "prev_points": 1630
+   },
+   {
     "name": "RoundNzt",
-    "points": 1870,
-    "points_all": 1880,
+    "points": 1810,
+    "points_all": 1820,
     "apps": 19,
     "wins": 17,
-    "w1": 2,
-    "w2": 5,
+    "w1": 1,
+    "w2": 6,
     "w3": 5,
     "w4": 2,
     "w5": 3,
@@ -12537,106 +12623,20 @@
      },
      {
       "k": 42,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 43,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     }
-    ],
-    "rank": 2,
-    "prev_rank": 2,
-    "prev_points": 1930
-   },
-   {
-    "name": "Kernkob",
-    "points": 1830,
-    "points_all": 1830,
-    "apps": 11,
-    "wins": 10,
-    "w1": 7,
-    "w2": 3,
-    "w3": 0,
-    "w4": 0,
-    "w5": 0,
-    "finalist": 1,
-    "counted": 11,
-    "dropped": 0,
-    "history": [
-     {
-      "k": 21,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 28,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 31,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 32,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 33,
-      "result": "f",
-      "points": 10,
-      "counted": true
-     },
-     {
-      "k": 35,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 36,
-      "result": "w2",
-      "points": 140,
-      "counted": true
-     },
-     {
-      "k": 38,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 39,
-      "result": "w1",
-      "points": 200,
-      "counted": true
-     },
-     {
-      "k": 42,
       "result": "w2",
       "points": 140,
       "counted": true
      },
      {
       "k": 43,
-      "result": "w1",
-      "points": 200,
+      "result": "w2",
+      "points": 140,
       "counted": true
      }
     ],
     "rank": 3,
-    "prev_rank": 3,
-    "prev_points": 1630
+    "prev_rank": 2,
+    "prev_points": 1930
    },
    {
     "name": "ZOMAN",
@@ -14722,12 +14722,12 @@
   "players": [
    {
     "name": "Kernkob",
-    "mu": 1998.8,
+    "mu": 2025.1,
     "sigma": 83.8,
     "apps": 15,
     "wins": 14,
-    "w1": 10,
-    "w2": 3,
+    "w1": 11,
+    "w2": 2,
     "w3": 0,
     "w4": 0,
     "w5": 1,
@@ -14813,13 +14813,13 @@
      },
      {
       "k": 42,
-      "mu": 1977.3,
+      "mu": 2009.2,
       "sigma": 92.3,
-      "result": "w2"
+      "result": "w1"
      },
      {
       "k": 43,
-      "mu": 1998.8,
+      "mu": 2025.1,
       "sigma": 83.8,
       "result": "w1"
      }
@@ -14866,12 +14866,12 @@
    },
    {
     "name": "RoundNzt",
-    "mu": 1927.5,
+    "mu": 1901.9,
     "sigma": 80,
     "apps": 29,
     "wins": 26,
-    "w1": 3,
-    "w2": 7,
+    "w1": 2,
+    "w2": 8,
     "w3": 7,
     "w4": 5,
     "w5": 4,
@@ -15041,13 +15041,13 @@
      },
      {
       "k": 42,
-      "mu": 1923.2,
-      "sigma": 87.2,
-      "result": "w1"
+      "mu": 1893.5,
+      "sigma": 83.1,
+      "result": "w2"
      },
      {
       "k": 43,
-      "mu": 1927.5,
+      "mu": 1901.9,
       "sigma": 80,
       "result": "w2"
      }
@@ -20036,11 +20036,11 @@
    "players": [
     {
      "name": "RoundNzt",
-     "points": 540,
+     "points": 480,
      "apps": 3,
      "wins": 3,
-     "w1": 2,
-     "w2": 1,
+     "w1": 1,
+     "w2": 2,
      "w3": 0,
      "w4": 0,
      "w5": 0,
@@ -20054,8 +20054,8 @@
       },
       {
        "k": 42,
-       "result": "w1",
-       "points": 200,
+       "result": "w2",
+       "points": 140,
        "counted": true
       },
       {
@@ -20071,11 +20071,11 @@
     },
     {
      "name": "Kernkob",
-     "points": 340,
+     "points": 400,
      "apps": 2,
      "wins": 2,
-     "w1": 1,
-     "w2": 1,
+     "w1": 2,
+     "w2": 0,
      "w3": 0,
      "w4": 0,
      "w5": 0,
@@ -20083,8 +20083,8 @@
      "history": [
       {
        "k": 42,
-       "result": "w2",
-       "points": 140,
+       "result": "w1",
+       "points": 200,
        "counted": true
       },
       {

@@ -44,7 +44,6 @@ POINTS_V1 = {
     "table": [(1, 1, 100), (2, 2, 80), (3, 3, 70), (4, 5, 60),
               (6, 9, 50), (10, 16, 40), (17, 24, 35), (25, 9999, 30)],
     "floor": 30,
-    "win_same_round": False,
 }
 _V2_TOP = [150, 125, 110, 100, 92, 85, 79, 73, 68, 63, 59,
            55, 52, 49, 46, 44, 42, 40, 38, 37, 36, 35]
@@ -54,28 +53,18 @@ POINTS_V2 = {
     "dnf": 20,
     "table": [(i, i, pts) for i, pts in enumerate(_V2_TOP, start=1)],
     "floor": 35,        # 22nd finisher onward
-    # PlusMicron's Top->Out tracker (used from #41) awards the W in the same
-    # round a player crosses the threshold while finishing raw pos 1
-    # (PandaMane #41: 930 -> 1080 at pos 1 = 3rd winner). v1 needed a later round.
-    "win_same_round": True,
 }
 
-# The "win in the round you qualify" behaviour CHANGED between #42 and #43.
-# Evidence, all hard: #41's in-game overlay shows two such wins (RoundNzt
-# crossing 910->1060 at pos 1 in S1, PandaMane 930->1080 in S6); #42 matches
-# the same behaviour; #43's honors post from Maki requires the opposite and
-# only reproduces when the win needs an EARLIER qualifying round. That matches
-# what Maki told aizpun: "you need to START a round as finalist". Treated as a
-# dated behaviour change, not a mechanism claim - the cause is unconfirmed.
-WIN_SAME_ROUND_LAST_CUP = 42
-
-
+# Status changes at ROUND CHANGE, never mid-round (aizpun relaying Maki,
+# 2026-10-05): "the round you cross the threshold you become a finalist. Then
+# you need to start a new round and WIN to become a winner. You can't win
+# before your status changes from points to finalist at round change."
+# So a win ALWAYS needs a strictly earlier qualifying round. Not dated, not a
+# v1/v2 difference - it is how the tracker has always worked.
 def points_system_for(kerki_id):
     if kerki_id < 41:
         return POINTS_V1
-    sys_ = dict(POINTS_V2)
-    sys_['win_same_round'] = kerki_id <= WIN_SAME_ROUND_LAST_CUP
-    return sys_
+    return POINTS_V2
 
 def points_for_pos(pos, system):
     for lo, hi, pts in system["table"]:
@@ -484,9 +473,8 @@ def compute_standings(kerki_rounds, roster, mapper_sids, system, skip_warmup=Tru
         # v2: qualifying in this very round while at pos 1 also counts.
         round_winner = lb[0]["sid"] if lb else None
         if round_winner and round_winner not in mapper_sids and round_winner in qualified_round:
-            q = qualified_round[round_winner]
-            qualified_in_time = q < s_idx or (system.get("win_same_round") and q == s_idx)
-            if qualified_in_time and round_winner not in won_in_round:
+            # Strictly earlier: status flips to finalist only at round change.
+            if qualified_round[round_winner] < s_idx and round_winner not in won_in_round:
                 won_in_round[round_winner] = s_idx
                 winners_in_order.append(round_winner)
 
