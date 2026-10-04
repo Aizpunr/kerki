@@ -133,7 +133,8 @@ CANONICAL = {
     'Victor': ['[FPV]Victor', '[RFV]Victor'],
     'LoudSentinel': ['[EUB]LoudSentinel'],
     'Six': [],
-    'Eclipse135': ['Eclipse125'],
+    # Renamed to Azalea at the player's own request (2026-10-04).
+    'Azalea': ['Eclipse135', 'Eclipse125'],
     'PlusMicron': ['plusmicron'],
     '376': [],
     'SharKy': ['Sharky'],

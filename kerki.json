@@ -962,7 +962,7 @@
     "wokonbike",
     "LoudSentinel",
     "Six",
-    "Eclipse135",
+    "Azalea",
     "PlusMicron",
     "redal",
     "Shadynook",
@@ -1353,7 +1353,7 @@
    "finalists": [
     "JakeAdjacent",
     "Murrl",
-    "Eclipse135",
+    "Azalea",
     "agix"
    ],
    "others": [
@@ -1456,7 +1456,7 @@
    ],
    "finalists": [
     "microways",
-    "Eclipse135",
+    "Azalea",
     "JakeAdjacent",
     "Minkus"
    ],
@@ -8568,7 +8568,7 @@
    ]
   },
   {
-   "name": "Eclipse135",
+   "name": "Azalea",
    "apps": 3,
    "wins": 0,
    "w1": 0,
@@ -8592,16 +8592,7 @@
      "result": "f"
     }
    ],
-   "prev_history": [
-    {
-     "k": 33,
-     "result": "o"
-    },
-    {
-     "k": 41,
-     "result": "f"
-    }
-   ]
+   "prev_history": []
   },
   {
    "name": "Victor",
@@ -14316,7 +14307,7 @@
     "prev_points": 20
    },
    {
-    "name": "Eclipse135",
+    "name": "Azalea",
     "points": 20,
     "points_all": 20,
     "apps": 3,
@@ -14344,8 +14335,8 @@
      }
     ],
     "rank": 34,
-    "prev_rank": 45,
-    "prev_points": 10
+    "prev_rank": null,
+    "prev_points": null
    },
    {
     "name": "An Actual g00se",
@@ -16584,7 +16575,7 @@
     "prev_mu": 1661.9
    },
    {
-    "name": "Eclipse135",
+    "name": "Azalea",
     "mu": 1657.0,
     "sigma": 131.4,
     "apps": 3,
@@ -16616,8 +16607,8 @@
      }
     ],
     "rank": 19,
-    "prev_rank": 27,
-    "prev_mu": 1624.4
+    "prev_rank": null,
+    "prev_mu": null
    },
    {
     "name": "Minkus",
@@ -20351,7 +20342,7 @@
      "prev_points": 10
     },
     {
-     "name": "Eclipse135",
+     "name": "Azalea",
      "points": 20,
      "apps": 2,
      "wins": 0,
@@ -20376,8 +20367,8 @@
       }
      ],
      "rank": 12,
-     "prev_rank": 14,
-     "prev_points": 10
+     "prev_rank": null,
+     "prev_points": null
     },
     {
      "name": "agix",
