@@ -84,27 +84,27 @@
   "others": [
     {
       "rank": 1,
+      "sid": "76561199187327002",
+      "name": "Tommygaming",
+      "points": 1097,
+      "rounds_played": 17,
+      "finishes": 15
+    },
+    {
+      "rank": 2,
       "sid": "76561199186342067",
       "name": "PlusMicron",
-      "points": 1000,
+      "points": 1015,
       "rounds_played": 17,
       "finishes": 16
     },
     {
-      "rank": 2,
+      "rank": 3,
       "sid": "76561198149636594",
       "name": "Quickracer10",
-      "points": 1000,
+      "points": 1005,
       "rounds_played": 17,
       "finishes": 12
-    },
-    {
-      "rank": 3,
-      "sid": "76561199187327002",
-      "name": "Tommygaming",
-      "points": 1000,
-      "rounds_played": 17,
-      "finishes": 15
     },
     {
       "rank": 4,
@@ -347,18 +347,18 @@
       "finishes": 1
     },
     {
-      "sid": "76561199113163853",
-      "name": "dasdrio1",
-      "points": 75,
-      "rounds_played": 3,
-      "finishes": 1
-    },
-    {
       "sid": "76561198177623035",
       "name": "Noot Noot 42.0",
       "points": 91,
       "rounds_played": 3,
       "finishes": 2
+    },
+    {
+      "sid": "76561199113163853",
+      "name": "dasdrio1",
+      "points": 75,
+      "rounds_played": 3,
+      "finishes": 1
     },
     {
       "sid": "76561199589394762",

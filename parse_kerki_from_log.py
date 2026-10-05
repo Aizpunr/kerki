@@ -44,6 +44,9 @@ POINTS_V1 = {
     "table": [(1, 1, 100), (2, 2, 80), (3, 3, 70), (4, 5, 60),
               (6, 9, 50), (10, 16, 40), (17, 24, 35), (25, 9999, 30)],
     "floor": 30,
+    # v1 published data has flat 750s in the Points column, so v1 capped.
+    # No board screenshot exists to say otherwise; leave it alone.
+    "cap_at_threshold": True,
 }
 _V2_TOP = [150, 125, 110, 100, 92, 85, 79, 73, 68, 63, 59,
            55, 52, 49, 46, 44, 42, 40, 38, 37, 36, 35]
@@ -53,6 +56,10 @@ POINTS_V2 = {
     "dnf": 20,
     "table": [(i, i, pts) for i, pts in enumerate(_V2_TOP, start=1)],
     "floor": 35,        # 22nd finisher onward
+    # v2 does NOT cap: the #42 final-round board shows Tommygaming on 1089 and
+    # Victor on 1068, both still short of finalist because status flips only at
+    # round change.
+    "cap_at_threshold": False,
 }
 
 # Status changes at ROUND CHANGE, never mid-round (aizpun relaying Maki,
@@ -423,7 +430,7 @@ def compute_standings(kerki_rounds, roster, mapper_sids, system, skip_warmup=Tru
         if sid in mapper_sids:
             mapper_points[sid] += pts
         elif pts >= threshold:
-            points[sid] = threshold
+            points[sid] = threshold if system.get("cap_at_threshold") else pts
             qualified_round[sid] = 0
         else:
             points[sid] = pts
@@ -432,14 +439,17 @@ def compute_standings(kerki_rounds, roster, mapper_sids, system, skip_warmup=Tru
         if sid in mapper_sids:
             mapper_points[sid] += pts
             return
-        if sid in qualified_round:
-            return  # already capped
-        new_total = points[sid] + pts
-        if new_total >= threshold:
-            points[sid] = threshold
+        # Points are NOT capped at the threshold. The in-game board shows real
+        # running totals above it (#42 final round: Tommygaming 1089, Victor
+        # 1068, neither a finalist yet because status only flips at round
+        # change). Capping made every last-round qualifier a flat 1000.
+        if system.get("cap_at_threshold") and sid in qualified_round:
+            return
+        points[sid] += pts
+        if sid not in qualified_round and points[sid] >= threshold:
             qualified_round[sid] = s_idx
-        else:
-            points[sid] = new_total
+            if system.get("cap_at_threshold"):
+                points[sid] = threshold
 
     for s_idx, r in enumerate(scoring_rounds, start=1):
         for sid in r["roster"]:
