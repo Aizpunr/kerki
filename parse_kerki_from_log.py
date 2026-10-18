@@ -30,6 +30,10 @@ import sys
 from collections import defaultdict
 from datetime import date as _date
 
+# Windows consoles default to cp1252; player names are arbitrary Unicode.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # ── Config ─────────────────────────────────────────────────────────
 DEFAULT_LOG = r"C:\Program Files (x86)\Steam\steamapps\common\Zeepkist\BepInEx\LiveLeaderboardLogger.log"
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -245,6 +249,21 @@ def xlsx_target(kerki_id):
 OFFSETS = [1, 7, 13, 19, 25]  # 5 kerkis per tab, 6 cols each (3 data + 3 spacer)
 
 # ── Log parsing ────────────────────────────────────────────────────
+def _close_lb(rnd, lb):
+    """Final leaderboard for a round, or [] if the round was aborted.
+
+    A round that reached ROUND_ENDED is real: its post-end reset to count=0 is
+    already ignored, so the best board stands. A round that never ended and whose
+    LAST board was the engine resetting to zero is a restart/skip - the non-empty
+    board it briefly showed is the PREVIOUS round's, still on screen because the
+    reset had not landed yet. Counting it scores that round twice.
+    Seen in #44 r5: ROUND_ENDED|4, then ROUND_STARTED|5 0.4s later carrying r4's
+    29-entry board, reset to 0 nine seconds in, then r6."""
+    if not rnd.get("ended") and rnd.get("ended_empty"):
+        return []
+    return lb
+
+
 def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     """Return (kerki_rounds, roster, logged_nums) for the given kerki id.
     `restrict_date`: 'YYYY-MM-DD' or None. If None, takes latest session containing the kerki.
@@ -260,6 +279,7 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     roster_names = {}  # sid -> {every name this sid wore} (catches mid-cup renames)
     rounds = []
     logged_nums = {}   # session -> set of round nums with a ROUND_STARTED line
+    result_sids = {}   # (session, round num) -> {sid} seen in RESULT lines
     current_round = None
     current_lb = None
     current_session = 0
@@ -280,19 +300,43 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
                 current_session += 1
                 session_active = True
                 if current_round is not None:
-                    current_round["last_lb"] = current_lb
+                    current_round["last_lb"] = _close_lb(current_round, current_lb)
                     rounds.append(current_round)
                     current_round = None
                     current_lb = None
             elif kind == "SESSION_END":
                 if current_round is not None:
-                    current_round["last_lb"] = current_lb
+                    current_round["last_lb"] = _close_lb(current_round, current_lb)
                     rounds.append(current_round)
                     current_round = None
                     current_lb = None
                 session_active = False
             elif not session_active:
                 continue
+            elif kind == "RESULT":
+                # RESULT|<round>|<sid>|<name>|time=?|finished=?|dnf=?|pos=?
+                # The trailing fields are unresolved reflection and stay unusable,
+                # but the line is ROUND-TAGGED and its sid is reliable. That is the
+                # only signal for a player who joined mid-round: ROSTER is a dump
+                # taken at round start, so a mid-round joiner who then DNFs is
+                # invisible until the next round and silently loses a DNF credit.
+                # Confirmed #44: the in-game board gave Sterben 787 and FINSTER83
+                # 413 against our 767/393, exactly one DNF each, and both have
+                # RESULT|8 lines in the round their ROSTER entry misses.
+                # ...and only while the round is still live. After ROUND_ENDED the
+                # mod keeps tagging with the stale round number, so a player who
+                # joins during the break gets RESULT lines for a round they never
+                # raced. Same guard LEADERBOARD already uses. Confirmed #44:
+                # Redstony joined 5s after ROUND_ENDED|7 and the board gives him
+                # 750, not the 770 that crediting r7 would produce.
+                if current_round is None or current_round.get("ended"):
+                    pass
+                elif len(parts) >= 4 and parts[1].isdigit():
+                    rnum = int(parts[1])
+                    rsid, rname = parts[2], parts[3]
+                    result_sids.setdefault((current_session, rnum), set()).add(rsid)
+                    roster.setdefault(rsid, rname)
+                    roster_names.setdefault(rsid, set()).add(rname)
             elif kind == "ROSTER":
                 sid, name = parts[1], parts[2]
                 roster[sid] = name
@@ -301,7 +345,7 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
                     current_round["roster"].add(sid)
             elif kind == "ROUND_STARTED":
                 if current_round is not None:
-                    current_round["last_lb"] = current_lb
+                    current_round["last_lb"] = _close_lb(current_round, current_lb)
                     rounds.append(current_round)
                 rmap = parts[3] if len(parts) > 3 else ""
                 current_round = {
@@ -324,12 +368,18 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
                         p = tok.split(":")
                         if len(p) >= 3:
                             entries.append({"pos": int(p[0]), "sid": p[1], "time": p[2]})
+                current_round["ended_empty"] = not entries
                 if current_lb is None or len(entries) >= len(current_lb):
                     current_lb = entries
 
     if current_round is not None:
-        current_round["last_lb"] = current_lb
+        current_round["last_lb"] = _close_lb(current_round, current_lb)
         rounds.append(current_round)
+
+    for r in rounds:
+        extra = result_sids.get((r["session"], r["num"]))
+        if extra:
+            r["roster"] |= extra
 
     def is_kerki(r):
         if map_marker in r["map"]:
