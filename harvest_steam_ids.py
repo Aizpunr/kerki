@@ -17,6 +17,7 @@ import glob
 import json
 import os
 import re
+import unicodedata
 import sys
 from collections import defaultdict
 
@@ -32,8 +33,32 @@ REGISTRY = os.path.normpath(
     os.path.join(HERE, '..', 'zeepkist cotd elo', 'steam_ids.json'))
 
 
+def strip_invisible(name):
+    """Drop characters that render as nothing, so they cannot enter the registry.
+
+    Steam names carry decoration that is invisible in game and poisonous in a
+    name-keyed file: Unicode TAG characters, bidi isolates, private-use glyphs.
+    Seen 2026-11-01: a player whose name was two TAG EXCLAMATION MARKs, a
+    Mongolian free variation selector and two RIGHT-TO-LEFT ISOLATEs in front of
+    "Thalli". Stored raw it would be a canonical no lookup could ever match.
+
+    Format/control/private/surrogate characters go unconditionally. Combining
+    marks go ONLY when orphaned (leading, or after a space), which keeps a
+    decomposed accent like "e" + U+0301 intact.
+    """
+    out = []
+    for c in name or "":
+        cat = unicodedata.category(c)
+        if cat in ("Cf", "Cc", "Co", "Cs"):
+            continue
+        if cat == "Mn" and (not out or out[-1].isspace()):
+            continue
+        out.append(c)
+    return re.sub(r"\s+", " ", "".join(out)).strip()
+
+
 def strip_tag(name):
-    return re.sub(r"^\[[^\]]*\]\s*", "", name or "").strip()
+    return strip_invisible(re.sub(r"^\[[^\]]*\]\s*", "", name or "")).strip()
 
 
 def observed():

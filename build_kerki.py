@@ -55,7 +55,12 @@ CANONICAL = {
     'Tommygaming': ['Tommygaming5132', 'TommyGaming5132', '[CSC]Tommygaming',
                     '[CSC]Tommygaming5132', '[TG]Tommygaming5132',
                     '[OOPS]Tommygaming', '[jofk]Tommygaming',
-                    '[CSC]Tommygaming6132', '[C3PO]Tommygaming5132'],
+                    '[CSC]Tommygaming6132', '[C3PO]Tommygaming5132',
+                    # He renames most weeks; #45 was the longest yet.
+                    'TommyLaptopGaming', "Hiring at 'Guitar Hunting Inc.'",
+                    "[CSC]Hiring at 'Guitar Hunting Inc.'"],
+    # Raced #45 under a joke name. Same steamid 76561199733601754.
+    'LKat': ['[MMM]LKat', "Jake Replacement's Replacement"],
     'An Actual g00se': ['g00se', '[CSC] An Actual g00se', '[Err] An Actual g00se',
                         '[CSC] BaBa is g00se', '[CSC] CantFindTheg00se'],
     'St Nicholas': ['St Nic', 'St. Nicholas', 'St NIcholas', '[cozy]St Nicholas'],
@@ -77,7 +82,7 @@ CANONICAL = {
     # tatari_lover2008: renamed mid-cup during #42 and took the 5th win under
     # that name. Same steamid 76561198877428244.
     'Sterben': ['[BAP]Sterben', '[PNCK]Mini P.E.K.K.A', '[FPV]Lλmbda', '[PCDJ]Sterben',
-                'tatari_lover2008'],
+                'tatari_lover2008', 'shmoogl', '[KURK]shmoogl'],
     'Lazy_Echidna': ['Lazy Echidna', '[NIL]Lazy_Echidna', '[TOG]Lazy_Echidna'],
     'Metalted': ['[ZMS] Metalted', '[ZMS]Metalted'],
     'LILWOOLEY': ['[ZET]LILWOOLEY', '[ZST]LILWOOLEY'],
