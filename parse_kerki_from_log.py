@@ -264,7 +264,8 @@ def _close_lb(rnd, lb):
     return lb
 
 
-def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
+def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=(), drop_maps=(),
+              skip_rounds=()):
     """Return (kerki_rounds, roster, logged_nums) for the given kerki id.
     `restrict_date`: 'YYYY-MM-DD' or None. If None, takes latest session containing the kerki.
     `extra_maps`: extra map-name substrings to match rounds whose in-game name
@@ -275,6 +276,8 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
     rename is visible instead of silently overwriting the earlier name."""
     map_marker = f"Kerki #{target_kerki}"
     extra_maps = [m.lower() for m in extra_maps if m]
+    drop_maps = [m.lower() for m in drop_maps if m]
+    skip_rounds = set(skip_rounds or ())
     roster = {}        # sid -> name (latest seen)
     roster_names = {}  # sid -> {every name this sid wore} (catches mid-cup renames)
     rounds = []
@@ -382,9 +385,22 @@ def parse_log(log_path, target_kerki, restrict_date=None, extra_maps=()):
             r["roster"] |= extra
 
     def is_kerki(r):
+        ml = r["map"].lower()
+        # --exclude-maps wins over every other match: a tagged map can still be
+        # one the tournament did not score. #45 opened with a 10-minute round on
+        # "Kerki #45 - Timed Variety P", a separate hash and a separate map from
+        # the "Timed Variety" that ran the other 19 rounds.
+        if any(x in ml for x in drop_maps):
+            return False
+        # --skip-rounds drops a round by its in-game number even when the map is
+        # right. A tournament restarted after a false start replays the same map,
+        # so the map name cannot distinguish the discarded rounds. #45 r7 and r8
+        # were played and then thrown away while Maki got the multipath logic to
+        # fire; the board proves it, their points are absent from every total.
+        if r["num"] in skip_rounds:
+            return False
         if map_marker in r["map"]:
             return True
-        ml = r["map"].lower()
         return any(x in ml for x in extra_maps)
 
     kerki_rounds = [r for r in rounds if is_kerki(r)]
@@ -708,6 +724,12 @@ def main():
     p.add_argument("--maps", default="",
                    help="Comma-separated extra map-name substrings for rounds whose in-game "
                         "name lacks the 'Kerki #N' tag (mappers don't always tag).")
+    p.add_argument("--exclude-maps", default="",
+                   help="Comma-separated map-name substrings to DROP even though they carry "
+                        "the 'Kerki #N' tag (a broken or test map that the tournament did not score).")
+    p.add_argument("--skip-rounds", default="",
+                   help="Comma-separated in-game round numbers to DROP (a false start the "
+                        "tournament replayed; the map name cannot distinguish them).")
     p.add_argument("--accept-names", action="store_true",
                    help="Trust the in-game names and skip Steam ID resolution. "
                         "Only for when the shared registry is known to be wrong.")
@@ -739,8 +761,15 @@ def main():
     if extra_maps:
         print(f"  extra map matchers: {extra_maps}")
 
+    drop_maps = [x.strip() for x in args.exclude_maps.split(",") if x.strip()]
+    if drop_maps:
+        print(f"  excluded map matchers: {drop_maps}")
+    skip_rounds = {int(x) for x in args.skip_rounds.replace(" ", "").split(",") if x}
+    if skip_rounds:
+        print(f"  skipped round numbers: {sorted(skip_rounds)}")
     kerki_rounds, roster, logged_nums, roster_names = parse_log(
-        args.log, args.kerki, restrict_date=args.date, extra_maps=extra_maps)
+        args.log, args.kerki, restrict_date=args.date, extra_maps=extra_maps,
+        drop_maps=drop_maps, skip_rounds=skip_rounds)
     if not kerki_rounds:
         print(f"  ERROR: no rounds tagged 'Kerki #{args.kerki}' found", file=sys.stderr)
         sys.exit(1)
